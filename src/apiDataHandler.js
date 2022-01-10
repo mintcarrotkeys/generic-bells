@@ -2,7 +2,7 @@ import { colours } from './assets/colours';
 
 
 export function apiDataHandler(apiData) {
-    if (apiData == false) {
+    if (Object.keys(apiData) == false) {
         return false;
     }
 

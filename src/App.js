@@ -12,21 +12,21 @@ import {requestToken, requestCode, stateManager, fetchData, organiser} from './a
 
 function App(props) {
 
-    const [dataState, setDataState] = useState('');
-    const [userId, setUserId] = useState("401235678");
-    const [dtt, setdtt] = useState([]);
-    const [tt, settt] = useState({});
-    const [dayName, setDayName] = useState("Loading...");
+    let data = {
+        timestamp: 1641796707000,
+        dayName: "Loading ...",
+        userId: "000000000",
+        dtt: {},
+        tt: {}
+    };
+    let dataState = "";
 
     let storedData = localStorage.getItem('storedData');
     console.log("StoredData: " + storedData);
     if (storedData !== null) {
-        let datapack = JSON.parse(storedData);
-        if (Date.now() <= Number(datapack.timestamp)) {
-            setUserId(datapack.userId);
-            setdtt(datapack.dtt);
-            settt(datapack.tt);
-            setDayName(datapack.dayName);
+        let storedDataObj = JSON.parse(storedData);
+        if (Date.now() <= Number(storedDataObj.timestamp)) {
+            data = storedDataObj;
         }
         else {
             localStorage.removeItem('storedData');
@@ -34,37 +34,42 @@ function App(props) {
     }
 
     async function getData() {
-        await stateManager().then(res => setDataState(res));
+        await stateManager().then(res => dataState = res);
         let timestamp;
         console.log("getData is running ... " + dataState);
+        let userId = "";
+        let dtt = {};
+        let tt = {};
+        let dayName = "";
         if (dataState === 'success') {
             let checkAllGood = true;
-            fetchData('idn', 'sch').then(res => res ? setUserId(res.studentId) : checkAllGood = false);
-            fetchData('dtt', 'sch').then(res => res ? setdtt(res) : checkAllGood = false);
-            fetchData('tt', 'sch').then(res => res ? settt(res) : checkAllGood = false);
-            fetchData('wk', 'sch').then(res => res ? setDayName(res.day + " " + res.week + res.weekType) : checkAllGood = false);
-            if (dtt != false) {
-                timestamp = Date.parse(dtt.date + "T23:59:59");
-            }
+            fetchData('idn', 'sch').then(res => res ? userId = res.studentId : checkAllGood = false);
+            fetchData('dtt', 'sch').then(res => res ? dtt = res : checkAllGood = false);
+            fetchData('tt', 'sch').then(res => res ? tt = res : checkAllGood = false);
+            fetchData('wk', 'sch').then(res => res ? dayName = (res.day + " " + res.week + res.weekType) : checkAllGood = false);
             if (checkAllGood) {
-                localStorage.setItem('storedData', JSON.stringify({
+                timestamp = Date.parse(dtt.date + "T23:59:59");
+                data = {
                     timestamp: timestamp,
                     dayName: dayName,
                     userId: userId,
                     dtt: dtt,
                     tt: tt
-                }));
+                };
+                localStorage.setItem('storedData', JSON.stringify(data));
+            }
+            else {
+                dataState = 'askToLogin';
             }
         }
+        console.log("State data: " + "\n" + dataState + "\n" + userId + "\n" + dtt + "\n" + tt + "\n" + dayName);
     }
-    console.log("State data: " + "\n" + dataState + "\n" + userId + "\n" + dtt + "\n" + tt + "\n" + dayName);
     getData()
-        .then(() => console.log("State data: " + "\n" + dataState + "\n" + userId + "\n" + dtt + "\n" + tt + "\n" + dayName))
         .then(() => console.log(localStorage.getItem('handle_access')));
 
-    let pageBells = (<PageBells dayName={dayName} data={apiDataHandler(dtt)} />);
-    let pageBarcode = (<PageBarcode userIdCode={userId} />);
-    let pageTimetable = (<PageTimetable data={tt} />);
+    let pageBells = (<PageBells dayName={data.dayName} data={apiDataHandler(data.dtt)} />);
+    let pageBarcode = (<PageBarcode userIdCode={data.userId} />);
+    let pageTimetable = (<PageTimetable data={data.tt} />);
     let pageFeeds = (<PageFeeds />);
     let pageSettings = (<PageSettings />);
 
