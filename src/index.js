@@ -33,13 +33,15 @@ async function getData() {
     let dtt = {};
     let tt = {};
     let dayName = "";
+    let weekData = false;
     if (dataState === 'success') {
         let checkAllGood = true;
         await Promise.all([
-            fetchData('idn', 'sch').then(res => res ? userId = res.studentId : checkAllGood = false),
-            fetchData('dtt', 'sch').then(res => res ? dtt = res : checkAllGood = false),
-            fetchData('tt', 'sch').then(res => res ? tt = res : checkAllGood = false),
-            fetchData('wk', 'sch').then(res => res ? dayName = (res.day + " " + res.week + res.weekType) : checkAllGood = false)
+            fetchData('idn', 'sch').then(res => userId = res.studentId),
+            fetchData('dtt', 'sch').then(res => dtt = res),
+            fetchData('tt', 'sch').then(res => tt = res),
+            fetchData('wk', 'sch').then(res => weekData=res)
+                .then(() => weekData ? dayName = (weekData.day + " " + weekData.week + weekData.weekType) : dayName = "")
         ]);
 
         if (checkAllGood) {

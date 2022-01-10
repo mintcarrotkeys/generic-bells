@@ -153,13 +153,14 @@ export async function fetchData(ask, src) {
             }
             i++;
         }
-        console.log(res.json());
         if (!res.ok) {
             localStorage.removeItem('handle_access');
             return false;
         }
         else {
-            return res.json();
+            const output = res.json();
+            console.log(output);
+            return output;
         }
     }
 }
