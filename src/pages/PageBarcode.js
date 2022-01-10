@@ -46,6 +46,9 @@ export default function PageBarcode(props) {
     }
 
     const [code, setCode] = useState(props.userIdCode);
+    if (code == false) {
+        return null;
+    }
 
     function handleEntry(e) {
         setCode(e.target.value);

@@ -35,8 +35,9 @@ body {
     min-height: calc(100vh - (100vw / 5.7887) - 30px);
 
     display: flex;
-    align-items: start;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
 }
 
 .app-container {
@@ -96,6 +97,11 @@ body {
 
     .nav__button--currentPage {
         background-image: linear-gradient(to top,  #e0e0e0 30%, #ffffff 100%);
+    }
+
+    .askLogin {
+        position: fixed;
+        bottom: calc((100vw / 5.7887));
     }
 
 }
@@ -241,6 +247,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     padding-left: 3.2vw;
     padding-right: 2.8vw;
 
@@ -295,6 +302,11 @@ body {
     background-color: white;
 }
 
+.button:hover {
+    color: #222222;
+    background-color: white;
+}
+
 .barcodeOutput {
     font-family: 'Libre Barcode 128';
     font-size: calc(50px + 10vw);
@@ -328,4 +340,20 @@ h1 {
 
 .topBar__sideText {
 
+}
+
+.askLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 30px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.askLogin__icon {
+    width: 20px;
+    height: 20px;
+    flex: 0 1 20px;
+    padding-right: 5px;
 }

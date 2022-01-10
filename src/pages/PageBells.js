@@ -7,22 +7,26 @@ import TopBar from "../components/TopBar"
 
 
 
-
 export default function PageBells(props) {
 
-    const [routineData, setRoutineData] = useState(props.routineData);
+    const [routineData, setRoutineData] = useState(props.data);
+    if (Object.keys(routineData) == false) {
+        return null;
+    }
     //console.log(apiData);
 
     /**
      props:
 
-     periodNumber
-     time
-     displayName
-     colour {hex, isDark}
-     room
-     highlightRoom
-     teacher
+     dayName = ""
+     data = [{}]
+         periodNumber
+         time
+         displayName
+         colour {hex, isDark}
+         room
+         highlightRoom
+         teacher
 
      **/
 
@@ -60,7 +64,7 @@ export default function PageBells(props) {
 
     return (
         <div className="page__bells">
-            <TopBar data={routineData} />
+            <TopBar dayName={props.dayName} data={routineData} />
             {outputRows}
         </div>
     );
