@@ -323,7 +323,7 @@ h1 {
 }
 
 .topBar {
-
+    min-height: 50px;
 }
 
 .topBar__countdown {
