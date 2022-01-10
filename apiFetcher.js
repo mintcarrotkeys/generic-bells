@@ -158,7 +158,9 @@ export async function fetchData(ask, src) {
             return false;
         }
         else {
-            return console.log(res.json());
+            const output = res.json();
+            console.log(output);
+            return output;
         }
     }
 }
