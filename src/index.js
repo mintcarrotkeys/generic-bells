@@ -25,14 +25,9 @@ if (storedData !== null) {
     }
 }
 
-ReactDOM.render(
-    <App data={data} dataState={dataState} />,
-    document.getElementById('root')
-);
-
 async function getData() {
-    await stateManager().then(res => dataState = res);
-    let timestamp;
+    dataState = await stateManager();
+    let timestamp = 0;
     console.log("getData is running ... " + dataState);
     let userId = "";
     let dtt = {};
@@ -40,18 +35,21 @@ async function getData() {
     let dayName = "";
     if (dataState === 'success') {
         let checkAllGood = true;
-        fetchData('idn', 'sch').then(res => res ? userId = res.studentId : checkAllGood = false);
-        fetchData('dtt', 'sch').then(res => res ? dtt = res : checkAllGood = false);
-        fetchData('tt', 'sch').then(res => res ? tt = res : checkAllGood = false);
-        fetchData('wk', 'sch').then(res => res ? dayName = (res.day + " " + res.week + res.weekType) : checkAllGood = false);
+        await Promise.all([
+            fetchData('idn', 'sch').then(res => res ? userId = res.studentId : checkAllGood = false),
+            fetchData('dtt', 'sch').then(res => res ? dtt = res : checkAllGood = false),
+            fetchData('tt', 'sch').then(res => res ? tt = res : checkAllGood = false),
+            fetchData('wk', 'sch').then(res => res ? dayName = (res.day + " " + res.week + res.weekType) : checkAllGood = false)
+        ]);
+
         if (checkAllGood) {
             timestamp = Date.parse(dtt.date + "T23:59:59").toString();
             data = {
-                timestamp: timestamp,
-                dayName: dayName,
-                userId: userId,
-                dtt: dtt,
-                tt: tt
+                'timestamp': timestamp,
+                'dayName': dayName,
+                'userId': userId,
+                'dtt': dtt,
+                'tt': tt
             };
             localStorage.setItem('storedData', JSON.stringify(data));
         }
@@ -62,9 +60,11 @@ async function getData() {
     console.log("State data: " + "\n" + dataState + "\n" + userId + "\n" + dtt + "\n" + tt + "\n" + dayName);
 }
 
-getData()
-    .then(() => ReactDOM.render(<App data={data} dataState={dataState} />, document.getElementById('root')))
-    .then(() => console.log(localStorage.getItem('handle_access')));
+getData().then(() => ReactDOM.render(
+    <App data={data} dataState={dataState} />,
+    document.getElementById('root')
+)
+);
 
 
 // document.getElementById("redirect_to_login").onclick = requestCode;

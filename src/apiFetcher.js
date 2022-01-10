@@ -153,7 +153,7 @@ export async function fetchData(ask, src) {
             }
             i++;
         }
-        console.log(res.headers);
+        console.log(res.json());
         if (!res.ok) {
             localStorage.removeItem('handle_access');
             return false;

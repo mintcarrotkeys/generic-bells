@@ -12,8 +12,8 @@ import {requestToken, requestCode, stateManager, fetchData} from './apiFetcher';
 
 function App(props) {
 
-    const data = props.data;
-    const dataState = props.dataState;
+    let data = props.data;
+    let dataState = props.dataState;
 
     let pageBells = (<PageBells dayName={data.dayName} data={apiDataHandler(data.dtt)} />);
     let pageBarcode = (<PageBarcode userIdCode={data.userId} />);
@@ -24,9 +24,6 @@ function App(props) {
     const [currentPage, setCurrentPage] = useState(pageBells);
 
     function reportClicked(name) {
-        // console.log(name);
-        // console.log("Hi")
-        // console.log(currentPageId);
         if (name === "barcode") {
             setCurrentPage(pageBarcode);
         }
