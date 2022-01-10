@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {fetchData, stateManager} from "./apiFetcher";
+import {requestToken, requestCode, stateManager, fetchData} from './apiFetcher';
 
 let data = {
     timestamp: 0,
@@ -61,6 +61,7 @@ async function getData() {
     }
     console.log("State data: " + "\n" + dataState + "\n" + userId + "\n" + dtt + "\n" + tt + "\n" + dayName);
 }
+
 getData()
     .then(() => ReactDOM.render(<App data={data} dataState={dataState} />, document.getElementById('root')))
     .then(() => console.log(localStorage.getItem('handle_access')));

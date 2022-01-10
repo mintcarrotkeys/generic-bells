@@ -132,7 +132,6 @@ export async function stateManager() {
         else {
             return "askToLogin";
         }
-        //if token exist but too old then automatically redirect to login
     }
     else {
         await requestCode();
@@ -154,11 +153,12 @@ export async function fetchData(ask, src) {
             }
             i++;
         }
-        console.log(res);
+        console.log(res.headers);
         if (!res.ok) {
             localStorage.removeItem('handle_access');
             return false;
-        } else {
+        }
+        else {
             return res.json();
         }
     }
