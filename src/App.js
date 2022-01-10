@@ -13,11 +13,10 @@ import {requestToken, requestCode, stateManager, fetchData, organiser} from './a
 function App(props) {
 
     const [dataState, setDataState] = useState('');
-    const [userId, setUserId] = useState('');
+    const [userId, setUserId] = useState("401235678");
     const [dtt, setdtt] = useState([]);
     const [tt, settt] = useState({});
     const [dayName, setDayName] = useState("Loading...");
-    setUserId("401235678");
 
     let storedData = localStorage.getItem('storedData');
     console.log("StoredData: " + storedData);
@@ -58,9 +57,10 @@ function App(props) {
             }
         }
     }
-    console.log("State data: " + dataState + "\n" + userId + "\n" + dtt + "\n" + tt + "\n" + dayName);
-    getData();
-    console.log("State data: " + dataState + "\n" + userId + "\n" + dtt + "\n" + tt + "\n" + dayName);
+    console.log("State data: " + "\n" + dataState + "\n" + userId + "\n" + dtt + "\n" + tt + "\n" + dayName);
+    getData()
+        .then(() => console.log("State data: " + "\n" + dataState + "\n" + userId + "\n" + dtt + "\n" + tt + "\n" + dayName))
+        .then(() => console.log(localStorage.getItem('handle_access')));
 
     let pageBells = (<PageBells dayName={dayName} data={apiDataHandler(dtt)} />);
     let pageBarcode = (<PageBarcode userIdCode={userId} />);

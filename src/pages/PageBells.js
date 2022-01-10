@@ -9,8 +9,7 @@ import TopBar from "../components/TopBar"
 
 export default function PageBells(props) {
 
-    const [routineData, setRoutineData] = useState(props.data);
-    if (Object.keys(routineData) == false) {
+    if (Object.keys(props.data) == false) {
         return null;
     }
     //console.log(apiData);
@@ -32,7 +31,7 @@ export default function PageBells(props) {
 
     let outputRows = [];
     let uniqueIdIterator = 0;
-    for (const routineRow of routineData) {
+    for (const routineRow of props.data) {
         if (routineRow.displayAsClass === true) {
             outputRows.push(
                 <Period
@@ -64,7 +63,7 @@ export default function PageBells(props) {
 
     return (
         <div className="page__bells">
-            <TopBar dayName={props.dayName} data={routineData} />
+            <TopBar dayName={props.dayName} data={props.data} />
             {outputRows}
         </div>
     );

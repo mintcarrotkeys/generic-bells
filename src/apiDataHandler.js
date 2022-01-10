@@ -1,10 +1,17 @@
 import { colours } from './assets/colours';
 
 
-export function apiDataHandler(apiData, storedSettingData) {
+export function apiDataHandler(apiData) {
+    if (apiData == false) {
+        return false;
+    }
+
+
+
+
+
     function configSettings() {
         const classData = apiData.timetable.subjects;
-        const settingData = storedSettingData;
         //TODO: fetch default and localStorage settings here
 
         let classSettings = {};
