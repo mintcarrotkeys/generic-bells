@@ -41,9 +41,9 @@ async function getData() {
             fetchData('idn', 'sch').then(res => userId = res.studentId)
                 .then(() => userId ? x=false : checkAllGood=false),
             fetchData('dtt', 'sch').then(res => dtt = res)
-                .then(() => userId ? x=false : checkAllGood=false),
+                .then(() => dtt ? x=false : checkAllGood=false),
             fetchData('tt', 'sch').then(res => tt = res)
-                .then(() => userId ? x=false : checkAllGood=false),
+                .then(() => tt ? x=false : checkAllGood=false),
             fetchData('wk', 'sch').then(res => weekData=res)
                 .then(() => weekData ? dayName = (weekData.day + " " + weekData.week + weekData.weekType) : checkAllGood=false)
         ]);
@@ -63,6 +63,7 @@ async function getData() {
             console.log("Error fetching data.");
             dataState = 'askToLogin';
         }
+        console.log(userId + "\n" + dtt + "\n" + tt + "\n" + weekData);
     }
 }
 
