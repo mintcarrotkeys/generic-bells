@@ -38,18 +38,18 @@ export async function requestToken() {
         headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"},
         body: requestBody});
     if (!response.ok) {
-        console.log("1st response error");
+        console.log("Error fetching tokens. -1");
         response = await fetch(requestURL, {
             method: "POST",
             headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"},
             body: requestBody});
         if (!response.ok) {
-            console.log('2nd response error');
+            console.log('Error fetching tokens. -2');
             return false;
         }
     }
     const tokens = await response.json();
-    console.log(tokens);
+    // console.log(tokens);
     localStorage.setItem('handle_access', tokens['access_token']);
     localStorage.setItem('access_age', Date.now().toString());
 
@@ -112,8 +112,8 @@ export async function stateManager() {
     const params = new URLSearchParams(window.location.href.toString().split("?")[1]);
     const tokenAge = localStorage.getItem('access_age');
     const token = localStorage.getItem('handle_access');
-    console.log("token age: " + Number(tokenAge));
-    console.log("current time: " + Date.now());
+    // console.log("token age: " + Number(tokenAge));
+    // console.log("current time: " + Date.now());
     let response;
     if (params.has('code')) {
         response = await requestToken();
@@ -159,7 +159,7 @@ export async function fetchData(ask, src) {
         }
         else {
             const output = res.json();
-            console.log(output);
+            // console.log(output);
             return output;
         }
     }

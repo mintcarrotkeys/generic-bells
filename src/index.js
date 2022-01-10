@@ -14,7 +14,7 @@ let data = {
 let dataState = "";
 
 let storedData = localStorage.getItem('storedData');
-console.log("StoredData: " + storedData);
+// console.log("StoredData: " + storedData);
 if (storedData !== null) {
     let storedDataObj = JSON.parse(storedData);
     if (Date.now() <= Number(storedDataObj.timestamp)) {
@@ -28,20 +28,24 @@ if (storedData !== null) {
 async function getData() {
     dataState = await stateManager();
     let timestamp = 0;
-    console.log("getData is running ... " + dataState);
+    // console.log("getData is running ... " + dataState);
     let userId = "";
     let dtt = {};
     let tt = {};
     let dayName = "";
     let weekData = false;
+    let x;
     if (dataState === 'success') {
         let checkAllGood = true;
         await Promise.all([
-            fetchData('idn', 'sch').then(res => userId = res.studentId),
-            fetchData('dtt', 'sch').then(res => dtt = res),
-            fetchData('tt', 'sch').then(res => tt = res),
+            fetchData('idn', 'sch').then(res => userId = res.studentId)
+                .then(() => userId ? x=false : checkAllGood=false),
+            fetchData('dtt', 'sch').then(res => dtt = res)
+                .then(() => userId ? x=false : checkAllGood=false),
+            fetchData('tt', 'sch').then(res => tt = res)
+                .then(() => userId ? x=false : checkAllGood=false),
             fetchData('wk', 'sch').then(res => weekData=res)
-                .then(() => weekData ? dayName = (weekData.day + " " + weekData.week + weekData.weekType) : dayName = "")
+                .then(() => weekData ? dayName = (weekData.day + " " + weekData.week + weekData.weekType) : checkAllGood=false)
         ]);
 
         if (checkAllGood) {
@@ -56,10 +60,10 @@ async function getData() {
             localStorage.setItem('storedData', JSON.stringify(data));
         }
         else {
+            console.log("Error fetching data.");
             dataState = 'askToLogin';
         }
     }
-    console.log("State data: " + "\n" + dataState + "\n" + userId + "\n" + dtt + "\n" + tt + "\n" + dayName);
 }
 
 getData().then(() => ReactDOM.render(

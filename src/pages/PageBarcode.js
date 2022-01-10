@@ -21,7 +21,7 @@ export default function PageBarcode(props) {
         let currentString;
         while (i < input.length) {
             currentString = input.substring(i, i+2);
-            console.log(currentString);
+            // console.log(currentString);
             if (currentString.length == 2) {
                 output += code128.translate[currentString];
                 checksumValue += (Number(currentString) * checksumChar);
@@ -38,7 +38,7 @@ export default function PageBarcode(props) {
         }
 
         const checksum = code128.check[(checksumValue % 103).toString()];
-        console.log(checksumValue % 103);
+        // console.log(checksumValue % 103);
         output += checksum;
         output += stopCode;
 

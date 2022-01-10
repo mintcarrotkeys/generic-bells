@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Period from "../components/Period";
 import Break from "../components/Break";
 import TopBar from "../components/TopBar"
+import {apiDataHandler} from "../apiDataHandler";
 
 
 
@@ -29,9 +30,11 @@ export default function PageBells(props) {
 
      **/
 
+    const apiData = apiDataHandler(props.data);
+
     let outputRows = [];
     let uniqueIdIterator = 0;
-    for (const routineRow of props.data) {
+    for (const routineRow of apiData) {
         if (routineRow.displayAsClass === true) {
             outputRows.push(
                 <Period

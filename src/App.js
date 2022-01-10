@@ -6,8 +6,6 @@ import PageTimetable from "./pages/PageTimetable";
 import PageFeeds from "./pages/PageFeeds";
 import PageSettings from "./pages/PageSettings";
 import DataMessage from "./components/DataMessage";
-import {apiDataHandler} from "./apiDataHandler";
-import {requestToken, requestCode, stateManager, fetchData} from './apiFetcher';
 
 
 function App(props) {
@@ -15,7 +13,7 @@ function App(props) {
     let data = props.data;
     let dataState = props.dataState;
 
-    let pageBells = (<PageBells dayName={data.dayName} data={apiDataHandler(data.dtt)} />);
+    let pageBells = (<PageBells dayName={data.dayName} data={data.dtt} />);
     let pageBarcode = (<PageBarcode userIdCode={data.userId} />);
     let pageTimetable = (<PageTimetable data={data.tt} />);
     let pageFeeds = (<PageFeeds />);
