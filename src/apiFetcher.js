@@ -154,6 +154,7 @@ export async function fetchData(ask, src) {
             }
             i++;
         }
+        console.log(res);
         if (!res.ok) {
             localStorage.removeItem('handle_access');
             return false;
@@ -163,19 +164,3 @@ export async function fetchData(ask, src) {
     }
 }
 //returns false or json data
-
-export async function organiser() {
-    const result = await stateManager();
-    if (result === "askToLogin") {
-        document.getElementById("test").textContent = "Click to Login";
-    }
-    else if (result === "success") {
-        fetchData("dtt").then(data => console.log(data));
-    }
-    else {
-        console.log("result: " + result);
-    }
-    console.log("result: " + result);
-    console.log(localStorage.getItem('handle_access'))
-}
-

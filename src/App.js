@@ -7,7 +7,7 @@ import PageFeeds from "./pages/PageFeeds";
 import PageSettings from "./pages/PageSettings";
 import DataMessage from "./components/DataMessage";
 import {apiDataHandler} from "./apiDataHandler";
-import {requestToken, requestCode, stateManager, fetchData, organiser} from './apiFetcher';
+import {requestToken, requestCode, stateManager, fetchData} from './apiFetcher';
 
 
 function App(props) {
