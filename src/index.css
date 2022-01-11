@@ -338,8 +338,7 @@ h1 {
 }
 
 .topBar__left {
-    align-self: start;
-
+    margin-right: auto;
 }
 
 .topBar__middle {
@@ -347,7 +346,7 @@ h1 {
 }
 
 .topBar__right {
-    align-self: end;
+    margin-left: auto;
 }
 
 .topBar__countdown {
