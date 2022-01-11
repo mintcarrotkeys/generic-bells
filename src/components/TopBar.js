@@ -32,6 +32,7 @@ export default function TopBar(props) {
     let rows = props.data;
     console.log(date);
     console.log(rows);
+    console.log(Date.now());
 
     /**
      props:
@@ -54,6 +55,7 @@ export default function TopBar(props) {
             continue;
         }
         time = Date.parse(date + "T" + rows[i].time + ":00");
+        console.log(time);
         if (Date.now() < time) {
             break;
         }
