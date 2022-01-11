@@ -143,11 +143,12 @@ export async function stateManager() {
 export async function fetchData(ask, src) {
     if (src === "sch") {
         const requestUrl = "https://forward.genericbells.workers.dev/?ask=" + ask;
-        const token = "Bearer " + localStorage.getItem('handle_access');
+        // const token = "Bearer " + localStorage.getItem('handle_access');
+        const token = "abcdefg";
 
         let res = await fetch(requestUrl, {headers: new Headers({'Authorization': token})});
         let i = 0;
-        while (i < 2) {
+        while (i < 1) {
             if (!res.ok) {
                 res = await fetch(requestUrl, {headers: new Headers({'Authorization': token})});
             }
