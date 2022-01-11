@@ -114,9 +114,9 @@ export default function TopBar(props) {
 
     const output = (
         <div className="topBar period">
-            <div className="topBar__sideIcons">{leftIcon}</div>
-            <div className="middleText">{middleText}</div>
-            <div className="topBar__sideIcons">{rightIcon}</div>
+            <div className="topBar__side topBar__left">{leftIcon}</div>
+            <div className="topBar__middle">{middleText}</div>
+            <div className="topBar__side topBar__right">{rightIcon}</div>
         </div>
     );
 
