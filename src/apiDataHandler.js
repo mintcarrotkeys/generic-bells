@@ -19,7 +19,15 @@ export function apiDataHandler(apiData) {
             // console.log(subjectId);
             const subject = classData[subjectId];
             const rawSubjectName = subject["subject"].trim();
-            const subjectName = rawSubjectName.substring(0, rawSubjectName.lastIndexOf(" "));
+
+            const lastSpace = rawSubjectName.lastIndexOf(" ");
+            let subjectName = "-";
+            if (lastSpace !== -1) {
+                subjectName = rawSubjectName.substring(0,);
+            }
+            else {
+                subjectName = rawSubjectName;
+            }
 
             //TODO: check for displayName in LocalStorage data and default data
             const nameToUse = subjectName;
