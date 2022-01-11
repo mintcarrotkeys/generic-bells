@@ -65,26 +65,30 @@ export default function TopBar(props) {
     const dayName = (<div className="topBar__dateDisplay">{props.dayName}</div>);
 
     if (Date.now() < Date.parse(date + "T00:00:00")) {
-        console.log("Far into the future");
+        console.log("s0");
         middleText = dayName;
     }
     else if (i === 0) {
+        console.log("s1");
         let timer = Math.floor((Date.parse(date + "T" + rows[i].time + ":00") - Date.now()) / 1000);
         middleText = <Clock sec={timer} />
         rightIcon = displayIcon(rows[i]);
     }
     else if (i < rows.length) {
+        console.log("s2");
         leftIcon = displayIcon(rows[i-1]);
         let timer = Math.floor((Date.parse(date + "T" + rows[i].time + ":00") - Date.now()) / 1000);
         middleText = <Clock sec={timer} />
         rightIcon = displayIcon(rows[i]);
     }
     else if (Date.now() < Date.parse(date + "T23:59:59")) {
+        console.log("s3");
         leftIcon = displayIcon(rows[i-1]);
         middleText = dayName;
 
     }
     else {
+        console.log("s4");
         middleText = dayName;
     }
 
