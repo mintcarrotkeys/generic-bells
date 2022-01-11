@@ -327,6 +327,27 @@ h1 {
 
 .topBar {
     min-height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.topBar__side {
+
+}
+
+.topBar__left {
+    align-self: start;
+
+}
+
+.topBar__middle {
+
+}
+
+.topBar__right {
+    align-self: end;
 }
 
 .topBar__countdown {
