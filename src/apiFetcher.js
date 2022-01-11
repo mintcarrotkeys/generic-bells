@@ -171,6 +171,10 @@ export async function fetchData(ask, src) {
             wk: 'timetable/bells.json',
             dtt: 'timetable/daytimetable.json'
         };
+        if (ask === 'wk') {
+            let res = await fetch('https://student.sbhs.net.au/api/timetable/bells.json');
+            return res.json();
+        }
         const requestUrl = "https://sbhs-random-data.profsmart.repl.co/api/";
         let res = await fetch(requestUrl + callables[ask]);
         return res.json();
