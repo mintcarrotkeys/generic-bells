@@ -30,7 +30,8 @@ export default function TopBar(props) {
 
     let date = props.date;
     let rows = props.data;
-    let timestamp = Date.parse(date + "T23:59:59").toString();
+    console.log(date);
+    console.log(rows);
 
     /**
      props:
