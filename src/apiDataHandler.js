@@ -43,6 +43,7 @@ export function apiDataHandler(apiData) {
         /**
          props:
 
+         displayAsClass
          periodNumber
          time
          displayName

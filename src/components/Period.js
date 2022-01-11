@@ -15,8 +15,8 @@ export default function Period(props) {
 
      **/
     const iconStyle = {
-        backgroundColor: props.colourData.hex,
-        color: (props.colourData.isDark ? 'white' : 'black')
+        backgroundColor: props.colour.hex,
+        color: (props.colour.isDark ? 'white' : 'black')
     }
 
     const roomClass = "period__room" + (props.highlightRoom ? " period__room--highlight" : "");

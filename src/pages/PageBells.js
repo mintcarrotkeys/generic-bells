@@ -43,7 +43,7 @@ export default function PageBells(props) {
                     periodNumber={routineRow.periodNumber}
                     time={routineRow.time}
                     displayName={routineRow.displayName}
-                    colourData={routineRow.colour}
+                    colour={routineRow.colour}
                     room={routineRow.room}
                     highlightRoom={routineRow.highlightRoom}
                     teacher={routineRow.teacher}
@@ -66,7 +66,7 @@ export default function PageBells(props) {
 
     return (
         <div className="page__bells">
-            <TopBar dayName={props.dayName} data={props.data} />
+            <TopBar dayName={props.dayName} data={apiData} date={props.data.date} />
             {outputRows}
         </div>
     );
