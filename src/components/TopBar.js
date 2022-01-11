@@ -29,6 +29,20 @@ export default function TopBar(props) {
     }
 
     let date = props.date;
+    let checkDate = date.split("-");
+    if (checkDate[0].length === 2) {
+        checkDate[0] = "20" + checkDate[0];
+    }
+    if (checkDate[1].length === 1) {
+        checkDate[1] = "0" + checkDate[1];
+    }
+    if (checkDate[2].length === 1) {
+        checkDate[2] = "0" + checkDate[2];
+    }
+    date = checkDate.join("-");
+
+
+
     let rows = props.data;
     console.log(date);
     console.log(rows);
