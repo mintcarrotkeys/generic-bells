@@ -144,7 +144,7 @@ export async function fetchData(ask, src) {
     if (src === "sch") {
         const requestUrl = "https://forward.genericbells.workers.dev/?ask=" + ask;
         // const token = "Bearer " + localStorage.getItem('handle_access');
-        const token = "abcdefg";
+        const token = "Bearer abcdefg";
 
         let res = await fetch(requestUrl, {headers: new Headers({'Authorization': token})});
         let i = 0;
@@ -163,6 +163,17 @@ export async function fetchData(ask, src) {
             // console.log(output);
             return output;
         }
+    }
+    else if (src === "random") {
+        const callables = {
+            tt: 'timetable/timetable.json',
+            idn: 'details/userinfo.json',
+            wk: 'timetable/bells.json',
+            dtt: 'timetable/daytimetable.json'
+        };
+        const requestUrl = "https://sbhs-random-data.profsmart.repl.co/api/";
+        let res = await fetch(requestUrl + callables[ask]);
+        return res.json();
     }
 }
 //returns false or json data

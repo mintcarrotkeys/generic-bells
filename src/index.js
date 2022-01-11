@@ -42,14 +42,15 @@ async function getData() {
     let x;
     if (dataState === 'success') {
         let checkAllGood = true;
+        const source = "random";
         await Promise.all([
-            fetchData('idn', 'sch').then(res => userId = res.studentId)
+            fetchData('idn', source).then(res => userId = res.studentId)
                 .then(() => userId ? x=false : checkAllGood=false),
-            fetchData('dtt', 'sch').then(res => dtt = res)
+            fetchData('dtt', source).then(res => dtt = res)
                 .then(() => dtt ? x=false : checkAllGood=false),
-            fetchData('tt', 'sch').then(res => tt = res)
+            fetchData('tt', source).then(res => tt = res)
                 .then(() => tt ? x=false : checkAllGood=false),
-            fetchData('wk', 'sch').then(res => weekData=res)
+            fetchData('wk', source).then(res => weekData=res)
                 .then(() => weekData ? dayName = (weekData.day + " " + weekData.week + weekData.weekType) : checkAllGood=false)
         ]);
 
@@ -68,7 +69,7 @@ async function getData() {
             console.log("Error fetching data.");
             dataState = 'askToLogin';
         }
-        // console.log(userId + "\n" + dtt + "\n" + tt + "\n" + weekData);
+        console.log(userId + "\n" + dtt + "\n" + tt + "\n" + weekData);
     }
 }
 
