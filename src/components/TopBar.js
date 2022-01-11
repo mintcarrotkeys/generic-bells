@@ -56,6 +56,8 @@ export default function TopBar(props) {
         }
         time = Date.parse(date + "T" + rows[i].time + ":00");
         console.log(time);
+        console.log(date + "T" + rows[i].time + ":00");
+        console.log(rows[i].time);
         if (Date.now() < time) {
             break;
         }
