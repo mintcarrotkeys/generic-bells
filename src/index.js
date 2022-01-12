@@ -42,10 +42,10 @@ if (storedData !== null) {
     }
 }
 
-ReactDOM.render(
-    <App data={data} dataState={dataState} />,
-    document.getElementById('root')
-);
+// ReactDOM.render(
+//     <App data={data} dataState={dataState} />,
+//     document.getElementById('root')
+// );
 
 async function getData() {
     dataState = await stateManager();
@@ -86,15 +86,15 @@ async function getData() {
             console.log("Error fetching data.");
             dataState = 'askToLogin';
         }
-        // console.log(userId + "\n" + dtt + "\n" + tt + "\n" + weekData);
+        console.log(userId + "\n" + dtt + "\n" + tt + "\n" + weekData);
     }
 }
 
-// getData().then(() => ReactDOM.render(
-//     <App data={data} dataState={dataState} />,
-//     document.getElementById('root')
-// )
-// );
+getData().then(() => ReactDOM.render(
+    <App data={data} dataState={dataState} />,
+    document.getElementById('root')
+)
+);
 
 
 
