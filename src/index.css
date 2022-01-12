@@ -311,7 +311,7 @@ body {
 }
 
 .barcodeOutput {
-    font-family: 'Libre Barcode 128';
+    font-family: 'Libre Barcode 128', sans-serif;
     font-size: calc(50px + 10vw);
     font-weight: 400;
     padding: 20px 20px 0px 20px;
@@ -325,12 +325,14 @@ h1 {
 
 }
 
-.topBar {
+#topBar {
     min-height: 50px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .topBar__side {
@@ -338,19 +340,31 @@ h1 {
 }
 
 .topBar__left {
-    margin-right: auto;
+    flex: 1 1 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
 }
 
 .topBar__middle {
-
+    flex: 0 0;
+    text-align: center;
 }
 
 .topBar__right {
-    margin-left: auto;
+    flex: 1 1 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /*margin-left: auto;*/
+    text-align: right;
 }
 
 .topBar__countdown {
-
+    font-size: 40px;
+    font-weight: 400;
 }
 
 .topBar__dateDisplay {

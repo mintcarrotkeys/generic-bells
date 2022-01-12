@@ -1,4 +1,4 @@
-import { colours } from './assets/colours';
+import { colourPack } from './assets/colours';
 
 
 export function apiDataHandler(apiData) {
@@ -7,40 +7,83 @@ export function apiDataHandler(apiData) {
     }
 
 
-
-
-
     function configSettings() {
         const classData = apiData.timetable.subjects;
         //TODO: fetch default and localStorage settings here
+        let storedSettings = localStorage.getItem('displaySettingszzzzz');
+        if (storedSettings !== null) {
+            storedSettings = JSON.parse(storedSettings);
+        }
+        else {
+            storedSettings = {};
+        }
 
         let classSettings = {};
-        for (const subjectId in classData) {
-            // console.log(subjectId);
-            const subject = classData[subjectId];
-            const rawSubjectName = subject["subject"].trim();
+        /**
+         * classSettings = {}
+         * teacher
+         * displayName
+         * displayCode
+         * colour {}:
+         *      hex
+         *      isDark
+         *
+         * **/
+        let defaultColour = colourPack[9];
+        let colours = JSON.parse(JSON.stringify(colourPack));
+        for (const title in classData) {
+            const subject = classData[title];
+            const subjectKey = subject.shortTitle;
 
-            const lastSpace = rawSubjectName.lastIndexOf(" ");
-            let subjectName = "-";
-            if (lastSpace !== -1) {
-                subjectName = rawSubjectName.substring(0,);
+            if (storedSettings.hasOwnProperty(subjectKey)) {
+                classSettings[subjectKey] = storedSettings[subjectKey];
+                classSettings[subjectKey].teacher = (subject.fullTeacher ? subject.fullTeacher : "");
+                let i = 0;
+                for (const col of colours) {
+                    if (classSettings[subjectKey].displayColour.hex === col.hex) {
+                        colours.splice(i, 1);
+                        break;
+                    }
+                    i ++;
+                }
             }
             else {
-                subjectName = rawSubjectName;
-            }
 
-            //TODO: check for displayName in LocalStorage data and default data
-            const nameToUse = subjectName;
+                let displayName = "-";
+                let displayCode = subjectKey.substring(0, 3);
+                let displayColour;
+                if (subject.teacher === null) {
+                    displayColour = defaultColour;
+                }
+                else if (colours.length > 0) {
+                    displayColour = Object.assign(colours[0]);
+                    colours.splice(0, 1);
+                }
+                else {
+                    displayColour = defaultColour;
+                }
 
-            //TODO: get a colour
-            const colour = {hex: "#92c748", isDark: false};
+                const rawSubjectName = subject["subject"].trim();
+                const lastSpace = rawSubjectName.lastIndexOf(" ");
+                if (lastSpace !== -1) {
+                    displayName = rawSubjectName.substring(0, lastSpace);
+                }
+                else {
+                    displayName = rawSubjectName;
+                }
 
-            classSettings[subject.shortTitle] = {
-                teacher: (subject.fullTeacher ? subject.fullTeacher : ""),
-                'displayName': nameToUse,
-                'displayColour': colour
+
+                classSettings[subject.shortTitle] = {
+                    teacher: (subject.fullTeacher ? subject.fullTeacher : ""),
+                    'displayName': displayName,
+                    'displayColour': displayColour,
+                    'displayCode': displayCode
+                }
+
             }
         }
+        // localStorage.setItem('displaySettings', JSON.stringify(classSettings));
+
         return classSettings;
     }
 
@@ -72,6 +115,8 @@ export function apiDataHandler(apiData) {
         const classId = periodData.title;
         const periodNumber = slotName;
         const time = startTime;
+        // console.log(classId);
+        // console.log(classSettings);
         const displayName = classSettings[classId].displayName;
         const colour = classSettings[classId].displayColour;
         const room = periodData.room;

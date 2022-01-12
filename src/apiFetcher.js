@@ -164,20 +164,5 @@ export async function fetchData(ask, src) {
             return output;
         }
     }
-    else if (src === "random") {
-        const callables = {
-            tt: 'timetable/timetable.json',
-            idn: 'details/userinfo.json',
-            wk: 'timetable/bells.json',
-            dtt: 'timetable/daytimetable.json'
-        };
-        if (ask === 'wk') {
-            let res = await fetch('https://student.sbhs.net.au/api/timetable/bells.json');
-            return res.json();
-        }
-        const requestUrl = "https://sbhs-random-data.profsmart.repl.co/api/";
-        let res = await fetch(requestUrl + callables[ask]);
-        return res.json();
-    }
 }
 //returns false or json data

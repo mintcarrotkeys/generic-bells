@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Clock from "./Clock";
 
 
@@ -44,9 +44,9 @@ export default function TopBar(props) {
 
 
     let rows = props.data;
-    console.log(date);
-    console.log(rows);
-    console.log(Date.now());
+    // console.log(date);
+    // console.log(rows);
+    // console.log(Date.now());
 
     /**
      props:
@@ -69,9 +69,9 @@ export default function TopBar(props) {
             continue;
         }
         time = Date.parse(date + "T" + rows[i].time + ":00");
-        console.log(time);
-        console.log(date + "T" + rows[i].time + ":00");
-        console.log(rows[i].time);
+        // console.log(time);
+        // console.log(date + "T" + rows[i].time + ":00");
+        // console.log(rows[i].time);
         if (Date.now() < time) {
             break;
         }
@@ -83,21 +83,42 @@ export default function TopBar(props) {
 
     const dayName = (<div className="topBar__dateDisplay">{props.dayName}</div>);
 
+    const [r, rerender] = useState(Date.now());
+    let targetTime;
+    if (i < rows.length) {
+        targetTime = Date.parse(date + "T" + rows[i].time + ":00");
+    }
+
+    function tick() {
+        rerender(Date.now());
+    }
+
+    useEffect(() => {
+        let timer;
+        if (i < rows.length) {
+            timer = setTimeout(tick, (targetTime - Date.now() + 400));
+        }
+
+        return function cleanup() {
+            clearTimeout(timer);
+        }
+    });
+
+
+
     if (Date.now() < Date.parse(date + "T00:00:00")) {
         console.log("s0");
         middleText = dayName;
     }
     else if (i === 0) {
         console.log("s1");
-        let timer = Math.floor((Date.parse(date + "T" + rows[i].time + ":00") - Date.now()) / 1000);
-        middleText = <Clock sec={timer} />
+        middleText = <Clock targetTime={targetTime} />
         rightIcon = displayIcon(rows[i]);
     }
     else if (i < rows.length) {
         console.log("s2");
         leftIcon = displayIcon(rows[i-1]);
-        let timer = Math.floor((Date.parse(date + "T" + rows[i].time + ":00") - Date.now()) / 1000);
-        middleText = <Clock sec={timer} />
+        middleText = <Clock targetTime={targetTime} />
         rightIcon = displayIcon(rows[i]);
     }
     else if (Date.now() < Date.parse(date + "T23:59:59")) {
@@ -113,7 +134,7 @@ export default function TopBar(props) {
 
 
     const output = (
-        <div className="topBar period">
+        <div id="topBar" className="topBar period">
             <div className="topBar__side topBar__left">{leftIcon}</div>
             <div className="topBar__middle">{middleText}</div>
             <div className="topBar__side topBar__right">{rightIcon}</div>

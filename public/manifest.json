@@ -1,0 +1,20 @@
+{
+  "short_name": "Generic Bells",
+  "name": "Generic Bells",
+  "icons": [
+    {
+      "src": "favicon3-240.png",
+      "sizes": "240x240",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon3-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#333333",
+  "background_color": "#333333"
+}

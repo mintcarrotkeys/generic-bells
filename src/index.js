@@ -4,6 +4,22 @@ import './index.css';
 import App from './App';
 import {requestToken, requestCode, stateManager, fetchData} from './apiFetcher';
 
+
+// let TESTDATA = ;
+//
+// let today = new Date();
+// today = new Date(today.getTime() + (11*60*60*1000));
+// // console.log(today);
+// TESTDATA.dtt.date = today.toISOString().split('T')[0];
+// TESTDATA.timestamp = Date.parse(TESTDATA.dtt.date + "T23:59:59");
+// // console.log(TESTDATA.timestamp)
+// // console.log(today.toISOString().split('T')[0]);
+//
+// // console.log(JSON.stringify(TESTDATA));
+//
+// localStorage.setItem("storedData", JSON.stringify(TESTDATA));
+
+
 let data = {
     timestamp: 0,
     dayName: "Loading ...",
@@ -11,6 +27,7 @@ let data = {
     dtt: {},
     tt: {}
 };
+
 let dataState = "";
 
 let storedData = localStorage.getItem('storedData');
@@ -42,7 +59,7 @@ async function getData() {
     let x;
     if (dataState === 'success') {
         let checkAllGood = true;
-        const source = "random";
+        const source = "sch";
         await Promise.all([
             fetchData('idn', source).then(res => userId = res.studentId)
                 .then(() => userId ? x=false : checkAllGood=false),
@@ -69,17 +86,15 @@ async function getData() {
             console.log("Error fetching data.");
             dataState = 'askToLogin';
         }
-        console.log(userId + "\n" + dtt + "\n" + tt + "\n" + weekData);
+        // console.log(userId + "\n" + dtt + "\n" + tt + "\n" + weekData);
     }
 }
 
-getData().then(() => ReactDOM.render(
-    <App data={data} dataState={dataState} />,
-    document.getElementById('root')
-)
-);
+// getData().then(() => ReactDOM.render(
+//     <App data={data} dataState={dataState} />,
+//     document.getElementById('root')
+// )
+// );
 
-
-// document.getElementById("redirect_to_login").onclick = requestCode;
 
 
