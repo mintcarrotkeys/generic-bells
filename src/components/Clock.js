@@ -5,17 +5,36 @@ export default function Clock(props) {
     const targetTime = props.targetTime;
     const [timeLeft, setTimeLeft] = useState(Math.floor((targetTime - Date.now()) / 1000));
 
+    let output;
 
-    let minutes = Math.floor(timeLeft / 60).toString();
-    if (minutes.length === 1) {
-        minutes = "0" + minutes;
+    if (timeLeft >= 3600) {
+        let hours = Math.floor(timeLeft / 3600);
+
+        let minutes = Math.floor((timeLeft - hours*3600) / 60).toString();
+        hours = hours.toString();
+        if (minutes.length === 1) {
+            minutes = "0" + minutes;
+        }
+        let seconds = (timeLeft % 60).toString();
+        if (seconds.length === 1) {
+            seconds = "0" + seconds;
+        }
+
+        output = <div className="topBar__countdown">{hours}:{minutes}:{seconds}</div>;
     }
-    let seconds = (timeLeft % 60).toString();
-    if (seconds.length === 1) {
-        seconds = "0" + seconds;
+    else {
+        let minutes = Math.floor(timeLeft / 60).toString();
+        if (minutes.length === 1) {
+            minutes = "0" + minutes;
+        }
+        let seconds = (timeLeft % 60).toString();
+        if (seconds.length === 1) {
+            seconds = "0" + seconds;
+        }
+
+        output = <div className="topBar__countdown">{minutes}:{seconds}</div>;
     }
 
-    const output = <div className="topBar__countdown">{minutes}:{seconds}</div>;
 
     function tick() {
         setTimeLeft(Math.floor((targetTime - Date.now()) / 1000));
