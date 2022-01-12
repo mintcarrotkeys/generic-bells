@@ -159,7 +159,7 @@ export async function fetchData(ask, src) {
         }
         else {
             const output = res.json();
-            console.log(output);
+//             console.log(output);
             return output;
         }
     }
