@@ -86,7 +86,7 @@ async function getData() {
             console.log("Error fetching data.");
             dataState = 'askToLogin';
         }
-        console.log(userId + "\n" + dtt + "\n" + tt + "\n" + weekData);
+//         console.log(userId + "\n" + dtt + "\n" + tt + "\n" + weekData);
     }
 }
 
