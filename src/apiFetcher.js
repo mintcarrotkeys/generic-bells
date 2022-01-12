@@ -49,7 +49,7 @@ export async function requestToken() {
         }
     }
     const tokens = await response.json();
-    // console.log(tokens);
+    console.log(tokens);
     localStorage.setItem('handle_access', tokens['access_token']);
     localStorage.setItem('access_age', Date.now().toString());
 
@@ -143,8 +143,7 @@ export async function stateManager() {
 export async function fetchData(ask, src) {
     if (src === "sch") {
         const requestUrl = "https://forward.genericbells.workers.dev/?ask=" + ask;
-        // const token = "Bearer " + localStorage.getItem('handle_access');
-        const token = "Bearer abcdefg";
+        const token = "Bearer " + localStorage.getItem('handle_access');
 
         let res = await fetch(requestUrl, {headers: new Headers({'Authorization': token})});
         let i = 0;
@@ -160,7 +159,7 @@ export async function fetchData(ask, src) {
         }
         else {
             const output = res.json();
-            // console.log(output);
+            console.log(output);
             return output;
         }
     }
