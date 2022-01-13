@@ -1,20 +1,16 @@
 import { colourPack } from './assets/colours';
-
+import { passItem, saveItem } from "./version";
 
 export function apiDataHandler(apiData) {
     if (Object.keys(apiData) == false) {
         return false;
     }
 
-
     function configSettings() {
         const classData = apiData.timetable.subjects;
-        //TODO: fetch default and localStorage settings here
-        let storedSettings = localStorage.getItem('displaySettingszzzzz');
-        if (storedSettings !== null) {
-            storedSettings = JSON.parse(storedSettings);
-        }
-        else {
+
+        let storedSettings = passItem('displaySettings');
+        if (storedSettings === null) {
             storedSettings = {};
         }
 
@@ -40,7 +36,7 @@ export function apiDataHandler(apiData) {
                 classSettings[subjectKey].teacher = (subject.fullTeacher ? subject.fullTeacher : "");
                 let i = 0;
                 for (const col of colours) {
-                    if (classSettings[subjectKey].displayColour.hex === col.hex) {
+                    if (classSettings[subjectKey].colour.hex === col.hex) {
                         colours.splice(i, 1);
                         break;
                     }
@@ -51,16 +47,16 @@ export function apiDataHandler(apiData) {
 
                 let displayName = "-";
                 let displayCode = subjectKey.substring(0, 3);
-                let displayColour;
+                let colour;
                 if (subject.teacher === null) {
-                    displayColour = defaultColour;
+                    colour = defaultColour;
                 }
                 else if (colours.length > 0) {
-                    displayColour = Object.assign(colours[0]);
+                    colour = Object.assign(colours[0]);
                     colours.splice(0, 1);
                 }
                 else {
-                    displayColour = defaultColour;
+                    colour = defaultColour;
                 }
 
                 const rawSubjectName = subject["subject"].trim();
@@ -72,17 +68,22 @@ export function apiDataHandler(apiData) {
                     displayName = rawSubjectName;
                 }
 
+                console.log(subject.title);
 
                 classSettings[subject.shortTitle] = {
                     teacher: (subject.fullTeacher ? subject.fullTeacher : ""),
                     'displayName': displayName,
-                    'displayColour': displayColour,
-                    'displayCode': displayCode
+                    'colour': colour,
+                    'displayCode': displayCode,
+                    'rawName': subject.title,
+                    'refId': subject.shortTitle,
+                    'defaultName': displayName
                 }
 
             }
         }
-        // localStorage.setItem('displaySettings', JSON.stringify(classSettings));
+
+        saveItem('displaySettings', classSettings);
 
         return classSettings;
     }
@@ -118,7 +119,7 @@ export function apiDataHandler(apiData) {
         // console.log(classId);
         // console.log(classSettings);
         const displayName = classSettings[classId].displayName;
-        const colour = classSettings[classId].displayColour;
+        const colour = classSettings[classId].colour;
         const room = periodData.room;
         let highlightRoom = false;
         const teacher = periodData.fullTeacher;

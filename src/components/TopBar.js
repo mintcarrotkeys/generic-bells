@@ -20,7 +20,7 @@ export default function TopBar(props) {
         }
         else {
             const output = (
-                <div className="break__name">
+                <div>
                     {row.displayName}
                 </div>
             );
@@ -132,12 +132,16 @@ export default function TopBar(props) {
         middleText = dayName;
     }
 
+    let hint = "";
+    if (rightIcon !== "") {
+        hint = <div className="topBar__until"> until </div>;
+    }
 
     const output = (
         <div id="topBar" className="topBar period">
             <div className="topBar__side topBar__left">{leftIcon}</div>
             <div className="topBar__middle">{middleText}</div>
-            <div className="topBar__side topBar__right">{rightIcon}</div>
+            <div className="topBar__side topBar__right">{hint}{rightIcon}</div>
         </div>
     );
 

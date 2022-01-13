@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {requestToken, requestCode, stateManager, fetchData} from './apiFetcher';
-
+import { passItem, saveItem } from "./version";
 
 // let TESTDATA = ;
-//
+
 // let today = new Date();
 // today = new Date(today.getTime() + (11*60*60*1000));
 // // console.log(today);
@@ -17,8 +17,7 @@ import {requestToken, requestCode, stateManager, fetchData} from './apiFetcher';
 //
 // // console.log(JSON.stringify(TESTDATA));
 //
-// localStorage.setItem("storedData", JSON.stringify(TESTDATA));
-
+// saveItem('storedData', TESTDATA);
 
 let data = {
     timestamp: 0,
@@ -30,12 +29,11 @@ let data = {
 
 let dataState = "";
 
-let storedData = localStorage.getItem('storedData');
+let storedData = passItem('storedData');
 // console.log("StoredData: " + storedData);
 if (storedData !== null) {
-    let storedDataObj = JSON.parse(storedData);
-    if (Date.now() <= Number(storedDataObj.timestamp)) {
-        data = storedDataObj;
+    if (Date.now() <= Number(storedData.timestamp)) {
+        data = storedData;
     }
     else {
         localStorage.removeItem('storedData');
@@ -80,13 +78,14 @@ async function getData() {
                 'dtt': dtt,
                 'tt': tt
             };
-            localStorage.setItem('storedData', JSON.stringify(data));
+
+            saveItem('storedData', storedData);
         }
         else {
             console.log("Error fetching data.");
             dataState = 'askToLogin';
         }
-//         console.log(userId + "\n" + dtt + "\n" + tt + "\n" + weekData);
+        // console.log(userId + "\n" + dtt + "\n" + tt + "\n" + weekData);
     }
 }
 

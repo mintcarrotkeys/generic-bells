@@ -27,12 +27,43 @@ body {
     width: 100%;
 }
 
+h1 h2 p {
+    margin: 5px;
+}
+
+h1 {
+    font-weight: 300;
+    font-size: 30px;
+    text-align: center;
+
+}
+
+h2 {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+h3 {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+h4 {
+    font-weight: 400;
+    font-size: 15px;
+    color: #888888;
+}
+
+p {
+    font-weight: 400;
+    font-size: 13px;
+}
+
 .page {
     background-color: #eeeeee;
     margin: 0;
     padding: 15px;
     color: black;
-    min-height: calc(100vh - (100vw / 5.7887) - 30px);
 
     display: flex;
     flex-direction: column;
@@ -52,6 +83,8 @@ body {
     .page {
         order: 1;
         flex: 1 1;
+        min-height: calc(100vh - (100vw / 5.7887) - 30px);
+        margin-bottom: calc((100vw / 5.7887));
     }
 
 
@@ -159,7 +192,6 @@ body {
     .nav__button--currentPage {
         background-image: linear-gradient(to right, #e0e0e0 30%, #ffffff 100%);
     }
-
 }
 
 
@@ -270,43 +302,48 @@ body {
 }
 
 .inputBox {
-    padding: 5px;
-    font-size: 20px;
-    font-weight: 500;
+    padding: 4px;
     border-radius: 5px;
+    font-family: inherit;
     border: solid 1px #d0d0d0;
     box-shadow: none;
 }
 
 .inputBox:focus {
     border: solid 2px #222222;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    padding: 3px;
+    /*box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);*/
 }
 
 .barcodeInput {
-    font-family: inherit;
+    padding: 5px;
+    font-size: 20px;
     font-weight: 500;
     text-align: center;
     margin: 10px;
 }
 
+.barcodeInput:focus {
+    padding: 4px;
+}
+
 .button {
-    background-color: #222222;
+    background-color: #333333;
     border-radius: 5px;
     color: white;
     padding: 5px 10px;
     margin: 10px;
     font-size: 15px;
-    border: solid 1px #222222;
+    border: solid 1px #333333;
 }
 
 .button:active {
-    color: #222222;
+    color: #333333;
     background-color: white;
 }
 
 .button:hover {
-    color: #222222;
+    color: #333333;
     background-color: white;
 }
 
@@ -317,12 +354,6 @@ body {
     padding: 20px 20px 0px 20px;
     background-color: white;
     color: black;
-}
-
-h1 {
-    font-weight: 300;
-    font-size: 30px;
-
 }
 
 #topBar {
@@ -342,6 +373,7 @@ h1 {
 .topBar__left {
     flex: 1 1 10px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
     text-align: left;
@@ -358,6 +390,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    flex-wrap: wrap;
     /*margin-left: auto;*/
     text-align: right;
 }
@@ -365,6 +398,12 @@ h1 {
 .topBar__countdown {
     font-size: 40px;
     font-weight: 400;
+}
+
+.topBar__until {
+    color: #888888;
+    margin-right: 5px;
+    text-align: right;
 }
 
 .topBar__dateDisplay {
@@ -389,4 +428,93 @@ h1 {
     height: 20px;
     flex: 0 1 20px;
     padding-right: 5px;
+}
+
+.page__settings {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+}
+
+.settings {
+    margin: 5px;
+}
+
+.settings__classInfo {
+    display: block;
+    margin: 0px;
+    padding: 0px;
+
+}
+
+.settings__classInfo__row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.settings__classInfo__col {
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    flex: 0 0 26px;
+
+    /*some css set by js*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings__classInfo__name {
+    margin: 0px 3px;
+    min-width: 100px;
+    flex: 2 2 200px;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.settings__classInfo__code {
+    margin: 0px 3px;
+    min-width: 50px;
+    flex: 1 1 50px;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.settings__classInfo__icon {
+    color: inherit;
+    width: 15px;
+    height: 15px;
+}
+
+.group {
+    background-color: white;
+    color: #222222;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.colPicker {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 0px 3px;
+}
+
+.colPicker__option {
+    margin: 2px;
+}
+
+#banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333333;
 }

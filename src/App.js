@@ -17,7 +17,9 @@ function App(props) {
     let pageBarcode = (<PageBarcode userIdCode={data.userId} />);
     let pageTimetable = (<PageTimetable data={data.tt} />);
     let pageFeeds = (<PageFeeds />);
-    let pageSettings = (<PageSettings />);
+    let pageSettings = (
+        <PageSettings />
+    );
 
     const [currentPage, setCurrentPage] = useState(pageBells);
 
