@@ -49,7 +49,7 @@ export async function requestToken() {
         }
     }
     const tokens = await response.json();
-    console.log(tokens);
+//     console.log(tokens);
     localStorage.setItem('handle_access', tokens['access_token']);
     localStorage.setItem('access_age', Date.now().toString());
 
