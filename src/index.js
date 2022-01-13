@@ -79,7 +79,7 @@ async function getData() {
                 'tt': tt
             };
 
-            saveItem('storedData', storedData);
+            saveItem('storedData', data);
         }
         else {
             console.log("Error fetching data.");
