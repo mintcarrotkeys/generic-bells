@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import ClassInfo from "../components/ClassInfo";
-import {Version, checkVersion, passItem, saveItem} from "../version";
+import {passStr, saveStr, passItem, saveItem} from "../version";
+import DemoPeriod from "../components/DemoPeriod";
+import Period from "../components/Period";
 
 
 export default function PageSettings(props) {
@@ -33,8 +35,26 @@ export default function PageSettings(props) {
     function logout(e) {
         localStorage.clear();
         sessionStorage.clear();
-        window.location.assign()
+        window.location.assign("https://mintcarrotkeys.github.io/generic-bells/about");
     }
+
+    const [cardsExpanded, setCardsExpanded] = useState(passStr('set_expanded'));
+
+    function handleExpand() {
+        if (cardsExpanded==='yes') {
+            saveStr('set_expanded', 'no');
+        }
+        else {
+            saveStr('set_expanded', 'yes');
+        }
+        let x = (cardsExpanded==='yes' ? 'no' : 'yes');
+        setCardsExpanded(x);
+
+        return true;
+    }
+
+    // const demoPeriodDisplay = (
+    // );
 
     const output = (
         <div className="page__settings">
@@ -59,6 +79,36 @@ export default function PageSettings(props) {
                     timetable. Short names are used on the full timetable (max. 4 letters).
                 </p>
                 {classInfos}
+            </div>
+            <div className="group">
+                <h2 className="settings">Period display</h2>
+                <p className="settings">
+                    Click on the cards for each period to show details like teacher name & time.
+                    The button below sets them to be expanded by default.
+                </p>
+                <button className="settings button" onClick={handleExpand}>
+                    {(cardsExpanded==='yes' ? "collapse all" : "expand all")}
+                </button>
+                <div className={"period page__bells__row " + (cardsExpanded==='yes' ? "period--maximised" : "period--minimised")} onClick={handleExpand}>
+                    <div className="period__top">
+                        <div className="period__icon" style={{
+                            backgroundColor: '#d0d0d0',
+                            color: ('black')
+                        }}>
+                            1
+                        </div>
+                        <div className="period__name">
+                            Click Me
+                        </div>
+                        <div className= {"period__room"}>
+                            000
+                        </div>
+                    </div>
+                    <div className={"period__details " + (cardsExpanded==='yes' ? "period__details--expanded" : "period__details--closed")}>
+                        <div className="period__details__item">time</div>
+                        <div className="period__details__item">teacher</div>
+                    </div>
+                </div>
             </div>
             <div className="group">
                 <button className="settings button" onClick={logout}>Logout</button>

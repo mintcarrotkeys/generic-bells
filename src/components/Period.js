@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { passItem, saveItem } from '../version';
+import { passItem, saveItem, passStr, saveStr } from '../version';
 
 export default function Period(props) {
     /**
@@ -12,11 +12,10 @@ export default function Period(props) {
      room
      highlightRoom
      teacher
-     TODO: add a full name option to expanded card and truncate main title
 
      **/
 
-    const [expanded, setExpand] = useState((passItem('set__expanded') === 'yes'));
+    const [expanded, setExpand] = useState((passStr('set_expanded') === 'yes'));
 
     function handleClick(e) {
         setExpand(!expanded);
@@ -55,7 +54,6 @@ export default function Period(props) {
         </div>
     );
 
-    //TODO: add expanded display
 
     return showClass;
 }

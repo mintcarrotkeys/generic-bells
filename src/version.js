@@ -1,6 +1,6 @@
 
 
-export const Version = "v12";
+export const Version = "v16";
 
 export function checkVersion(obj, version = Version) {
     let data = localStorage.getItem(obj);
@@ -45,6 +45,38 @@ export function passItem(name, type = 'l') {
 export function saveItem(name, obj, type = 'l') {
 
     let data = obj;
+    data.verCon = Version;
+    data = JSON.stringify(data);
+
+    if (type === 'l') {
+        localStorage.setItem(name, data);
+    }
+    else if (type === 's') {
+        sessionStorage.setItem(name, data);
+    }
+
+    return true;
+}
+
+export function passStr(name, type = 'l') {
+    checkVersion(name);
+    let data;
+    if (type === 'l') {
+        data = localStorage.getItem(name);
+    }
+    else if (type === 's') {
+        data = sessionStorage.getItem(name);
+    }
+    if (data === null) {
+        return null;
+    }
+    data = JSON.parse(data);
+    return data.stuff;
+}
+
+export function saveStr(name, obj, type = 'l') {
+
+    let data = {stuff: obj};
     data.verCon = Version;
     data = JSON.stringify(data);
 

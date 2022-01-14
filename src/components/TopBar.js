@@ -20,7 +20,7 @@ export default function TopBar(props) {
         }
         else {
             const output = (
-                <div>
+                <div className={(side === 'r' ? "topBar__right__icon" : "")}>
                     {row.displayName}
                 </div>
             );
