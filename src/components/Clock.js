@@ -20,7 +20,7 @@ export default function Clock(props) {
             seconds = "0" + seconds;
         }
 
-        output = <div className="topBar__countdown">{hours}:{minutes}:{seconds}</div>;
+        output = <div className="topBar__countdown topBar__countdown--long">{hours}:{minutes}:{seconds}</div>;
     }
     else {
         let minutes = Math.floor(timeLeft / 60).toString();

@@ -68,7 +68,7 @@ export function apiDataHandler(apiData) {
                     displayName = rawSubjectName;
                 }
 
-                console.log(subject.title);
+                // console.log(subject.title);
 
                 classSettings[subject.shortTitle] = {
                     teacher: (subject.fullTeacher ? subject.fullTeacher : ""),

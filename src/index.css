@@ -54,6 +54,16 @@ h4 {
     color: #888888;
 }
 
+h5 {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+h6 {
+    font-weight: 500;
+    font-size: 13px;
+}
+
 p {
     font-weight: 400;
     font-size: 13px;
@@ -102,6 +112,8 @@ p {
         flex: 0 0;
         order: 2;
 
+        padding-bottom: 1px;
+
         flex-direction: row;
     }
 
@@ -137,6 +149,15 @@ p {
         bottom: calc((100vw / 5.7887));
     }
 
+    .period__center {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .topBar__countdown.topBar__countdown--long {
+        font-size: 30px;
+    }
 }
 @media (min-aspect-ratio: 11/9) {
     .app-container {
@@ -192,6 +213,12 @@ p {
     .nav__button--currentPage {
         background-image: linear-gradient(to right, #e0e0e0 30%, #ffffff 100%);
     }
+
+    .period__center {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
 }
 
 
@@ -221,6 +248,7 @@ p {
 .page__bells__row {
     margin-top: 10px;
     margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 
@@ -230,8 +258,26 @@ p {
     font-weight: 400;
     font-size: 20px;
     border-radius: 5px;
-    padding: 5px;
+    padding: 0;
+    height: auto;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/*.period.period--minimised {*/
+/*    height: 400px;*/
+/*}*/
+
+/*.period.period--maximised {*/
+/*    height: 680px;*/
+/*}*/
+
+.period__top {
+    padding: 5px;
+    width: calc(100% - 10px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -250,12 +296,12 @@ p {
 }
 
 .period__name {
-    font-weight: 300;
-    letter-spacing: -0.03em;
-    margin-left: 5px;
-    margin-right: 5px;
     flex: 1 1;
+    margin-left: 5px;
 
+    font-weight: 300;
+    font-size: 20px;
+    letter-spacing: -0.03em;
 }
 
 .period__room {
@@ -271,6 +317,68 @@ p {
     background-color: #ffc633;
 }
 
+.period__details {
+    width: calc(100% - 10px);
+    font-weight: 400;
+    font-size: 13px;
+    padding: 5px;
+    border-top: solid 1px #d0d0d0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    transition: all 0.2s;
+}
+
+.period__details.period__details--closed {
+    height: 0px;
+    padding: 0px;
+    border: none;
+
+    animation-duration: 0.2s;
+    animation-name: disappear;
+}
+
+.period__details.period__details--expanded {
+    height: 17px;
+
+    animation-duration: 0.2s;
+    animation-name: appear;
+}
+
+.period__details__item {
+    padding: 0px 5px;
+}
+
+@keyframes appear {
+    from {
+        color: transparent;
+    }
+
+    50% {
+        color: transparent;
+    }
+
+    to {
+        color: inherit;
+    }
+}
+
+@keyframes disappear {
+    from {
+        color: inherit;
+    }
+
+    50% {
+        color: transparent;
+    }
+
+    to {
+        color: transparent;
+    }
+}
 
 .break {
     font-weight: 400;
@@ -362,8 +470,23 @@ p {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 5px 15px;
+}
+
+@media screen and (max-width: 310px) {
+    #topBar {
+        flex-direction: column;
+    }
+
+    .topBar__countdown {
+        margin: 5px;
+    }
+}
+
+@media screen and (min-width: 310px) {
+    #topBar {
+        flex-direction: row;
+    }
 }
 
 .topBar__side {
@@ -372,6 +495,7 @@ p {
 
 .topBar__left {
     flex: 1 1 10px;
+    -right: 5px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -386,7 +510,6 @@ p {
 
 .topBar__right {
     flex: 1 1 10px;
-
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -402,8 +525,11 @@ p {
 
 .topBar__until {
     color: #888888;
-    margin-right: 5px;
     text-align: right;
+}
+
+.topBar__right__icon {
+    margin-left: 5px;
 }
 
 .topBar__dateDisplay {

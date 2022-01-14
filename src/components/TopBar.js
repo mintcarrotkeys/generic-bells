@@ -5,14 +5,14 @@ import Clock from "./Clock";
 
 export default function TopBar(props) {
 
-    function displayIcon(row) {
+    function displayIcon(row, side='l') {
         if (row.displayAsClass) {
             const iconStyle = {
                 backgroundColor: row.colour.hex,
                 color: (row.colour.isDark ? 'white' : 'black')
             }
             const output = (
-                <div className="period__icon" style={iconStyle}>
+                <div className={"period__icon " + (side === 'r' ? "topBar__right__icon" : "")} style={iconStyle}>
                     {row.periodNumber}
                 </div>
             );
@@ -113,13 +113,13 @@ export default function TopBar(props) {
     else if (i === 0) {
         console.log("s1");
         middleText = <Clock targetTime={targetTime} />
-        rightIcon = displayIcon(rows[i]);
+        rightIcon = displayIcon(rows[i], 'r');
     }
     else if (i < rows.length) {
         console.log("s2");
         leftIcon = displayIcon(rows[i-1]);
         middleText = <Clock targetTime={targetTime} />
-        rightIcon = displayIcon(rows[i]);
+        rightIcon = displayIcon(rows[i], 'r');
     }
     else if (Date.now() < Date.parse(date + "T23:59:59")) {
         console.log("s3");
