@@ -81,6 +81,25 @@ p {
     justify-content: start;
 }
 
+.page__prop {
+    animation-duration: 0.2s;
+    animation-name: pageFade;
+}
+
+@keyframes pageFade {
+    from {
+        opacity: 0;
+    }
+
+    /*50% {*/
+    /*    opacity: 0.2;*/
+    /*}*/
+
+    to {
+        opacity: 1;
+    }
+}
+
 .app-container {
     display: flex;
 }
@@ -442,6 +461,7 @@ p {
     padding: 5px 10px;
     margin: 10px;
     font-size: 15px;
+    font-family: inherit;
     border: solid 1px #333333;
 }
 
@@ -632,6 +652,7 @@ p {
     justify-content: flex-start;
     flex-wrap: wrap;
     margin: 0px 3px;
+
 }
 
 .colPicker__option {

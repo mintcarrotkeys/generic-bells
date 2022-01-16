@@ -65,7 +65,7 @@ export default function PageBells(props) {
 
 
     return (
-        <div className="page__bells">
+        <div className="page__bells page__prop">
             <TopBar dayName={props.dayName} data={apiData} date={props.data.date} />
             {outputRows}
         </div>

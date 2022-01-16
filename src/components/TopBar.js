@@ -28,18 +28,16 @@ export default function TopBar(props) {
         }
     }
 
-    let date = props.date;
-    let checkDate = date.split("-");
-    if (checkDate[0].length === 2) {
-        checkDate[0] = "20" + checkDate[0];
+    let date = props.date.split("-");
+    if (date[0].length === 2) {
+        date[0] = "20" + date[0];
     }
-    if (checkDate[1].length === 1) {
-        checkDate[1] = "0" + checkDate[1];
+    if (date[1].length === 1) {
+        date[1] = "0" + date[1];
     }
-    if (checkDate[2].length === 1) {
-        checkDate[2] = "0" + checkDate[2];
+    if (date[2].length === 1) {
+        date[2] = "0" + date[2];
     }
-    date = checkDate.join("-");
 
 
 
@@ -62,20 +60,27 @@ export default function TopBar(props) {
 
      **/
     let i = 0;
-    let time;
+    let targetTime;
+    // console.log(rows);
     while (i < rows.length) {
         if (rows[i].time === "" || rows[i].time.indexOf(':') === -1) {
             rows.splice(i, 1);
             continue;
         }
-        time = Date.parse(date + "T" + rows[i].time + ":00");
+        let timemark = rows[i].time.split(":");
+
+        let timestamp = new Date(Number(date[0]), Number(date[1]) - 1, Number(date[2]), Number(timemark[0]), Number(timemark[1]), 0);
+
+        targetTime = timestamp.getTime();
+        // time = Date.parse(date + "T" + rows[i].time + ":00");
         // console.log(time);
         // console.log(date + "T" + rows[i].time + ":00");
         // console.log(rows[i].time);
-        if (Date.now() < time) {
+        // console.log(targetTime)
+        if (Date.now() < targetTime) {
             break;
         }
-        i ++;
+        i += 1;
     }
     let leftIcon = "";
     let rightIcon = "";
@@ -84,10 +89,6 @@ export default function TopBar(props) {
     const dayName = (<div className="topBar__dateDisplay">{props.dayName}</div>);
 
     const [r, rerender] = useState(Date.now());
-    let targetTime;
-    if (i < rows.length) {
-        targetTime = Date.parse(date + "T" + rows[i].time + ":00");
-    }
 
     function tick() {
         rerender(Date.now());
@@ -106,7 +107,7 @@ export default function TopBar(props) {
 
 
 
-    if (Date.now() < Date.parse(date + "T00:00:00")) {
+    if (Date.now() < (new Date(Number(date[0]), Number(date[1]) - 1, Number(date[2]), 0, 0, 0)).getTime()) {
         console.log("s0");
         middleText = dayName;
     }
@@ -121,7 +122,7 @@ export default function TopBar(props) {
         middleText = <Clock targetTime={targetTime} />
         rightIcon = displayIcon(rows[i], 'r');
     }
-    else if (Date.now() < Date.parse(date + "T23:59:59")) {
+    else if (Date.now() < (new Date(Number(date[0]), Number(date[1]) - 1, Number(date[2]), 23, 59, 59)).getTime()) {
         console.log("s3");
         leftIcon = displayIcon(rows[i-1]);
         middleText = dayName;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PageBells from "./pages/PageBells";
 import Nav from "./components/Nav";
 import PageBarcode from "./pages/PageBarcode";
@@ -6,20 +6,20 @@ import PageTimetable from "./pages/PageTimetable";
 import PageFeeds from "./pages/PageFeeds";
 import PageSettings from "./pages/PageSettings";
 import DataMessage from "./components/DataMessage";
+import {requestToken, requestCode, stateManager, fetchData, organiser} from './apiFetcher';
+import { passItem, saveItem } from "./version";
 
 
 function App(props) {
 
     let data = props.data;
-    let dataState = props.dataState;
+
 
     let pageBells = (<PageBells dayName={data.dayName} data={data.dtt} />);
     let pageBarcode = (<PageBarcode userIdCode={data.userId} />);
     let pageTimetable = (<PageTimetable data={data.tt} />);
     let pageFeeds = (<PageFeeds />);
-    let pageSettings = (
-        <PageSettings />
-    );
+    let pageSettings = (<PageSettings />);
 
     const [currentPage, setCurrentPage] = useState(pageBells);
 
@@ -44,7 +44,7 @@ function App(props) {
     const output = (
         <div className="app-container">
             <div className="page">
-                {dataState === "askToLogin" ? <DataMessage /> : ""}
+                {data.dataState === "askToLogin" ? <DataMessage /> : ""}
                 {currentPage}
             </div>
             <Nav reportClicked={reportClicked} initialPage="bells" />

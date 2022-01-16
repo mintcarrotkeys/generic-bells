@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import ClassInfo from "../components/ClassInfo";
 import {passStr, saveStr, passItem, saveItem} from "../version";
-import DemoPeriod from "../components/DemoPeriod";
 import Period from "../components/Period";
 
 
@@ -29,7 +28,7 @@ export default function PageSettings(props) {
         classInfos.push(
             <ClassInfo reportInput={reportInput} obj={classSettings[subject]} key={i.toString()} id={i.toString()} />
         );
-        i ++;
+        i++;
     }
 
     function logout(e) {
@@ -57,7 +56,7 @@ export default function PageSettings(props) {
     // );
 
     const output = (
-        <div className="page__settings">
+        <div className="page__settings page__prop">
             <h1>Settings</h1>
             <div className="group" id="banner">
                 <img className="banner__image" width="100px" src='https://mintcarrotkeys.github.io/generic-bells/favicon3.svg' alt="Generic Bells logo" />

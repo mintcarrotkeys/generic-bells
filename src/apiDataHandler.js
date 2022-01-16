@@ -40,7 +40,7 @@ export function apiDataHandler(apiData) {
                         colours.splice(i, 1);
                         break;
                     }
-                    i ++;
+                    i++;
                 }
             }
             else {
@@ -112,7 +112,17 @@ export function apiDataHandler(apiData) {
         }
 
         //fetch data
-        const periodData = apiData.timetable.timetable.periods[slotName];
+        let periodData;
+        try {
+            periodData = apiData.timetable.timetable.periods[slotName];
+            if (periodData === undefined) {
+                throw "Can't find period info!";
+            }
+        }
+        catch {
+            routine.push({displayAsClass: false, displayName: ("Period " + slotName), time: startTime});
+            return;
+        }
         const classId = periodData.title;
         const periodNumber = slotName;
         const time = startTime;
@@ -149,6 +159,9 @@ export function apiDataHandler(apiData) {
         if (timeSlot.period === "0") {
             try {
                 let slotName = apiData.timetable.timetable.periods["0"];
+                if (slotName === undefined) {
+                    throw "There's no morning class today!";
+                }
                 addLine(true, "0", timeSlot.startTime);
             }
             catch {

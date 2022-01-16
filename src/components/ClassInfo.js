@@ -51,6 +51,7 @@ export default function ClassInfo(props) {
 
     function reportCol(colObj) {
         props.reportInput(data.refId, 'colour', colObj);
+        setcolPicker(false);
         setData({...data, ...{['colour']: colObj}});
     }
 
