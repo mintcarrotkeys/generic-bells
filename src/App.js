@@ -6,8 +6,6 @@ import PageTimetable from "./pages/PageTimetable";
 import PageFeeds from "./pages/PageFeeds";
 import PageSettings from "./pages/PageSettings";
 import DataMessage from "./components/DataMessage";
-import {requestToken, requestCode, stateManager, fetchData, organiser} from './apiFetcher';
-import { passItem, saveItem } from "./version";
 
 
 function App(props) {

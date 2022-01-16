@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {organiser} from './apiFetcher';
+import {requestToken, requestCode, stateManager, fetchData, organiser} from './apiFetcher';
 import { passItem, saveItem } from "./version";
 
 // let TESTDATA = ;
