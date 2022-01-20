@@ -65,7 +65,7 @@ export default function PageTimetable(props) {
         let weekNo = getWeekNum(showDay);
         let weekDiff = ((weekNo - sync.weekNo) + sync.weekDiff) % 3;
         if (weekDiff < 0) {
-            weekDiff = 3 - weekDiff;
+            weekDiff = 3 + weekDiff;
         }
         console.log(dayDiff);
         console.log(weekDiff);
