@@ -64,14 +64,18 @@ export default function PageTimetable(props) {
 
         let weekNo = getWeekNum(showDay);
         let weekDiff = ((weekNo - sync.weekNo) + sync.weekDiff) % 3;
-
+        if (weekDiff < 0) {
+            weekDiff = 3 - weekDiff;
+        }
+        console.log(dayDiff);
+        console.log(weekDiff);
         return {day: dayDiff, week: weekDiff};
     }
 
     const orderInfo = calcToday(props.sync);
 
     let weeks = [];
-    if (orderInfo.week === 0) {
+    if (orderInfo.week <= 0) {
         weeks = [
             <WeekTimetable weekName={"A"} today={orderInfo.day} data={dataA} key={"weekA"} />,
             <WeekTimetable weekName={"B"} today={0} data={dataB} key={"weekB"} />,
