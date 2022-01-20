@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Period from "../components/Period";
 import Break from "../components/Break";
 import TopBar from "../components/TopBar"
@@ -9,8 +9,10 @@ import {apiDataHandler} from "../apiDataHandler";
 
 
 export default function PageBells(props) {
+    console.log("Hi");
+    console.log(props.data);
 
-    if (Object.keys(props.data) == false) {
+    if (Object.keys(props.data).length === 0) {
         return null;
     }
     //console.log(apiData);
@@ -30,7 +32,13 @@ export default function PageBells(props) {
 
      **/
 
-    const apiData = apiDataHandler(props.data);
+    let apiData;
+    try {
+        apiData = apiDataHandler(props.data);
+    }
+    catch {
+        apiData = apiDataHandler({...props.data, ...{bells: props.defaultBells}});
+    }
 
     let outputRows = [];
     let uniqueIdIterator = 0;

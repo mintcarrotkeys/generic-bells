@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {requestToken, requestCode, stateManager, fetchData, organiser} from './apiFetcher';
 import { passItem, saveItem } from "./version";
+import About from "./About";
+
 
 // let TESTDATA = ;
+
 
 // let today = new Date();
 // today = new Date(today.getTime() + (11*60*60*1000));
@@ -16,13 +18,25 @@ import { passItem, saveItem } from "./version";
 // // console.log(today.toISOString().split('T')[0]);
 //
 // // console.log(JSON.stringify(TESTDATA));
-//
+
 // saveItem('storedData', TESTDATA);
 
-organiser().then(res => ReactDOM.render(
-    <App data={res}/>,
-    document.getElementById('root')
-));
+// organiser().then(res => ReactDOM.render(
+//     <App data={res}/>,
+//     document.getElementById('root')
+// ));
 
+if (passItem("usedApp") !== null) {
+    ReactDOM.render(
+        <App />,
+        document.getElementById('root')
+    );
+}
+else {
+    ReactDOM.render(
+        <About />,
+        document.getElementById('root')
+    );
+}
 
 

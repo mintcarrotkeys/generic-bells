@@ -1,6 +1,6 @@
 
 
-export const Version = "v16";
+export const Version = "v17";
 
 export function checkVersion(obj, version = Version) {
     let data = localStorage.getItem(obj);

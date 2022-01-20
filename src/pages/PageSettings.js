@@ -34,7 +34,7 @@ export default function PageSettings(props) {
     function logout(e) {
         localStorage.clear();
         sessionStorage.clear();
-        window.location.assign("https://mintcarrotkeys.github.io/generic-bells/about");
+        window.location.reload();
     }
 
     const [cardsExpanded, setCardsExpanded] = useState(passStr('set_expanded'));
@@ -132,10 +132,32 @@ export default function PageSettings(props) {
                 <h2 className="settings">About Generic Bells</h2>
                 <p className="settings">This app aims to show your timetable in a concise, friendly and reliable way.</p>
                 <p className="settings">Source code can be found on Github here.</p>
-                <p className="settings"><a href="https://github.com/mintcarrotkeys/generic-bells">github.com/mintcarrotkeys/generic-bells</a></p>
+                <p className="settings"><a href="https://github.com/mintcarrotkeys/generic-bells">mintcarrotkeys/generic-bells</a></p>
+                <p className="settings"><br /></p>
+                <h4 className="settings">version 1.2.0</h4>
+                <p className="settings">
+                    This is a beta release, meaning the software will have bugs and unforeseen problems.
+                    Use at your own risk. Don't enter any sensitive or important data into the app.
+                </p>
+                <h6 className="settings">
+                    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+                    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+                    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+                    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+                </h6>
+            </div>
+            <div className="group">
+                <h1 className="settings">Sample text</h1>
+                <h2 className="settings">Heading 2</h2>
+                <h3 className="settings">Heading 3</h3>
+                <h4 className="settings">Heading 4</h4>
+                <h5 className="settings">Heading 5</h5>
+                <h6 className="settings">Heading 6</h6>
+                <p className="settings">Body text</p>
 
             </div>
-
         </div>
     );
 

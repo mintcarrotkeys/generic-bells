@@ -1,95 +1,95 @@
 import { colourPack } from './assets/colours';
 import { passItem, saveItem } from "./version";
 
+export function configSettings(apiData) {
+    const classData = apiData;
+
+    let storedSettings = passItem('displaySettings');
+    if (storedSettings === null) {
+        storedSettings = {};
+    }
+
+    let classSettings = {};
+    /**
+     * classSettings = {}
+     * teacher
+     * displayName
+     * displayCode
+     * colour {}:
+     *      hex
+     *      isDark
+     *
+     * **/
+    let defaultColour = colourPack[9];
+    let colours = JSON.parse(JSON.stringify(colourPack));
+    for (const title in classData) {
+        const subject = classData[title];
+        const subjectKey = subject.shortTitle;
+
+        if (storedSettings.hasOwnProperty(subjectKey)) {
+            classSettings[subjectKey] = storedSettings[subjectKey];
+            classSettings[subjectKey].teacher = (subject.fullTeacher ? subject.fullTeacher : "");
+            let i = 0;
+            for (const col of colours) {
+                if (classSettings[subjectKey].colour.hex === col.hex) {
+                    colours.splice(i, 1);
+                    break;
+                }
+                i++;
+            }
+        }
+        else {
+
+            let displayName = "-";
+            let displayCode = subjectKey.substring(0, 3);
+            let colour;
+            if (subject.teacher === null) {
+                colour = defaultColour;
+            }
+            else if (colours.length > 0) {
+                colour = Object.assign(colours[0]);
+                colours.splice(0, 1);
+            }
+            else {
+                colour = defaultColour;
+            }
+
+            const rawSubjectName = subject["subject"].trim();
+            const lastSpace = rawSubjectName.lastIndexOf(" ");
+            if (lastSpace !== -1) {
+                displayName = rawSubjectName.substring(0, lastSpace);
+            }
+            else {
+                displayName = rawSubjectName;
+            }
+
+            // console.log(subject.title);
+
+            classSettings[subject.shortTitle] = {
+                teacher: (subject.fullTeacher ? subject.fullTeacher : ""),
+                'displayName': displayName,
+                'colour': colour,
+                'displayCode': displayCode,
+                'rawName': subject.title,
+                'refId': subject.shortTitle,
+                'defaultName': displayName
+            }
+
+        }
+    }
+
+    saveItem('displaySettings', classSettings);
+
+    return classSettings;
+}
+
 export function apiDataHandler(apiData) {
-    if (Object.keys(apiData) == false) {
+    if (Object.keys(apiData).length === 0) {
         return false;
     }
 
-    function configSettings() {
-        const classData = apiData.timetable.subjects;
-
-        let storedSettings = passItem('displaySettings');
-        if (storedSettings === null) {
-            storedSettings = {};
-        }
-
-        let classSettings = {};
-        /**
-         * classSettings = {}
-         * teacher
-         * displayName
-         * displayCode
-         * colour {}:
-         *      hex
-         *      isDark
-         *
-         * **/
-        let defaultColour = colourPack[9];
-        let colours = JSON.parse(JSON.stringify(colourPack));
-        for (const title in classData) {
-            const subject = classData[title];
-            const subjectKey = subject.shortTitle;
-
-            if (storedSettings.hasOwnProperty(subjectKey)) {
-                classSettings[subjectKey] = storedSettings[subjectKey];
-                classSettings[subjectKey].teacher = (subject.fullTeacher ? subject.fullTeacher : "");
-                let i = 0;
-                for (const col of colours) {
-                    if (classSettings[subjectKey].colour.hex === col.hex) {
-                        colours.splice(i, 1);
-                        break;
-                    }
-                    i++;
-                }
-            }
-            else {
-
-                let displayName = "-";
-                let displayCode = subjectKey.substring(0, 3);
-                let colour;
-                if (subject.teacher === null) {
-                    colour = defaultColour;
-                }
-                else if (colours.length > 0) {
-                    colour = Object.assign(colours[0]);
-                    colours.splice(0, 1);
-                }
-                else {
-                    colour = defaultColour;
-                }
-
-                const rawSubjectName = subject["subject"].trim();
-                const lastSpace = rawSubjectName.lastIndexOf(" ");
-                if (lastSpace !== -1) {
-                    displayName = rawSubjectName.substring(0, lastSpace);
-                }
-                else {
-                    displayName = rawSubjectName;
-                }
-
-                // console.log(subject.title);
-
-                classSettings[subject.shortTitle] = {
-                    teacher: (subject.fullTeacher ? subject.fullTeacher : ""),
-                    'displayName': displayName,
-                    'colour': colour,
-                    'displayCode': displayCode,
-                    'rawName': subject.title,
-                    'refId': subject.shortTitle,
-                    'defaultName': displayName
-                }
-
-            }
-        }
-
-        saveItem('displaySettings', classSettings);
-
-        return classSettings;
-    }
-
     let routine = [];
-    const classSettings = configSettings();
+    const classSettings = configSettings(apiData.timetable.subjects);
 
     function addLine(displayAsClass, slotName, startTime) {
         /**
@@ -154,6 +154,8 @@ export function apiDataHandler(apiData) {
     }
 
     let isTheLastSlotABreak = false;
+
+
 
     for (const timeSlot of apiData.bells) {
         if (timeSlot.period === "0") {

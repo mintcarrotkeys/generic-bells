@@ -12,6 +12,51 @@
 /*    monospace;*/
 /*}*/
 
+.about__icon {
+    margin-top: 40px;
+    width: 200px;
+}
+
+.about__button {
+    margin: 20px;
+    background-color: white;
+    padding: 7px 22px;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 400;
+    border-radius: 5px;
+    border: none;
+}
+
+.about__button:hover {
+    background-color: white;
+    /*border: solid 2px white;*/
+}
+
+.about__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #333333;
+
+    height: 100vh;
+    width: 100vw;
+}
+
+.about__description {
+    font-weight: 300;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+    margin: 40px 0px;
+}
+
+
+
+
+
+
 :root {
     --device-orientation: landscape;
 }
@@ -72,7 +117,7 @@ p {
 .page {
     background-color: #eeeeee;
     margin: 0;
-    padding: 15px;
+    padding: 0;
     color: black;
 
     display: flex;
@@ -84,6 +129,10 @@ p {
 .page__prop {
     animation-duration: 0.2s;
     animation-name: pageFade;
+    width: calc(100% - 30px);
+    max-width: 600px;
+    padding: 15px;
+    margin: 0px;
 }
 
 @keyframes pageFade {
@@ -112,7 +161,7 @@ p {
     .page {
         order: 1;
         flex: 1 1;
-        min-height: calc(100vh - (100vw / 5.7887) - 30px);
+        min-height: calc(100vh - (100vw / 5.7887));
         margin-bottom: calc((100vw / 5.7887));
     }
 
@@ -184,8 +233,8 @@ p {
     }
 
     .page {
-        width: calc(100% - 100px);
-        min-height: calc(100vh - 30px);
+        width: calc(100% - 70px);
+        min-height: calc(100vh);
         margin-left: 70px;
         order: 2;
         flex: 1 1;
@@ -259,9 +308,7 @@ p {
 }
 
 .page__bells {
-    width: 100%;
-    max-width: 600px;
-    /*min-width: 100%;*/
+
 }
 
 .page__bells__row {
@@ -578,8 +625,6 @@ p {
 
 .page__settings {
     display: block;
-    width: 100%;
-    max-width: 600px;
 }
 
 .settings {
@@ -664,4 +709,128 @@ p {
     justify-content: center;
     align-items: center;
     background-color: #333333;
+}
+
+.timetable__week {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.tt__wk__wrapper {
+    background-color: white;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: 5px;
+    flex: 0 0;
+
+    width: 275px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+}
+
+.tt__wk__heading {
+    padding: 5px;
+}
+
+.tt__indexCol {
+    flex: 0 0 25px;
+    padding-top: 25px;
+}
+
+.tt__index {
+    padding: 15px 2.5px;
+}
+
+.tt__index__icon {
+    width: 20px;
+    height: 20px;
+    background-color: #d0d0d0;
+    border-radius: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+
+.tt__day {
+    flex: 0 0;
+
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.tt__emptyCell {
+    margin: 5px;
+    height: 40px;
+    width: 40px;
+
+    border-radius: 10px;
+    background-color: #eeeeee;
+}
+
+.tt__cell {
+    background-color: white;
+    margin: 5px;
+    height: 40px;
+    width: 40px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    font-size: 13px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tt__cell__name {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    min-height: 23px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.tt__cell__room {
+    min-height: 17px;
+    width: 40px;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 500;
+}
+
+.tt__dayName {
+    width: 40px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 2.5px 5px;
+    border-radius: 10px;
+
 }

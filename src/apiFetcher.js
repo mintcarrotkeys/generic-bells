@@ -1,7 +1,44 @@
-import React from 'react';
 import {passItem, saveItem} from "./version";
+import {bellRoutines} from "./assets/defaultBells";
 
 // document.getElementById('version').textContent = "v1.0.1";
+
+export function getWeekNum(date, mode='millis') {
+    let dateVal;
+    let today;
+    if (mode === 'string') {
+        //date: YYYY-MM-DD
+        dateVal = date.split("-");
+        today = new Date(Number(dateVal[0]), Number(dateVal[1]) - 1, Number(dateVal[2]));
+    }
+    else if (mode === 'millis') {
+        today = new Date(date);
+    }
+
+    const year = today.getFullYear();
+
+    let i = 1;
+    while (i <= 7) {
+        if ((new Date(Number(year), 0, i).getDay()) === 1) {
+            break;
+        }
+        i++;
+    }
+    const week1 = (new Date(Number(year), 0, i)).getTime();
+
+    const now = today.getTime();
+
+    const nWeeks = Math.floor((now - week1) / (7*24*60*60*1000));
+
+    if (now < week1) {
+        return 0;
+    }
+    else {
+        return nWeeks + 1;
+    }
+
+
+}
 
 export async function requestToken() {
     const redirect = encodeURIComponent('https://genericbells.pages.dev');
@@ -166,6 +203,58 @@ export async function fetchData(ask, src) {
 }
 //returns false or json data
 
+export async function getData() {
+    let data = {};
+
+    data.dataState = await stateManager();
+    // console.log("getData is running ... " + dataState);
+    let userId = false;
+    let dtt = false;
+    let tt = false;
+    let weekData = false;
+    if (data.dataState === 'success') {
+        let checkAllGood = true;
+        const source = "sch";
+        await Promise.all([
+            fetchData('idn', source).then(res => userId = res.studentId)
+                .then(() => userId ? data.userId=userId : checkAllGood=false),
+            fetchData('dtt', source).then(res => dtt = res)
+                .then(() => dtt ? data.dtt=dtt : checkAllGood=false),
+            fetchData('tt', source).then(res => tt = res)
+                .then(() => tt !== 0 ? data.tt=tt : checkAllGood=false),
+            fetchData('wk', source).then(res => weekData=res)
+                .then(() => weekData ? data.dayName=(weekData.day + " " + weekData.week + weekData.weekType) : checkAllGood=false)
+        ]);
+
+        if (weekData) {
+            let weekNo = getWeekNum(weekData.date, 'string');
+            let weekCode = weekData.weekType;
+            let weekCodeNo;
+            if (weekCode === 'A') {
+                weekCodeNo = 0;
+            }
+            else if (weekCode === 'B') {
+                weekCodeNo = 1;
+            }
+            else if (weekCode === 'C') {
+                weekCodeNo = 2;
+            }
+            data.sync = {weekNo: weekNo, weekDiff: weekCodeNo};
+        }
+
+        if (checkAllGood) {
+            let timestamp = dtt.date.split("-");
+            let timestamp2 = new Date(Number(timestamp[0]), Number(timestamp[1]), Number(timestamp[2]), 23, 59, 59);
+            data.timestamp = timestamp2.getTime().toString();
+        }
+        else {
+            console.log("Error fetching data.");
+            data.dataState = 'askToLogin';
+        }
+    }
+    return data;
+}
+
 export async function organiser() {
     let data = {
         timestamp: 0,
@@ -174,222 +263,14 @@ export async function organiser() {
         userId: "000000000",
         dtt: {},
         tt: {},
-        bells: [
-            {
-                "period": "0",
-                "startTime": "08:00",
-                "endTime": "09:00",
-                "type": "O",
-                "time": "08:00",
-                "bell": "0",
-                "bellDisplay": "Period 0"
-            },
-            {
-                "period": "RC",
-                "startTime": "09:00",
-                "endTime": "09:05",
-                "type": "O",
-                "time": "09:00",
-                "bell": "RC",
-                "bellDisplay": "Roll Call"
-            },
-            {
-                "period": "1",
-                "startTime": "09:05",
-                "endTime": "10:05",
-                "type": "T",
-                "time": "09:05",
-                "bell": "1",
-                "bellDisplay": "Period 1"
-            },
-            {
-                "period": "2",
-                "startTime": "10:10",
-                "endTime": "11:10",
-                "type": "T",
-                "time": "10:10",
-                "bell": "2",
-                "bellDisplay": "Period 2"
-            },
-            {
-                "period": "R",
-                "startTime": "11:10",
-                "endTime": "11:30",
-                "type": "R",
-                "time": "11:10",
-                "bell": "R",
-                "bellDisplay": "Roll Call"
-            },
-            {
-                "period": "3",
-                "startTime": "11:30",
-                "endTime": "12:30",
-                "type": "T",
-                "time": "11:30",
-                "bell": "3",
-                "bellDisplay": "Period 3"
-            },
-            {
-                "period": "4",
-                "startTime": "12:35",
-                "endTime": "13:35",
-                "type": "T",
-                "time": "12:35",
-                "bell": "4",
-                "bellDisplay": "Period 4"
-            },
-            {
-                "period": "MTL1",
-                "startTime": "13:35",
-                "endTime": "13:55",
-                "type": "R",
-                "time": "13:35",
-                "bell": "MTL1",
-                "bellDisplay": "MTL1"
-            },
-            {
-                "period": "MTL2",
-                "startTime": "13:55",
-                "endTime": "14:15",
-                "type": "R",
-                "time": "13:55",
-                "bell": "MTL2",
-                "bellDisplay": "MTL2"
-            },
-            {
-                "period": "5",
-                "startTime": "14:15",
-                "endTime": "15:15",
-                "type": "T",
-                "time": "14:15",
-                "bell": "5",
-                "bellDisplay": "Period 5"
-            },
-            {
-                "period": "EoD",
-                "startTime": "15:15",
-                "endTime": null,
-                "type": "O",
-                "time": "15:15",
-                "bell": "EoD",
-                "bellDisplay": "End of Day"
-            }
-        ],
+        bells: [],
         sync: {}
     };
-
-    let storedData = passItem('storedData');
-// console.log("StoredData: " + storedData);
-    if (storedData !== null) {
-        if (Date.now() <= Number(storedData.timestamp)) {
-            data = storedData;
-        }
-        else if (storedData.tt.hasOwnProperty('subjects')) {
-            data = {...storedData, ...{dtt: {}}};
-        }
-    }
-
-    function getWeekNum(date, mode='millis') {
-        let dateVal;
-        let today;
-        if (mode === 'string') {
-            //date: YYYY-MM-DD
-            dateVal = date.split("-");
-            today = new Date(Number(dateVal[0]), Number(dateVal[1]) - 1, Number(dateVal[2]));
-        }
-        else if (mode === 'millis') {
-            today = new Date(date);
-        }
-
-        const year = today.getFullYear();
-
-        let i = 1;
-        while (i <= 7) {
-            if ((new Date(Number(year), 0, i).getDay()) === 1) {
-                break;
-            }
-            i++;
-        }
-        const week1 = (new Date(Number(year), 0, i)).getTime();
-
-        const now = today.getTime();
-
-        const nWeeks = Math.floor((now - week1) / (7*24*60*60*1000));
-
-        if (now < week1) {
-            return 0;
-        }
-        else {
-            return nWeeks + 1;
-        }
-
-
-    }
-
     // console.log("week: " + getWeekNum(1642398038000));
 
-    async function getData() {
-        data.dataState = await stateManager();
-        // console.log("getData is running ... " + dataState);
-        let userId = false;
-        let dtt = false;
-        let tt = false;
-        let weekData = false;
-        if (data.dataState === 'success') {
-            let checkAllGood = true;
-            const source = "sch";
-            await Promise.all([
-                fetchData('idn', source).then(res => userId = res.studentId)
-                    .then(() => userId ? data.userId=userId : checkAllGood=false),
-                fetchData('dtt', source).then(res => dtt = res)
-                    .then(() => dtt ? data.dtt=dtt : checkAllGood=false),
-                fetchData('tt', source).then(res => tt = res)
-                    .then(() => tt !== 0 ? data.tt=tt : checkAllGood=false),
-                fetchData('wk', source).then(res => weekData=res)
-                    .then(() => weekData ? data.dayName=(weekData.day + " " + weekData.week + weekData.weekType) : checkAllGood=false)
-            ]);
+    //getdata
 
-            if (dtt) {
-                data.bells = dtt.bells;
-            }
-            if (weekData) {
-                let weekNo = getWeekNum(weekData.date, 'string');
-                let weekCode = weekData.weekType;
-                let weekCodeNo;
-                if (weekCode === 'A') {
-                    weekCodeNo = 0;
-                }
-                else if (weekCode === 'B') {
-                    weekCodeNo = 1;
-                }
-                else if (weekCode === 'C') {
-                    weekCodeNo = 2;
-                }
-                data.sync = {weekNo: weekNo, weekDiff: weekCodeNo};
-            }
-
-            if (checkAllGood) {
-                let timestamp = dtt.date.split("-");
-                let timestamp2 = new Date(Number(timestamp[0]), Number(timestamp[1]), Number(timestamp[2]), 23, 59, 59);
-                data.timestamp = timestamp2.getTime().toString();
-                // data = {
-                //     'timestamp': timestamp,
-                //     'dayName': dayName,
-                //     'userId': userId,
-                //     'dtt': dtt,
-                //     'tt': tt
-                //     ''
-                // };
-            }
-            else {
-                console.log("Error fetching data.");
-                data.dataState = 'askToLogin';
-            }
-            // console.log(userId + "\n" + dtt + "\n" + tt + "\n" + weekData);
-        }
-    }
-
-    await getData();
+    // await getData();
 
     saveItem('storedData', data);
 
@@ -401,7 +282,7 @@ export async function organiser() {
             "classVariations": {},
             "serverTimezone": "39600",
             "shouldDisplayVariations": false,
-            bells: [...data.bells],
+            bells: [],
             timetable: {},
         }
 
@@ -453,14 +334,31 @@ export async function organiser() {
             + dayOut.getDate().toString()
         );
 
-        console.log(output);
+        if (dayDiff === 1 || dayDiff === 2) {
+            output.bells = [...bellRoutines.MonTue];
+        }
+        else if (dayDiff === 3 || dayDiff === 4) {
+            output.bells = [...bellRoutines.WedThu];
+        }
+        else if (dayDiff === 5) {
+            output.bells = [...bellRoutines.Fri];
+        }
+        else {
+            console.log("dayDiff not in range 1-5 when generating synthetic day timetable.");
+        }
+
+        data.bells = [...output.bells];
+
+        // console.log(output);
 
         return output;
 
     }
 
+    const synth = synthDTT();
+    // console.log(data.bells);
+
     if (data.dtt.hasOwnProperty('timetable')===false && data.tt.hasOwnProperty('subjects')) {
-        const synth = synthDTT();
         if (synth) {
             data.dtt = synth;
         }
