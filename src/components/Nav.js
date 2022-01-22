@@ -39,7 +39,7 @@ export default function Nav(props) {
             </div>
             <div className={"nav__button" + buttonStates.feeds} onClick={() => handleClick('feeds')}>
                 {icons.feeds}
-                <div className="nav__button__name">Feeds</div>
+                <div className="nav__button__name">Notices</div>
             </div>
             <div className={"nav__button" + buttonStates.settings} onClick={() => handleClick('settings')}>
                 {icons.settings}

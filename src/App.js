@@ -52,7 +52,12 @@ function App() {
         async function dataManager() {
             try {
                 let newData = {};
-                newData = await getData();
+                try {
+                    newData = await getData();
+                }
+                catch(err) {
+                    console.error(err);
+                }
                 newData = ({...data, ...newData});
 
                 function synthDTT() {
@@ -146,8 +151,6 @@ function App() {
                         console.log("Failed to generate day schedule from timetable.");
                     }
                 }
-                // console.log("Hi");
-                // console.log(newData);
                 saveItem('storedData', data);
                 setData(newData);
                 setCurrentPage(<PageBells dayName={newData.dayName} data={newData.dtt} defaultBells={newData.bells} />);
@@ -158,8 +161,6 @@ function App() {
         }
         dataManager();
     }, []);
-
-    // console.log(data);
 
     function reportClicked(name) {
         if (name === "barcode") {

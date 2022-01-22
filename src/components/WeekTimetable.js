@@ -36,7 +36,7 @@ export default function WeekTimetable(props) {
     let i = 0;
     while (i < 5) {
         let day = props.data[dayId[i]].periods;
-        console.log(day);
+        //console.log(day);
         let classes = [];
         let j = 0;
         while (j < 6) {
@@ -82,7 +82,7 @@ export default function WeekTimetable(props) {
 
         i++;
     }
-    console.log(ttGrid);
+    //console.log(ttGrid);
 
     const output = (
         <div className="timetable__week">

@@ -10,7 +10,7 @@ export default function PageTimetable(props) {
     }
     /****/
 
-    console.log(props.data);
+    // console.log(props.data);
 
     let subjects = props.data.subjects;
     let subjectObject = {};
@@ -67,8 +67,8 @@ export default function PageTimetable(props) {
         if (weekDiff < 0) {
             weekDiff = 3 + weekDiff;
         }
-        console.log(dayDiff);
-        console.log(weekDiff);
+        // console.log(dayDiff);
+        // console.log(weekDiff);
         return {day: dayDiff, week: weekDiff};
     }
 

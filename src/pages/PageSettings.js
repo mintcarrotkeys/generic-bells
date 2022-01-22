@@ -80,7 +80,7 @@ export default function PageSettings(props) {
                 {classInfos}
             </div>
             <div className="group">
-                <h2 className="settings">Period display</h2>
+                <h2 className="settings">Period display style</h2>
                 <p className="settings">
                     Click on the cards for each period to show details like teacher name & time.
                     The button below sets them to be expanded by default.
@@ -134,7 +134,7 @@ export default function PageSettings(props) {
                 <p className="settings">Source code can be found on Github here.</p>
                 <p className="settings"><a href="https://github.com/mintcarrotkeys/generic-bells">mintcarrotkeys/generic-bells</a></p>
                 <p className="settings"><br /></p>
-                <h4 className="settings">version 1.2.0</h4>
+                <h4 className="settings">version 1.2.1</h4>
                 <p className="settings">
                     This is a beta release, meaning the software will have bugs and unforeseen problems.
                     Use at your own risk. Don't enter any sensitive or important data into the app.

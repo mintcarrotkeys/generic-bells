@@ -9,8 +9,7 @@ import {apiDataHandler} from "../apiDataHandler";
 
 
 export default function PageBells(props) {
-    console.log("Hi");
-    console.log(props.data);
+    // console.log(props.data);
 
     if (Object.keys(props.data).length === 0) {
         return null;

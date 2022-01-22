@@ -178,10 +178,16 @@ export async function stateManager() {
 }
 //returns success or askToLogin
 
-export async function fetchData(ask, src) {
+export async function fetchData(ask, src = 'sch') {
     if (src === "sch") {
         const requestUrl = "https://forward.genericbells.workers.dev/?ask=" + ask;
-        const token = "Bearer " + localStorage.getItem('handle_access');
+        let token = localStorage.getItem('handle_access');
+        if (token === null) {
+            return false;
+        }
+        else {
+            token = "Bearer " + token;
+        }
 
         let res = await fetch(requestUrl, {headers: new Headers({'Authorization': token})});
         let i = 0;
