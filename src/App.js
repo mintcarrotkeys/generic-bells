@@ -210,7 +210,7 @@ function App() {
         }
         else if (name === "settings") {
             setCurrentPage(pageSettings);
-            showDataMessage();
+            showDataMessage(true);
         }
     }
 
