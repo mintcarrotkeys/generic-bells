@@ -4,6 +4,5 @@
 <p>A School API app to show your timetable in a concise, friendly and reliable way.</p>
 
 
-
-
+https://genericbells.pages.dev/
 
