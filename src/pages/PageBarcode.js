@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { code128 } from '../assets/code128TranslationData';
+import {clog} from "../version";
 
 
 export default function PageBarcode(props) {
@@ -21,6 +22,7 @@ export default function PageBarcode(props) {
         let currentString;
         while (i < input.length) {
             currentString = input.substring(i, i+2);
+            clog(currentString);
             if (currentString.length == 2) {
                 output += code128.translate[currentString];
                 checksumValue += (Number(currentString) * checksumChar);

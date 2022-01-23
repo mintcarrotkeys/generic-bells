@@ -39,23 +39,46 @@ export default function PageSettings(props) {
         window.location.reload();
     }
 
-    const [cardsExpanded, setCardsExpanded] = useState(passStr('set_expanded'));
+    const [cardsExpanded, setCardsExpanded] = useState(passStr('set_cards_expanded')==="yes");
+    const [feedsExpanded, setFeedsExpanded] = useState(passStr('set_feeds_expanded')==='yes');
 
-    function handleExpand() {
-        if (cardsExpanded==='yes') {
-            saveStr('set_expanded', 'no');
+    function handleCardsToggle(side) {
+        if (!side) {
+            saveStr('set_cards_expanded', '');
+            setCardsExpanded(side);
         }
         else {
-            saveStr('set_expanded', 'yes');
+            saveStr('set_cards_expanded', 'yes');
+            setCardsExpanded(side);
         }
-        let x = (cardsExpanded==='yes' ? 'no' : 'yes');
-        setCardsExpanded(x);
 
         return true;
     }
 
-    // const demoPeriodDisplay = (
-    // );
+    function handleFeedsToggle(side) {
+        if (!side) {
+            saveStr('set_feeds_expanded', '');
+            setFeedsExpanded(false);
+        }
+        else {
+            saveStr('set_feeds_expanded', 'yes');
+            setFeedsExpanded(true);
+        }
+    }
+
+    function chooseFeedYear(e) {
+        if (e.target.value === "all") {
+            saveItem({seeOnlyMyYear: false, year: ""});
+        }
+        else {
+            saveItem("feedSettings", {seeOnlyMyYear: true, year: e.target.value});
+        }
+    }
+    const feedSettings = passItem('feedSettings');
+    let savedFeedYear = "all";
+    if (feedSettings !== null) {
+        savedFeedYear = (feedSettings.seeOnlyMyYear ? feedSettings.year : "all");
+    }
 
     const output = (
         <div className="page__settings page__prop">
@@ -63,16 +86,6 @@ export default function PageSettings(props) {
             <div className="group" id="banner">
                 <img className="banner__image" width="100px" src='https://mintcarrotkeys.github.io/generic-bells/favicon3.svg' alt="Generic Bells logo" />
             </div>
-            {/*<div className="group">*/}
-            {/*    <h5 className="settings">Save this app to your home screen</h5>*/}
-            {/*    <h6 className="settings">Chrome android</h6>*/}
-            {/*    <p className="settings">Click the menu button > Add to Home screen </p>*/}
-            {/*    <h6 className="settings">Firefox </h6>*/}
-            {/*    <p className="settings">Click the menu button > Install </p>*/}
-            {/*    <h6 className="settings">Safari</h6>*/}
-            {/*    <p className="settings">Click the share button > Add to Home Screen </p>*/}
-
-            {/*</div>*/}
             <div className="group">
                 <h2 className="settings">Change colours & names</h2>
                 <p className="settings">
@@ -87,10 +100,17 @@ export default function PageSettings(props) {
                     Click on the cards for each period to show details like teacher name & time.
                     The button below sets them to be expanded by default.
                 </p>
-                <button className="settings button" onClick={handleExpand}>
-                    {(cardsExpanded==='yes' ? "collapse all" : "expand all")}
-                </button>
-                <div className={"period page__bells__row " + (cardsExpanded==='yes' ? "period--maximised" : "period--minimised")} onClick={handleExpand}>
+                <div className="toggle">
+                    <div className={"toggle__left toggle__side" + (!cardsExpanded ? " toggle--selected" : "")}
+                         onClick={() => handleCardsToggle(false)}>
+                        collapse all
+                    </div>
+                    <div className={"toggle__right toggle__side" + (cardsExpanded ? " toggle--selected" : "")}
+                         onClick={() => handleCardsToggle(true)}>
+                        expand all
+                    </div>
+                </div>
+                <div className={"period page__bells__row " + (cardsExpanded ? "period--maximised" : "period--minimised")} onClick={() => handleCardsToggle(!cardsExpanded)}>
                     <div className="period__top">
                         <div className="period__icon" style={{
                             backgroundColor: '#d0d0d0',
@@ -105,12 +125,60 @@ export default function PageSettings(props) {
                             000
                         </div>
                     </div>
-                    <div className={"period__details " + (cardsExpanded==='yes' ? "period__details--expanded" : "period__details--closed")}>
+                    <div className={"period__details " + (cardsExpanded ? "period__details--expanded" : "period__details--closed")}>
                         <div className="period__details__item">time</div>
                         <div className="period__details__item">teacher</div>
                     </div>
                 </div>
             </div>
+            <div className="group">
+                <h2 className="settings">Notices display style</h2>
+                <p className="settings">Click on each notice to expand and show the full text.</p>
+                <div className="toggle">
+                    <div className={"toggle__left toggle__side" + (!feedsExpanded ? " toggle--selected" : "")}
+                         onClick={() => handleFeedsToggle(false)}>
+                        collapse all
+                    </div>
+                    <div className={"toggle__right toggle__side" + (feedsExpanded ? " toggle--selected" : "")}
+                         onClick={() => handleFeedsToggle(true)}>
+                        expand all
+                    </div>
+                </div>
+                <div
+                    className="feedItem"
+                    onClick={() => handleFeedsToggle(!feedsExpanded)}
+                >
+                    <h2 className="feedItem__title">Click me</h2>
+                    <div className="feedItem__metadataRow settings">
+                        <div className="feedItem__meetingTag">
+                            <div className="feedItem__metadata feedItem__metadata__meeting">Meeting: </div>
+                            <h6 className="feedItem__metadata feedItem__metadata__meeting settings">Time</h6>
+                            <h6 className="feedItem__metadata feedItem__metadata__meeting settings">Location</h6>
+                        </div>
+                        <h6 className="feedItem__metadata">Teacher</h6>
+                        <div className="feedItem__metadata">Student years</div>
+                    </div>
+                    <p
+                        className={"settings feedItem__body " + (feedsExpanded ? "feedItem__body--expanded" : "feedItem__body--minimised")}
+                    >
+                        Click to expand and see the full message. <br /> This is the main body of the message <br />
+                        Click again to minimise the message.
+                    </p>
+                </div>
+                <div className="dropdown">
+                    <h3 className="dropdown__label settings" style={{fontWeight: 500}}>Only show notices for year: </h3>
+                    <select name="yearsList" id="yearsList" onChange={chooseFeedYear} defaultValue={savedFeedYear} className="dropdown__selector">
+                        <option value="all">all</option>
+                        <option value="7" >7</option>
+                        <option value="8" >8</option>
+                        <option value="9" >9</option>
+                        <option value="10" >10</option>
+                        <option value="11" >11</option>
+                        <option value="12" >12</option>
+                    </select>
+                </div>
+            </div>
+
             <div className="group">
                 <button className="settings button" onClick={logout}>Logout</button>
                 <p className="settings" style={{"marginTop": "0px"}}>

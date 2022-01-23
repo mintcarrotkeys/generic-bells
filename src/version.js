@@ -89,3 +89,8 @@ export function saveStr(name, obj, type = 'l') {
 
     return true;
 }
+
+export function clog(item, name="") {
+    console.log(name + ": " + item);
+
+}

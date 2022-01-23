@@ -15,7 +15,7 @@ export default function Period(props) {
 
      **/
 
-    const [expanded, setExpand] = useState((passStr('set_expanded') === 'yes'));
+    const [expanded, setExpand] = useState((passStr('set_cards_expanded') === 'yes'));
 
     function handleClick(e) {
         setExpand(!expanded);

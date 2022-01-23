@@ -43,7 +43,7 @@ function App() {
     let pageBells;
     let pageBarcode = (<PageBarcode userIdCode={data.userId} />);
     let pageTimetable = (<PageTimetable data={data.tt} sync={data.sync} />);
-    let pageFeeds = (<PageFeeds />);
+    let pageFeeds = (<PageFeeds dataState={data.dataState} />);
     let pageSettings = (<PageSettings />);
 
     if (passStr('usedApp') === null) {
