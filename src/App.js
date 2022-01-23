@@ -180,6 +180,9 @@ function App() {
         if (data.dataState === "askToLogin") {
             setLogin(true);
         }
+        else if (data.dataState === "success") {
+            setLogin(false);
+        }
         else if (off) {
             setLogin(false);
         }
