@@ -1,7 +1,6 @@
 import {passItem, saveItem} from "./version";
 import {bellRoutines} from "./assets/defaultBells";
 
-// document.getElementById('version').textContent = "v1.0.1";
 
 export function getWeekNum(date, mode='millis') {
     let dateVal;
@@ -213,7 +212,6 @@ export async function getData() {
     let data = {};
 
     data.dataState = await stateManager();
-    // console.log("getData is running ... " + dataState);
     let userId = false;
     let dtt = false;
     let tt = false;

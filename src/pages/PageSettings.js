@@ -22,13 +22,15 @@ export default function PageSettings(props) {
         saveItem("displaySettings", classSettings);
     }
 
-    let i = 0;
-    for (const subject in classSettings) {
-        // console.log(subject);
-        classInfos.push(
-            <ClassInfo reportInput={reportInput} obj={classSettings[subject]} key={i.toString()} id={i.toString()} />
-        );
-        i++;
+    if (classSettings !== null) {
+        let i = 0;
+        for (const subject in classSettings) {
+            // console.log(subject);
+            classInfos.push(
+                <ClassInfo reportInput={reportInput} obj={classSettings[subject]} key={i.toString()} id={i.toString()} />
+            );
+            i++;
+        }
     }
 
     function logout(e) {

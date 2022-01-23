@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { passItem, saveItem } from "./version";
-import About from "./About";
 
 
 // let TESTDATA =
@@ -21,22 +20,8 @@ import About from "./About";
 
 // saveItem('storedData', TESTDATA);
 
-// organiser().then(res => ReactDOM.render(
-//     <App data={res}/>,
-//     document.getElementById('root')
-// ));
 
-if (passItem("usedApp") !== null) {
-    ReactDOM.render(
-        <App />,
-        document.getElementById('root')
+ReactDOM.render(
+    <App />,
+    document.getElementById('root')
     );
-}
-else {
-    ReactDOM.render(
-        <About />,
-        document.getElementById('root')
-    );
-}
-
-

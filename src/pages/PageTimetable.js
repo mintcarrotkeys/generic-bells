@@ -5,12 +5,13 @@ import {getWeekNum} from "../apiFetcher";
 
 
 export default function PageTimetable(props) {
-    if (Object.keys(props.data) == false) {
-        return null;
+    if (Object.keys(props.data).length === 0) {
+        return (
+            <div className="page__timetable page__prop">
+            <h1>Timetable</h1>
+            </div>
+        );
     }
-    /****/
-
-    // console.log(props.data);
 
     let subjects = props.data.subjects;
     let subjectObject = {};

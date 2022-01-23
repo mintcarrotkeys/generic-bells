@@ -21,7 +21,6 @@ export default function PageBarcode(props) {
         let currentString;
         while (i < input.length) {
             currentString = input.substring(i, i+2);
-            // console.log(currentString);
             if (currentString.length == 2) {
                 output += code128.translate[currentString];
                 checksumValue += (Number(currentString) * checksumChar);
@@ -46,9 +45,6 @@ export default function PageBarcode(props) {
     }
 
     const [code, setCode] = useState(props.userIdCode);
-    if (code == false) {
-        return null;
-    }
 
     function handleEntry(e) {
         setCode(e.target.value);
@@ -65,7 +61,7 @@ export default function PageBarcode(props) {
                 onChange={handleEntry}
             />
             <div className="button resetBarcodeId" onClick={() => setCode(props.userIdCode)}>Reset</div>
-            <div className="barcodeOutput">{encoder(code)}</div>
+            <div className="barcodeOutput">{(code!=="" ? encoder(code) : encoder("00000000"))}</div>
         </div>
     );
 

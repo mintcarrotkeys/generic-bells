@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 240 240" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(6.12323e-17,1,-1,6.12323e-17,240,-2.93915e-15)">
+        <path d="M240,48C240,21.508 218.492,0 192,0L48,0C21.508,0 0,21.508 0,48L0,192C0,218.492 21.508,240 48,240L192,240C218.492,240 240,218.492 240,192L240,48Z" style="fill:rgb(34,34,34);"/>
+    </g>
+    <g transform="matrix(1.16667,0,0,1.16667,-20,-22.5)">
+        <g transform="matrix(1.8,0,0,0.625,-42,38.75)">
+            <path d="M140,66L40,66L65,50L115,50L140,66Z" style="fill:white;stroke:white;stroke-width:2.65px;"/>
+        </g>
+        <g transform="matrix(2,0,0,1,-80,0)">
+            <rect x="60" y="90" width="10" height="60" style="fill:white;stroke:white;stroke-width:2.26px;"/>
+        </g>
+        <g>
+            <g transform="matrix(0.5,0,0,1,50,0)">
+                <rect x="60" y="90" width="10" height="60" style="fill:rgb(146,199,72);stroke:rgb(146,199,72);stroke-width:4.52px;"/>
+            </g>
+            <g transform="matrix(0.5,0,0,1,75,0)">
+                <rect x="60" y="90" width="10" height="60" style="fill:rgb(104,186,190);stroke:rgb(104,186,190);stroke-width:4.52px;"/>
+            </g>
+            <g transform="matrix(0.5,0,0,1,100,0)">
+                <rect x="60" y="90" width="10" height="60" style="fill:rgb(239,201,79);stroke:rgb(239,201,79);stroke-width:4.52px;"/>
+            </g>
+            <g transform="matrix(0.5,0,0,1,125,0)">
+                <rect x="60" y="90" width="10" height="60" style="fill:rgb(238,170,183);stroke:rgb(238,170,183);stroke-width:4.52px;"/>
+            </g>
+        </g>
+        <g transform="matrix(2,0,0,1,60,0)">
+            <rect x="60" y="90" width="10" height="60" style="fill:white;stroke:white;stroke-width:2.26px;"/>
+        </g>
+        <g transform="matrix(1,0,0,0.5,0,80)">
+            <rect x="30" y="160" width="180" height="10" style="fill:white;stroke:white;stroke-width:4.52px;"/>
+        </g>
+    </g>
+</svg>

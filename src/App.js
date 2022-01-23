@@ -6,13 +6,13 @@ import PageTimetable from "./pages/PageTimetable";
 import PageFeeds from "./pages/PageFeeds";
 import PageSettings from "./pages/PageSettings";
 import DataMessage from "./components/DataMessage";
-import {passItem, saveItem} from "./version";
+import {passItem, passStr, saveItem} from "./version";
 import {getData, getWeekNum} from "./apiFetcher";
 import {bellRoutines} from "./assets/defaultBells";
+import About from "./About";
 
 
 function App() {
-
 
     function loadStoredData() {
         let output = {
@@ -40,11 +40,18 @@ function App() {
 
     const [data, setData] = useState(loadStoredData);
 
-    let pageBells = (<PageBells dayName={data.dayName} data={data.dtt} defaultBells={data.bells} />);
+    let pageBells;
     let pageBarcode = (<PageBarcode userIdCode={data.userId} />);
     let pageTimetable = (<PageTimetable data={data.tt} sync={data.sync} />);
     let pageFeeds = (<PageFeeds />);
     let pageSettings = (<PageSettings />);
+
+    if (passStr('usedApp') === null) {
+        pageBells = (<About />);
+    }
+    else {
+        pageBells = (<PageBells dayName={data.dayName} data={data.dtt} defaultBells={data.bells} />);
+    }
 
     const [currentPage, setCurrentPage] = useState(pageBells);
 
@@ -141,8 +148,8 @@ function App() {
 
                 }
 
-                const synth = synthDTT();
                 if (newData.dtt.hasOwnProperty('timetable')===false && newData.tt.hasOwnProperty('subjects')) {
+                    const synth = synthDTT();
                     if (synth) {
                         newData.dtt = synth;
                         newData.dayName = synth.dayName;
@@ -159,7 +166,12 @@ function App() {
                 console.error(err);
             }
         }
-        dataManager();
+        if (passStr("usedApp") === null) {
+            return null;
+        }
+        else {
+            dataManager();
+        }
     }, []);
 
     function reportClicked(name) {

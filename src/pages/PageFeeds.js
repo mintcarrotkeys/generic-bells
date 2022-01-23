@@ -17,7 +17,7 @@ export default function PageFeeds(props) {
     if (feedScroll.length === 0) {
         feedScroll.push(
           <div className="group">
-              <h3 className="settings">No news to show for today.</h3>
+              <h3 className="settings" key={"noNews"}>No news to show for today.</h3>
           </div>
         );
     }
