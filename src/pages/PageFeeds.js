@@ -13,18 +13,19 @@ export default function PageFeeds(props) {
     let data = false;
     // get localstorage feeds data
     let storedData = passItem('dailyNotices');
-    let dateString = (storedData.dayInfo.date).split("-");
-    let timestamp = new Date(Number(dateString[0]), Number(dateString[1]) - 1, Number(dateString[2]), 23, 59, 59, 999);
+    if (storedData !== null) {
+        let dateString = (storedData.dayInfo.date).split("-");
+        let timestamp = new Date(Number(dateString[0]), Number(dateString[1]) - 1, Number(dateString[2]), 23, 59, 59, 999);
 
-    if (Date.now() <= timestamp.getTime()) {
-        data = storedData.notices;
+        if (Date.now() <= timestamp.getTime()) {
+            data = storedData.notices;
+        }
     }
     //get live data
     if (props.dataState === 'success') {
         let newData = fetchData('note');
         if (!newData) {
             data = newData.notices;
-            console.log(data);
             saveItem('dailyNotices', newData);
         }
     }
@@ -38,7 +39,6 @@ export default function PageFeeds(props) {
         return ((b.relativeWeight + b.isMeeting) - (a.relativeWeight + a.isMeeting));
     }
 
-    console.log(data);
     //format to output
     if (Array.isArray(data)) {
         data.sort(compareFn);
