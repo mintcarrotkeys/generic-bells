@@ -174,28 +174,51 @@ function App() {
         }
     }, []);
 
+    const [showLogin, setLogin] = useState(data.dataState === "askToLogin");
+
+    function showDataMessage(off) {
+        if (data.dataState === "askToLogin") {
+            setLogin(true);
+        }
+        else if (off) {
+            setLogin(false);
+        }
+        else if (passStr("useApp") === null) {
+            setLogin(true);
+        }
+        else {
+            setLogin(false);
+        }
+    }
+
     function reportClicked(name) {
         if (name === "barcode") {
             setCurrentPage(pageBarcode);
+            showDataMessage();
         }
         else if (name === "timetable") {
             setCurrentPage(pageTimetable);
+            showDataMessage();
         }
         else if (name === "bells") {
             setCurrentPage(pageBells);
+            showDataMessage(true);
         }
         else if (name === "feeds") {
             setCurrentPage(pageFeeds);
+            showDataMessage();
         }
         else if (name === "settings") {
             setCurrentPage(pageSettings);
+            showDataMessage();
         }
     }
+
 
     const output = (
         <div className="app-container">
             <div className="page">
-                {data.dataState === "askToLogin" ? <DataMessage /> : ""}
+                {showLogin ? <DataMessage /> : ""}
                 {currentPage}
             </div>
             <Nav reportClicked={reportClicked} initialPage="bells" />

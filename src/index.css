@@ -11,7 +11,7 @@
 
 .about__button.button {
     margin: 0px;
-    padding: 7px 22px;
+    padding: 10px 25px;
     font-size: 20px;
     font-weight: 400;
     border-radius: 10px;
@@ -257,11 +257,6 @@ p {
 
     .nav__button--currentPage {
         background-image: linear-gradient(to top,  #e0e0e0 30%, #ffffff 100%);
-    }
-
-    .askLogin {
-        position: fixed;
-        bottom: calc((100vw / 5.7887));
     }
 
     .period__center {
@@ -648,6 +643,18 @@ p {
 }
 
 .askLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: transparent;
+    position: fixed;
+    bottom: calc((100vw / 5.7887) + 20px);
+
+}
+
+.askLogin__button {
     display: flex;
     justify-content: center;
     align-items: center;
