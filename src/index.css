@@ -268,6 +268,9 @@ p {
     .topBar__countdown.topBar__countdown--long {
         font-size: 30px;
     }
+    .askLogin {
+        width: 100vw;
+    }
 }
 @media (min-aspect-ratio: 11/9) {
 
@@ -322,6 +325,9 @@ p {
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
+    }
+    .askLogin {
+        width: calc(100vw - 70px);
     }
 }
 
@@ -646,8 +652,6 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
     background-color: transparent;
     position: fixed;
     bottom: calc((100vw / 5.7887) + 20px);
