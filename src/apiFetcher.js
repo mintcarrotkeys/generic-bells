@@ -1,4 +1,4 @@
-import {clog, saveItem} from "./version";
+import {saveItem} from "./version";
 import {bellRoutines} from "./assets/defaultBells";
 
 const siteURL = encodeURIComponent('https://genericbells.pages.dev');
@@ -100,8 +100,6 @@ export async function requestToken() {
 export async function requestCode() {
     const redirect = siteURL;
     const appId = useAppId;
-    clog(redirect);
-    clog(appId);
     //generate code verifier 43-128 characters long
     function randomString(length) {
         let randomNumbers = new Uint32Array(length);
@@ -188,7 +186,6 @@ export async function fetchData(ask, src = 'sch', auth=true) {
     if (auth) {
         token = localStorage.getItem('handle_access');
         if (token === null) {
-            console.log("Hiii");
             return false;
         }
         else {

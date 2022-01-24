@@ -17,12 +17,10 @@ export default function FeedItem(props) {
     }
 
     let meetingInfo = "";
-    let meetingIsToday = false;
     if (message.isMeeting === 1) {
         let fill = {backgroundColor: '#d0d0d0'};
         let meetingMessage = "";
         if (props.date === message.meetingDate) {
-            meetingIsToday = true;
             fill = {backgroundColor: '#ffc633'}
             meetingMessage = "Meeting: ";
         }

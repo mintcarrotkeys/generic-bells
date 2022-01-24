@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { passItem, saveItem, passStr, saveStr } from '../version';
+import { passStr } from '../version';
 
 export default function Period(props) {
     /**

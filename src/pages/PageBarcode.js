@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { code128 } from '../assets/code128TranslationData';
-import {clog} from "../version";
 
 
 export default function PageBarcode(props) {
@@ -10,9 +9,9 @@ export default function PageBarcode(props) {
         if (isNaN(checkValid)) {
             return 0;
         }
-        const startC = 'Í';
-        const valueStartC = 105;
-        const switchCtoB = 'È';
+        // const startC = 'Í';
+        // const valueStartC = 105;
+        // const switchCtoB = 'È';
         const stopCode = 'Î';
         let output = "Í";
 
@@ -22,13 +21,12 @@ export default function PageBarcode(props) {
         let currentString;
         while (i < input.length) {
             currentString = input.substring(i, i+2);
-            clog(currentString);
-            if (currentString.length == 2) {
+            if (currentString.length === 2) {
                 output += code128.translate[currentString];
                 checksumValue += (Number(currentString) * checksumChar);
                 checksumChar += 1;
             }
-            else if (currentString.length == 1) {
+            else if (currentString.length === 1) {
                 output += code128.translate[currentString];
                 checksumValue += (checksumChar * 100);
                 checksumChar += 1;

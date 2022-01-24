@@ -18,41 +18,41 @@ export default function ClassInfo(props) {
      *
      * **/
     const [data, setData] = useState(props.obj);
-    const [colPicker, setcolPicker] = useState(false);
+    const [colPicker, setColPicker] = useState(false);
 
     function handleName(e) {
         e.preventDefault();
         props.reportInput(data.refId, 'displayName', e.target.value);
-        setData({...data, ...{['displayName']: e.target.value}});
+        setData({...data, ...{'displayName': e.target.value}});
     }
 
     function handleCode(e) {
         e.preventDefault();
         props.reportInput(data.refId, 'displayCode', e.target.value);
-        setData({...data, ...{['displayCode']: e.target.value}});
+        setData({...data, ...{'displayCode': e.target.value}});
     }
 
     function checkName(e) {
         if (data.displayName === "") {
             props.reportInput(data.refId, 'displayName', data.defaultName);
-            setData({...data, ...{['displayName']: data.defaultName}});
+            setData({...data, ...{'displayName': data.defaultName}});
         }
     }
     function checkCode(e) {
         if (data.displayCode === "") {
             props.reportInput(data.refId, 'displayCode', data.refId.substring(0, 3));
-            setData({...data, ...{['displayCode']: data.refId.substring(0, 3)}});
+            setData({...data, ...{'displayCode': data.refId.substring(0, 3)}});
         }
     }
 
     function handleCol(e) {
-        setcolPicker(!colPicker);
+        setColPicker(!colPicker);
     }
 
     function reportCol(colObj) {
         props.reportInput(data.refId, 'colour', colObj);
-        setcolPicker(false);
-        setData({...data, ...{['colour']: colObj}});
+        setColPicker(false);
+        setData({...data, ...{'colour': colObj}});
     }
 
     const styleSettings = {

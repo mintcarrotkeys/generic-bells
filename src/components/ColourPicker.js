@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import React, { useState } from 'react';
 import {colourPack} from "../assets/colours";
 
 export default function ColourPicker(props) {

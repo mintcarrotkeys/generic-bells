@@ -116,7 +116,7 @@ export function apiDataHandler(apiData) {
         try {
             periodData = apiData.timetable.timetable.periods[slotName];
             if (periodData === undefined) {
-                throw "Can't find period info!";
+                throw new Error("Can't find period info!");
             }
         }
         catch {
@@ -125,7 +125,6 @@ export function apiDataHandler(apiData) {
         }
         const classId = periodData.title;
         const periodNumber = slotName;
-        const time = startTime;
         // console.log(classId);
         // console.log(classSettings);
         const displayName = classSettings[classId].displayName;
@@ -162,7 +161,7 @@ export function apiDataHandler(apiData) {
             try {
                 let slotName = apiData.timetable.timetable.periods["0"];
                 if (slotName === undefined) {
-                    throw "There's no morning class today!";
+                    throw new Error("There's no morning class today!");
                 }
                 addLine(true, "0", timeSlot.startTime);
             }

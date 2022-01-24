@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { noteIcon } from "../assets/nav-icons";
 import {requestCode} from "../apiFetcher";
 import {saveStr} from "../version";

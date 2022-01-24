@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 
 export const colourPack = [
     {hex: "#92c748", isDark: false},

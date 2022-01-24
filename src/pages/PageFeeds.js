@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import {fetchData} from "../apiFetcher";
-import {passItem, passStr, saveItem} from "../version";
+import { passItem } from "../version";
 import FeedItem from "../components/FeedItem";
-import {clog} from "../version";
 
 
 export default function PageFeeds(props) {
@@ -11,7 +9,6 @@ export default function PageFeeds(props) {
      * dataState
      *
      * **/
-    clog(props);
     let feedScroll = [];
     let data = false;
 
