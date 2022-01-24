@@ -1,5 +1,8 @@
-import {passItem, saveItem} from "./version";
+import {clog, saveItem} from "./version";
 import {bellRoutines} from "./assets/defaultBells";
+
+const siteURL = encodeURIComponent('https://genericbells.pages.dev');
+const useAppId = "genericbells10";
 
 
 export function getWeekNum(date, mode='millis') {
@@ -40,8 +43,8 @@ export function getWeekNum(date, mode='millis') {
 }
 
 export async function requestToken() {
-    const redirect = encodeURIComponent('https://genericbells.pages.dev');
-    const appId = "genericbells10";
+    const redirect = siteURL;
+    const appId = useAppId;
     localStorage.setItem('access_age', Date.now().toString());
     localStorage.removeItem('handle_access');
     const codeVerifier = localStorage.getItem('handle_verifier');
@@ -95,8 +98,10 @@ export async function requestToken() {
 //returns false for problems, true for ok
 
 export async function requestCode() {
-    const redirect = encodeURIComponent('https://genericbells.pages.dev');
-    const appId = "genericbells10";
+    const redirect = siteURL;
+    const appId = useAppId;
+    clog(redirect);
+    clog(appId);
     //generate code verifier 43-128 characters long
     function randomString(length) {
         let randomNumbers = new Uint32Array(length);
@@ -177,33 +182,37 @@ export async function stateManager() {
 }
 //returns success or askToLogin
 
-export async function fetchData(ask, src = 'sch') {
-    if (src === "sch") {
-        const requestUrl = "https://forward.genericbells.workers.dev/?ask=" + ask;
-        let token = localStorage.getItem('handle_access');
+export async function fetchData(ask, src = 'sch', auth=true) {
+    let requestUrl;
+    let token;
+    if (auth) {
+        token = localStorage.getItem('handle_access');
         if (token === null) {
             return false;
         }
         else {
             token = "Bearer " + token;
         }
-
-        let res = await fetch(requestUrl, {headers: new Headers({'Authorization': token})});
-        let i = 0;
-        while (i < 1) {
-            if (!res.ok) {
-                res = await fetch(requestUrl, {headers: new Headers({'Authorization': token})});
-            }
-            i++;
-        }
+    }
+    if (src === "sch") {
+        requestUrl = "https://forward.genericbells.workers.dev/?ask=" + ask;
+    }
+    else if (src === "data") {
+        requestUrl = "https://data.genericbells.workers.dev/?ask=" + ask;
+    }
+    let res = await fetch(requestUrl, {headers: new Headers({'Authorization': token})});
+    let i = 0;
+    while (i < 1) {
         if (!res.ok) {
-            return false;
+            res = await fetch(requestUrl, {headers: new Headers({'Authorization': token})});
         }
-        else {
-            const output = res.json();
-            // console.log(output);
-            return output;
-        }
+        i++;
+    }
+    if (!res.ok) {
+        return false;
+    }
+    else {
+        return res.json();
     }
 }
 //returns false or json data
@@ -255,6 +264,7 @@ export async function getData() {
             console.log("Error fetching data.");
             data.dataState = 'askToLogin';
         }
+        fetchData("news", 'data').then(data => console.log(data));
     }
     return data;
 }

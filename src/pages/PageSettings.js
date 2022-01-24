@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ClassInfo from "../components/ClassInfo";
 import {passStr, saveStr, passItem, saveItem} from "../version";
-import Period from "../components/Period";
+import { ReactComponent as Logo } from "../assets/favicon3.svg";
 
 
 export default function PageSettings(props) {
@@ -84,7 +84,8 @@ export default function PageSettings(props) {
         <div className="page__settings page__prop">
             <h1>Settings</h1>
             <div className="group" id="banner">
-                <img className="banner__image" width="100px" src='https://mintcarrotkeys.github.io/generic-bells/favicon3.svg' alt="Generic Bells logo" />
+                {/*<img className="banner__image" width="100px" src={logo} alt="logo" />*/}
+                <Logo style={{width: '100px'}} />
             </div>
             <div className="group">
                 <h2 className="settings">Change colours & names</h2>
@@ -190,13 +191,7 @@ export default function PageSettings(props) {
                 <h2 className="settings">Help</h2>
                 <h6 className="settings">Show teacher name & classes</h6>
                 <p className="settings">Click on each period on the home page to see details.</p>
-                {/*<h6 className="settings">Why do we have to login to school SSO every hour?</h6>*/}
-                {/*<p className="settings">*/}
-                {/*    At the moment, this app does not store refresh tokens (lasts 90 days) for the sake of data security.*/}
-                {/*    The access token is stored in your browser, and unfortunately only lasts 1 hour.*/}
-                {/*    This problem may be remedied in the future.*/}
-                {/*    The app should automatically redirect you to login if it needs a new token.*/}
-                {/*</p>*/}
+
             </div>
             <div className="group">
                 <h2 className="settings">About Generic Bells</h2>

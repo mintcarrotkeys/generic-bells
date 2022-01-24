@@ -1,6 +1,7 @@
 import React from 'react';
 import {saveItem, saveStr} from "./version";
 import {requestCode} from "./apiFetcher";
+import { ReactComponent as Logo } from "./assets/favicon3.svg";
 
 
 export default function About() {
@@ -12,7 +13,8 @@ export default function About() {
 
     const output = (
         <div className="about__container">
-            <img className="about__icon" src="https://mintcarrotkeys.github.io/generic-bells/favicon3.svg" />
+            {/*<img className="about__icon" src={logo}  alt="logo"/>*/}
+            <Logo className={"about__icon"} />
             <h1 className="about__title">Generic Bells</h1>
             <button className="about__button button" onClick={() => redirect()} >Login</button>
             <div className="about__description">
