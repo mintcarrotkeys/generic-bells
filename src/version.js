@@ -91,6 +91,6 @@ export function saveStr(name, obj, type = 'l') {
 }
 
 export function clog(item, name="") {
-    console.log(name + ": " + item);
+    console.log(name + ": " + JSON.stringify(item));
 
 }

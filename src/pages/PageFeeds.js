@@ -2,44 +2,34 @@ import React, { useState } from 'react';
 import {fetchData} from "../apiFetcher";
 import {passItem, passStr, saveItem} from "../version";
 import FeedItem from "../components/FeedItem";
+import {clog} from "../version";
 
 
 export default function PageFeeds(props) {
-    // let SAMPLEDATA;
-    // saveItem('dailyNotices', SAMPLEDATA);
-
-
+    /**
+     * data
+     * dataState
+     *
+     * **/
+    clog(props);
     let feedScroll = [];
     let data = false;
-    // get localstorage feeds data
-    let storedData = passItem('dailyNotices');
-    if (storedData !== null) {
-        let dateString = (storedData.dayInfo.date).split("-");
-        let timestamp = new Date(Number(dateString[0]), Number(dateString[1]) - 1, Number(dateString[2]), 23, 59, 59, 999);
 
-        if (Date.now() <= timestamp.getTime()) {
-            data = storedData.notices;
-        }
+    if (props.data.hasOwnProperty("notices")) {
+        data = props.data.notices;
     }
-    //get live data
-    if (props.dataState === 'success') {
-        let newData = fetchData('note');
-        if (!newData) {
-            data = newData.notices;
-            saveItem('dailyNotices', newData);
-        }
-    }
+
     let feedSettings = {seeOnlyMyYear: false, year: ""};
     let storedSettings = passItem('feedSettings');
     if (storedSettings !== null) {
         feedSettings = Object.assign(feedSettings, storedSettings);
     }
 
+    //format to output
     function compareFn(a, b) {
         return ((b.relativeWeight + b.isMeeting) - (a.relativeWeight + a.isMeeting));
     }
 
-    //format to output
     if (Array.isArray(data)) {
         data.sort(compareFn);
 
@@ -50,7 +40,7 @@ export default function PageFeeds(props) {
                 feedScroll.push(
                     <FeedItem
                         data={message}
-                        date={storedData.dayInfo.date}
+                        date={props.data.dayInfo.date}
                         key={i.toString()}
                         id={i.toString()}
                     />
@@ -62,9 +52,9 @@ export default function PageFeeds(props) {
 
     if (feedScroll.length === 0) {
         feedScroll.push(
-          <div className="group">
-              <h3 className="settings" key={"noNews"}>No news to show for today.</h3>
-          </div>
+            <div className="group">
+                <h3 className="settings" key={"noNews"}>No school notices to show for today.</h3>
+            </div>
         );
     }
 
@@ -76,8 +66,6 @@ export default function PageFeeds(props) {
             </div>
         </div>
     );
-
-
 
     return output;
 }

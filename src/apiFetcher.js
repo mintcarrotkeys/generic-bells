@@ -188,6 +188,7 @@ export async function fetchData(ask, src = 'sch', auth=true) {
     if (auth) {
         token = localStorage.getItem('handle_access');
         if (token === null) {
+            console.log("Hiii");
             return false;
         }
         else {
@@ -200,11 +201,12 @@ export async function fetchData(ask, src = 'sch', auth=true) {
     else if (src === "data") {
         requestUrl = "https://data.genericbells.workers.dev/?ask=" + ask;
     }
-    let res = await fetch(requestUrl, {headers: new Headers({'Authorization': token})});
+    let res = false;
+    await fetch(requestUrl, {headers: new Headers({'Authorization': token})}).then(r => res=r).catch(e => console.log(e));
     let i = 0;
     while (i < 1) {
         if (!res.ok) {
-            res = await fetch(requestUrl, {headers: new Headers({'Authorization': token})});
+            await fetch(requestUrl, {headers: new Headers({'Authorization': token})}).then(r => res=r).catch(e => console.log(e));
         }
         i++;
     }
@@ -225,6 +227,7 @@ export async function getData() {
     let dtt = false;
     let tt = false;
     let weekData = false;
+    let note = false;
     if (data.dataState === 'success') {
         let checkAllGood = true;
         const source = "sch";
@@ -234,10 +237,12 @@ export async function getData() {
             fetchData('dtt', source).then(res => dtt = res)
                 .then(() => dtt ? data.dtt=dtt : checkAllGood=false),
             fetchData('tt', source).then(res => tt = res)
-                .then(() => tt !== 0 ? data.tt=tt : checkAllGood=false),
+                .then(() => tt  ? data.tt=tt : checkAllGood=false),
+            fetchData('note', source).then(res => note = res)
+                .then(() => note ? data.feeds=note : checkAllGood=false),
             fetchData('wk', source).then(res => weekData=res)
                 .then(() => weekData ? data.dayName=(weekData.day + " " + weekData.week + weekData.weekType) : checkAllGood=false)
-        ]);
+        ]).catch(e => console.log(e));
 
         if (weekData) {
             let weekNo = getWeekNum(weekData.date, 'string');
@@ -264,7 +269,6 @@ export async function getData() {
             console.log("Error fetching data.");
             data.dataState = 'askToLogin';
         }
-        fetchData("news", 'data').then(data => console.log(data));
     }
     return data;
 }
