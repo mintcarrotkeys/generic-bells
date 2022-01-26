@@ -3,6 +3,7 @@ import Period from "../components/Period";
 import Break from "../components/Break";
 import TopBar from "../components/TopBar"
 import {apiDataHandler} from "../apiDataHandler";
+import Offline from "../components/Offline";
 
 
 
@@ -70,11 +71,12 @@ export default function PageBells(props) {
         uniqueIdIterator += 1;
     }
 
-
     return (
         <div className="page__bells page__prop">
+            {props.isOffline ? <Offline /> : ""}
             <TopBar dayName={props.dayName} data={apiData} date={props.data.date} />
             {outputRows}
+            <div className="barcodeFontLoader">b</div>
         </div>
     );
 

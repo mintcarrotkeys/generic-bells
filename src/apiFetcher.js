@@ -1,8 +1,10 @@
-import {saveItem} from "./version";
-import {bellRoutines} from "./assets/defaultBells";
 
 const siteURL = encodeURIComponent('https://genericbells.pages.dev');
 const useAppId = "genericbells10";
+const serverURL = "https://forward.genericbells.workers.dev/";
+const tokenServerURL = "https://refresh.genericbells.workers.dev"
+const refreshValidity = 90 * 24 * 60 * 60 * 1000 - 10000;
+const tokenValidity = 60 * 60 * 1000 - 10000;
 
 
 export function getWeekNum(date, mode='millis') {
@@ -42,11 +44,57 @@ export function getWeekNum(date, mode='millis') {
 
 }
 
+export async function requestRefreshToken() {
+    const timestamp = Number(localStorage.getItem("refresh_timestamp"));
+    const refresh = localStorage.getItem("handle_refresh");
+    if (timestamp == null || refresh == null) {
+        return false;
+    }
+    if (Date.now() < (timestamp + refreshValidity)) {
+        const requestBody = {
+            'grant_type': 'refresh_token',
+            'client_id': useAppId,
+            'refresh_token': refresh
+        };
+
+        const requestURL = (
+            tokenServerURL
+        );
+
+        let response = await fetch(requestURL, {
+            method: "POST",
+            headers: {"Content-type": "application/json; charset=UTF-8"},
+            body: JSON.stringify(requestBody)}).catch(e => console.log(e));
+        if (!response.ok) {
+            console.log("Error refreshing tokens. -1");
+            response = await fetch(requestURL, {
+                method: "POST",
+                headers: {"Content-type": "application/json; charset=UTF-8"},
+                body: JSON.stringify(requestBody)}).catch(e => console.log(e));
+            if (!response.ok) {
+                console.log('Error refreshing tokens. -2');
+                return false;
+            }
+        }
+        const tokens = await response.json();
+        // console.log(tokens);
+        localStorage.setItem('handle_access', tokens['access_token']);
+        localStorage.setItem('access_timestamp', Date.now().toString());
+
+        return true;
+    }
+    else {
+        return false;
+    }
+ }
+
 export async function requestToken() {
     const redirect = siteURL;
     const appId = useAppId;
-    localStorage.setItem('access_age', Date.now().toString());
+    localStorage.removeItem('access_timestamp');
     localStorage.removeItem('handle_access');
+    localStorage.removeItem('refresh_timestamp');
+    localStorage.removeItem('handle_refresh');
     const codeVerifier = localStorage.getItem('handle_verifier');
     const state = localStorage.getItem('handle_state');
     if (codeVerifier == null) {
@@ -76,22 +124,26 @@ export async function requestToken() {
     let response = await fetch(requestURL, {
         method: "POST",
         headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"},
-        body: requestBody});
+        body: requestBody}).catch(e => console.log(e));
     if (!response.ok) {
         console.log("Error fetching tokens. -1");
         response = await fetch(requestURL, {
             method: "POST",
             headers: {"Content-type": "application/x-www-form-urlencoded; charset=UTF-8"},
-            body: requestBody});
+            body: requestBody}).catch(e => console.log(e));
         if (!response.ok) {
             console.log('Error fetching tokens. -2');
             return false;
         }
     }
-    const tokens = await response.json();
+    let tokens = await response.json();
     // console.log(tokens);
-    localStorage.setItem('handle_access', tokens['access_token']);
-    localStorage.setItem('access_age', Date.now().toString());
+    if (tokens) {
+        localStorage.setItem('handle_access', tokens['access_token']);
+        localStorage.setItem('access_timestamp', Date.now().toString());
+        localStorage.setItem('handle_refresh', tokens['refresh_token']);
+        localStorage.setItem('refresh_timestamp', Date.now().toString());
+    }
 
     return true;
 }
@@ -114,7 +166,8 @@ export async function requestCode() {
     async function digestMessage(message) {
         const encoder = new TextEncoder();
         const data = encoder.encode(message);
-        const hash = await crypto.subtle.digest('SHA-256', data);
+        let hash;
+        await crypto.subtle.digest('SHA-256', data).then(res => hash=res).catch(e => console.log(e));
         return hash;
     }
     function base64url(input) {
@@ -150,31 +203,55 @@ export async function requestCode() {
 
 export async function stateManager() {
     const params = new URLSearchParams(window.location.href.toString().split("?")[1]);
-    const tokenAge = localStorage.getItem('access_age');
-    const token = localStorage.getItem('handle_access');
-    // console.log("token age: " + Number(tokenAge));
-    // console.log("current time: " + Date.now());
-    let response;
+    const accessTokenTime = localStorage.getItem('access_timestamp');
+    const accessToken = localStorage.getItem('handle_access');
+    const refreshTokenTime = localStorage.getItem('refresh_timestamp');
+    const justRedirected = localStorage.getItem("just_redirected");
+
+    const online = window.navigator.onLine;
+    if (!online) {
+        return "offline";
+    }
+
     if (params.has('code')) {
-        response = await requestToken();
-        if (response === false) {
-            return "askToLogin";
+        localStorage.removeItem("just_redirected");
+        let response = false;
+        await requestToken().then(res => response=res).catch(e => console.log(e));
+        if (response === true) {
+            return "success";
         }
         else {
-            return "success";
+            return "askToLogin";
         }
     }
-    else if (tokenAge !== "" && (Date.now() <= (Number(tokenAge) + 3500000))) {
+    else if (accessTokenTime !== null && (Date.now() <= (Number(accessTokenTime) + tokenValidity))) {
         //check for token - if no token then show login message
-        if (token !== "") {
+        if (accessToken !== "") {
             return "success";
         }
         else {
             return "askToLogin";
         }
+    }
+    else if (refreshTokenTime !== null && (Date.now() <= (Number(refreshTokenTime) + refreshValidity))) {
+        let tryRefresh;
+        await requestRefreshToken().then(res => tryRefresh=res).catch(e => console.log(e));
+        if (tryRefresh === true) {
+            return "success";
+        }
+        else {
+            localStorage.removeItem("handle_refresh");
+            localStorage.removeItem("refresh_timestamp");
+            return "askToLogin";
+        }
+
+    }
+    else if (justRedirected !== null) {
+        return "askToLogin";
     }
     else {
-        await requestCode();
+        localStorage.setItem("just_redirected", "yes");
+        await requestCode().catch(e => console.log(e));
         return "redirect";
     }
 }
@@ -193,10 +270,7 @@ export async function fetchData(ask, src = 'sch', auth=true) {
         }
     }
     if (src === "sch") {
-        requestUrl = "https://forward.genericbells.workers.dev/?ask=" + ask;
-    }
-    else if (src === "data") {
-        requestUrl = "https://data.genericbells.workers.dev/?ask=" + ask;
+        requestUrl = serverURL + "?ask=" + ask;
     }
     let res = false;
     await fetch(requestUrl, {headers: new Headers({'Authorization': token})}).then(r => res=r).catch(e => console.log(e));
@@ -219,7 +293,7 @@ export async function fetchData(ask, src = 'sch', auth=true) {
 export async function getData() {
     let data = {};
 
-    data.dataState = await stateManager();
+    await stateManager().then(state => data.dataState=state).catch(e => {console.log(e); data.dataState="askToLogin"});
     let userId = false;
     let dtt = false;
     let tt = false;
@@ -229,8 +303,6 @@ export async function getData() {
         let checkAllGood = true;
         const source = "sch";
         await Promise.all([
-            fetchData('idn', source).then(res => userId = res.studentId)
-                .then(() => userId ? data.userId=userId : checkAllGood=false),
             fetchData('dtt', source).then(res => dtt = res)
                 .then(() => dtt ? data.dtt=dtt : checkAllGood=false),
             fetchData('tt', source).then(res => tt = res)
@@ -238,7 +310,9 @@ export async function getData() {
             fetchData('note', source).then(res => note = res)
                 .then(() => note ? data.feeds=note : checkAllGood=false),
             fetchData('wk', source).then(res => weekData=res)
-                .then(() => weekData ? data.dayName=(weekData.day + " " + weekData.week + weekData.weekType) : checkAllGood=false)
+                .then(() => weekData ? data.dayName=(weekData.day + " " + weekData.week + weekData.weekType) : checkAllGood=false),
+            fetchData('idn', source).then(res => userId = res.studentId)
+                .then(() => userId ? data.userId=userId : checkAllGood=false)
         ]).catch(e => console.log(e));
 
         if (weekData) {
@@ -259,7 +333,7 @@ export async function getData() {
 
         if (checkAllGood) {
             let timestamp = dtt.date.split("-");
-            let timestamp2 = new Date(Number(timestamp[0]), Number(timestamp[1]), Number(timestamp[2]), 23, 59, 59);
+            let timestamp2 = new Date(Number(timestamp[0]), Number(timestamp[1]) - 1, Number(timestamp[2]), 16, 0, 0);
             data.timestamp = timestamp2.getTime().toString();
         }
         else {
@@ -270,118 +344,118 @@ export async function getData() {
     return data;
 }
 
-export async function organiser() {
-    let data = {
-        timestamp: 0,
-        dayName: "Loading ...",
-        dataState: "",
-        userId: "000000000",
-        dtt: {},
-        tt: {},
-        bells: [],
-        sync: {}
-    };
-    // console.log("week: " + getWeekNum(1642398038000));
-
-    //getdata
-
-    // await getData();
-
-    saveItem('storedData', data);
-
-    function synthDTT() {
-        let output = {
-            "status": "OK",
-            "date": "",
-            "roomVariations": [],
-            "classVariations": {},
-            "serverTimezone": "39600",
-            "shouldDisplayVariations": false,
-            bells: [],
-            timetable: {},
-        }
-
-        const today = new Date();
-        let showDay;
-        let dayDiff;
-        if (today.getDay() === 6) {
-            showDay = today.getTime() + 2*24*60*60*1000;
-            dayDiff = 1;
-        }
-        else if (today.getDay() === 0) {
-            showDay = today.getTime() + 24*60*60*1000;
-            dayDiff = 1;
-        }
-        else {
-            showDay = today.getTime();
-            dayDiff = today.getDay();
-        }
-
-        let weekNo = getWeekNum(showDay);
-        let sync = data.sync;
-        let weekDiff = ((weekNo - sync.weekNo) + sync.weekDiff) % 3;
-
-        //could be object as normal or array when there are period 0s.
-        let fetchedTimetable = data.tt.days[(dayDiff + 5*weekDiff).toString()];
-        if (Array.isArray(fetchedTimetable)) {
-            let i = 0;
-            while (i < fetchedTimetable.length) {
-                output.timetable.timetable[i.toString()] = fetchedTimetable[i];
-                i++;
-            }
-        }
-        else {
-            output.timetable.timetable = fetchedTimetable;
-        }
-
-        output.timetable.subjects = data.tt.subjects;
-
-        let weekdays = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-        let weeks = ["A", "B", "C"];
-
-        data.dayName = (weekdays[dayDiff] + " " + weeks[weekDiff]);
-        let dayOut = new Date(showDay);
-        output.date = (
-            dayOut.getFullYear().toString()
-            + "-"
-            + (dayOut.getMonth() + 1).toString()
-            + "-"
-            + dayOut.getDate().toString()
-        );
-
-        if (dayDiff === 1 || dayDiff === 2) {
-            output.bells = [...bellRoutines.MonTue];
-        }
-        else if (dayDiff === 3 || dayDiff === 4) {
-            output.bells = [...bellRoutines.WedThu];
-        }
-        else if (dayDiff === 5) {
-            output.bells = [...bellRoutines.Fri];
-        }
-        else {
-            console.log("dayDiff not in range 1-5 when generating synthetic day timetable.");
-        }
-
-        data.bells = [...output.bells];
-
-        // console.log(output);
-
-        return output;
-
-    }
-
-    const synth = synthDTT();
-    // console.log(data.bells);
-
-    if (data.dtt.hasOwnProperty('timetable')===false && data.tt.hasOwnProperty('subjects')) {
-        if (synth) {
-            data.dtt = synth;
-        }
-        else {
-            console.log("Failed to generate day schedule from timetable.");
-        }
-    }
-
-    return data;
-
-}
+// export async function organiser() {
+//     let data = {
+//         timestamp: 0,
+//         dayName: "Loading ...",
+//         dataState: "",
+//         userId: "000000000",
+//         dtt: {},
+//         tt: {},
+//         bells: [],
+//         sync: {}
+//     };
+//     // console.log("week: " + getWeekNum(1642398038000));
+//
+//     //getdata
+//
+//     // await getData();
+//
+//     saveItem('storedData', data);
+//
+//     function synthDTT() {
+//         let output = {
+//             "status": "OK",
+//             "date": "",
+//             "roomVariations": [],
+//             "classVariations": {},
+//             "serverTimezone": "39600",
+//             "shouldDisplayVariations": false,
+//             bells: [],
+//             timetable: {},
+//         }
+//
+//         const today = new Date();
+//         let showDay;
+//         let dayDiff;
+//         if (today.getDay() === 6) {
+//             showDay = today.getTime() + 2*24*60*60*1000;
+//             dayDiff = 1;
+//         }
+//         else if (today.getDay() === 0) {
+//             showDay = today.getTime() + 24*60*60*1000;
+//             dayDiff = 1;
+//         }
+//         else {
+//             showDay = today.getTime();
+//             dayDiff = today.getDay();
+//         }
+//
+//         let weekNo = getWeekNum(showDay);
+//         let sync = data.sync;
+//         let weekDiff = ((weekNo - sync.weekNo) + sync.weekDiff) % 3;
+//
+//         //could be object as normal or array when there are period 0s.
+//         let fetchedTimetable = data.tt.days[(dayDiff + 5*weekDiff).toString()];
+//         if (Array.isArray(fetchedTimetable)) {
+//             let i = 0;
+//             while (i < fetchedTimetable.length) {
+//                 output.timetable.timetable[i.toString()] = fetchedTimetable[i];
+//                 i++;
+//             }
+//         }
+//         else {
+//             output.timetable.timetable = fetchedTimetable;
+//         }
+//
+//         output.timetable.subjects = data.tt.subjects;
+//
+//         let weekdays = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+//         let weeks = ["A", "B", "C"];
+//
+//         data.dayName = (weekdays[dayDiff] + " " + weeks[weekDiff]);
+//         let dayOut = new Date(showDay);
+//         output.date = (
+//             dayOut.getFullYear().toString()
+//             + "-"
+//             + (dayOut.getMonth() + 1).toString()
+//             + "-"
+//             + dayOut.getDate().toString()
+//         );
+//
+//         if (dayDiff === 1 || dayDiff === 2) {
+//             output.bells = [...bellRoutines.MonTue];
+//         }
+//         else if (dayDiff === 3 || dayDiff === 4) {
+//             output.bells = [...bellRoutines.WedThu];
+//         }
+//         else if (dayDiff === 5) {
+//             output.bells = [...bellRoutines.Fri];
+//         }
+//         else {
+//             console.log("dayDiff not in range 1-5 when generating synthetic day timetable.");
+//         }
+//
+//         data.bells = [...output.bells];
+//
+//         // console.log(output);
+//
+//         return output;
+//
+//     }
+//
+//     const synth = synthDTT();
+//     // console.log(data.bells);
+//
+//     if (data.dtt.hasOwnProperty('timetable')===false && data.tt.hasOwnProperty('subjects')) {
+//         if (synth) {
+//             data.dtt = synth;
+//         }
+//         else {
+//             console.log("Failed to generate day schedule from timetable.");
+//         }
+//     }
+//
+//     return data;
+//
+// }

@@ -30,10 +30,11 @@ function App() {
         let storedData = passItem('storedData');
         if (storedData !== null) {
             if (Date.now() <= Number(storedData.timestamp)) {
+                console.log("Stored data still valid");
                 output = storedData;
             }
             else if (storedData.tt.hasOwnProperty('subjects')) {
-                output = {...storedData, ...{dtt: {}, feeds: {}}};
+                output = {...storedData, ...{dtt: {}, feeds: {}, dataState: "askToLogin"}};
             }
         }
         return output;
@@ -44,14 +45,20 @@ function App() {
     let pageBells;
     let pageBarcode = (<PageBarcode userIdCode={data.userId} />);
     let pageTimetable = (<PageTimetable data={data.tt} sync={data.sync} />);
-    let pageFeeds = (<PageFeeds data={data.feeds} dataState={data.dataState} />);
+    let pageFeeds = (<PageFeeds data={data.feeds} isOffline={(data.dataState==="offline")} />);
     let pageSettings = (<PageSettings />);
 
     if (passStr('usedApp') === null) {
         pageBells = (<About />);
     }
     else {
-        pageBells = (<PageBells dayName={data.dayName} data={data.dtt} defaultBells={data.bells} />);
+        pageBells = (
+            <PageBells
+                dayName={data.dayName}
+                data={data.dtt}
+                defaultBells={data.bells}
+                isOffline={(data.dataState==="offline")}
+            />);
     }
 
     const [currentPage, setCurrentPage] = useState(pageBells);
@@ -59,8 +66,15 @@ function App() {
     React.useEffect(() => {
         async function dataManager() {
             let newData = {};
-            await getData().then(res => newData = res).catch((err) => console.log(err));
-            newData = ({...data, ...newData});
+            let newDataInput = {};
+            let doNothing;
+            await getData()
+                .then(res => newDataInput=res)
+                .then(() => (newDataInput.hasOwnProperty("dataState") ? newData=newDataInput : doNothing=false))
+                .catch((err) => console.log(err));
+            console.log(data);
+            console.log(newData);
+            console.log(newDataInput);
 
             function synthDTT() {
                 let output = {
@@ -74,9 +88,15 @@ function App() {
                     timetable: {},
                 }
 
-                const today = new Date();
+                let today = new Date();
                 let showDay;
                 let dayDiff;
+                if (today.getHours() >= 16) {
+                    let millisInDay = 86400000;
+                    let timeNow = today.getTime();
+                    today = new Date((Math.floor(timeNow / millisInDay) * millisInDay) + millisInDay + 10000);
+                    console.log("detected afternoon");
+                }
                 if (today.getDay() === 6) {
                     showDay = today.getTime() + 2*24*60*60*1000;
                     dayDiff = 1;
@@ -89,13 +109,24 @@ function App() {
                     showDay = today.getTime();
                     dayDiff = today.getDay();
                 }
+                console.log(showDay);
+                console.log(displayData);
 
                 let weekNo = getWeekNum(showDay);
-                let sync = newData.sync;
-                let weekDiff = ((weekNo - sync.weekNo) + sync.weekDiff) % 3;
+                let sync = displayData.sync;
+                if (sync === null || sync === undefined) {
+                    return false;
+                }
+                let weekDiff;
+                if (weekNo < sync.weekNo) {
+                    weekDiff = sync.weekNo;
+                }
+                else {
+                    weekDiff = ((weekNo - sync.weekNo) + sync.weekDiff) % 3;
+                }
 
                 //could be object as normal or array when there are period 0s.
-                let fetchedTimetable = newData.tt.days[(dayDiff + 5*weekDiff).toString()];
+                let fetchedTimetable = displayData.tt['days'][(dayDiff + 5*weekDiff).toString()];
                 if (Array.isArray(fetchedTimetable)) {
                     let i = 0;
                     while (i < fetchedTimetable.length) {
@@ -107,7 +138,7 @@ function App() {
                     output.timetable.timetable = fetchedTimetable;
                 }
 
-                output.timetable.subjects = newData.tt.subjects;
+                output.timetable.subjects = displayData.tt.subjects;
 
                 let weekdays = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
                 let weeks = ["A", "B", "C"];
@@ -132,30 +163,41 @@ function App() {
                     output.bells = [...bellRoutines.Fri];
                 }
                 else {
-                    console.log("dayDiff not in range 1-5 when generating synthetic day timetable.");
+                    console.log("Error when generating synthetic day timetable.");
                 }
 
-                output.bells = [...output.bells];
-
-                // console.log(output);
+                console.log(output);
 
                 return output;
 
             }
 
-            if (newData.dtt.hasOwnProperty('timetable')===false && newData.tt.hasOwnProperty('subjects')) {
+            let displayData = {...data, ...newData};
+
+            let savedData = passItem('storedData');
+            savedData = {...savedData, ...newData};
+            saveItem('storedData', savedData);
+
+            if (displayData.dtt.hasOwnProperty('timetable')===false && displayData.tt.hasOwnProperty('subjects')) {
                 const synth = synthDTT();
                 if (synth) {
-                    newData.dtt = synth;
-                    newData.dayName = synth.dayName;
+                    displayData.dtt = synth;
+                    displayData.dayName = synth.dayName;
                 }
                 else {
                     console.log("Failed to generate day schedule from timetable.");
                 }
             }
-            saveItem('storedData', newData);
-            setData(newData);
-            setCurrentPage(<PageBells dayName={newData.dayName} data={newData.dtt} defaultBells={newData.bells} />);
+
+            setData(displayData);
+
+            setCurrentPage(
+                <PageBells
+                    dayName={displayData.dayName}
+                    data={displayData.dtt}
+                    defaultBells={displayData.bells}
+                    isOffline={(displayData.dataState==="offline")}
+                />);
 
         }
         if (passStr("usedApp") === null) {
@@ -178,7 +220,7 @@ function App() {
         else if (off) {
             setLogin(false);
         }
-        else if (passStr("useApp") === null) {
+        else if (passStr("usedApp") === null) {
             setLogin(true);
         }
         else {

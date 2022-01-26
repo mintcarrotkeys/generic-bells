@@ -31,20 +31,22 @@ export default function FeedItem(props) {
         }
         meetingInfo = (
             <div className="feedItem__meetingTag" style={fill}>
-                <h6 className="feedItem__metadata feedItem__metadata__meeting">{meetingMessage}</h6>
-                <h6 className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingTime}</h6>
+                <b className="feedItem__metadata feedItem__metadata__meeting">{meetingMessage}</b>
+                <b className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingTime}</b>
             </div>
         );
         if (message.hasOwnProperty("meetingLocation") && message.meetingLocation) {
             meetingInfo = (
                 <div className="feedItem__meetingTag" style={fill}>
-                    <h6 className="feedItem__metadata feedItem__metadata__meeting">{meetingMessage}</h6>
-                    <h6 className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingTime}</h6>
-                    <h6 className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingLocation}</h6>
+                    <b className="feedItem__metadata feedItem__metadata__meeting">{meetingMessage}</b>
+                    <b className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingTime}</b>
+                    <b className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingLocation}</b>
                 </div>
             );
         }
     }
+
+    message.content = message.content.replaceAll("<br>", "\n");
 
     const output = (
         <div
@@ -54,7 +56,7 @@ export default function FeedItem(props) {
             <h2 className="feedItem__title">{message.title}</h2>
             <div className="feedItem__metadataRow settings">
                 {meetingInfo}
-                <h6 className="feedItem__metadata">{message.authorName}</h6>
+                <b className="feedItem__metadata">{message.authorName}</b>
                 <div className="feedItem__metadata">{message.displayYears}</div>
             </div>
             <p

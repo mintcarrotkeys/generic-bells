@@ -73,7 +73,10 @@ export default function PageTimetable(props) {
         return {day: dayDiff, week: weekDiff};
     }
 
-    const orderInfo = calcToday(props.sync);
+    let orderInfo = {day: 0, week: -1};
+    if (props.sync.hasOwnProperty("weekNo")) {
+        orderInfo = calcToday(props.sync);
+    }
 
     let weeks = [];
     if (orderInfo.week <= 0) {

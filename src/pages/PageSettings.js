@@ -84,11 +84,10 @@ export default function PageSettings(props) {
         <div className="page__settings page__prop">
             <h1>Settings</h1>
             <div className="group" id="banner">
-                {/*<img className="banner__image" width="100px" src={logo} alt="logo" />*/}
                 <Logo style={{width: '100px'}} />
             </div>
             <div className="group">
-                <h2 className="settings">Change colours & names</h2>
+                <h2 className="settings">Customise colours & names</h2>
                 <p className="settings">
                     Choose a colour for each subject. Long names are used on the daily
                     timetable. Short names are used on the full timetable (max. 4 letters).
@@ -150,13 +149,13 @@ export default function PageSettings(props) {
                     onClick={() => handleFeedsToggle(!feedsExpanded)}
                 >
                     <h2 className="feedItem__title">Click me</h2>
-                    <div className="feedItem__metadataRow settings">
-                        <div className="feedItem__meetingTag">
+                    <div className="feedItem__metadataRow settings" >
+                        <div className="feedItem__meetingTag" style={{backgroundColor: '#d0d0d0'}}>
                             <div className="feedItem__metadata feedItem__metadata__meeting">Meeting: </div>
-                            <h6 className="feedItem__metadata feedItem__metadata__meeting settings">Time</h6>
-                            <h6 className="feedItem__metadata feedItem__metadata__meeting settings">Location</h6>
+                            <b className="feedItem__metadata feedItem__metadata__meeting settings">Time</b>
+                            <b className="feedItem__metadata feedItem__metadata__meeting settings">Location</b>
                         </div>
-                        <h6 className="feedItem__metadata">Teacher</h6>
+                        <b className="feedItem__metadata">Teacher</b>
                         <div className="feedItem__metadata">Student years</div>
                     </div>
                     <p
@@ -189,40 +188,84 @@ export default function PageSettings(props) {
             </div>
             <div className="group">
                 <h2 className="settings">Help</h2>
-                <h6 className="settings">Show teacher name & classes</h6>
-                <p className="settings">Click on each period on the home page to see details.</p>
+                <h5 className="settings">Show teacher name for periods</h5>
+                <p className="settings">Click on each period on the main page to see details.</p>
+                <h5 className="settings">Site not working?</h5>
+                <p className="settings">Close all browser tabs and try again.</p>
+                <p className="settings">
+                    Try removing "site data" for this site in your browser settings.
+                    This may be listed under various names like privacy, clear cookies, manage browsing data etc.
+                    Look up your browser to see how to do this.
+                </p>
+                <h5 className="settings">Contact</h5>
+                <p className="settings">Google forms: <a href="https://forms.gle/me4tVTEv1ect7Lhn9">https://forms.gle/me4tVTEv1ect7Lhn9</a></p>
 
             </div>
             <div className="group">
                 <h2 className="settings">About Generic Bells</h2>
-                <p className="settings">This app aims to show your timetable in a concise, friendly and reliable way.</p>
+                <h5 className="settings">version 1.3.6</h5>
+                <p className="settings">A colourful, customisable & concise web app to show your SBHS timetable data.</p>
                 <p className="settings">Source code can be found on Github here.</p>
                 <p className="settings"><a href="https://github.com/mintcarrotkeys/generic-bells">mintcarrotkeys/generic-bells</a></p>
                 <p className="settings"><br /></p>
-                <h4 className="settings">version 1.2.1</h4>
                 <p className="settings">
                     This is a beta release, meaning the software will have bugs and unforeseen problems.
-                    Use at your own risk. Don't enter any sensitive or important data into the app.
+                    Use at your own risk. Don't enter any private or irrecoverable data into the app.
+                    Your school API data is stored locally on your device for security and compliance.
                 </p>
-                <h6 className="settings">
-                    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-                    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-                    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-                    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-                    DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-                    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-                </h6>
+                <p className="settings no_fold">
+                    <br />
+                    Code is released with the MIT license.
+                    <br /><br />
+                    Copyright (c) 2022 mintcarrotkeys
+                    <br /><br />
+                    Permission is hereby granted, free of charge, to any person obtaining a copy
+                    of this software and associated documentation files (the "Software"), to deal
+                    in the Software without restriction, including without limitation the rights
+                    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                    copies of the Software, and to permit persons to whom the Software is
+                    furnished to do so, subject to the following conditions:
+                    <br /><br />
+                    The above copyright notice and this permission notice shall be included in all
+                    copies or substantial portions of the Software.
+                    <br /><br />
+                    <b>
+                    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+                    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+                    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+                    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+                    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+                    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+                    SOFTWARE.
+                    </b>
+                    <br /><br />
+                    src/assets/code128TranslationData.js was based on data from Wikipedia:
+                    https://en.wikipedia.org/wiki/Code_128
+                    under the CC-BY-SA license. The file is shared under the same license:
+                    https://creativecommons.org/licenses/by-sa/3.0/
+                    <br /><br />
+                    src/assets/nav-icons.js contains icons obtained from Bootstrap under the MIT license.
+                    Copyright (c) 2019-2021 The Bootstrap Authors for those icons.
+                    <br /><br />
+                    See source code on Github for more details. (link above)
+                    <br /><br />
+                    <b>
+                        The Generic Bells logo, which is used within the app and as a favicon, is:<br />
+                        Copyright (c) 2022 mintcarrotkeys All rights reserved.
+                    </b>
+                    <br />
+                </p>
             </div>
-            <div className="group">
-                <h1 className="settings">Sample text</h1>
-                <h2 className="settings">Heading 2</h2>
-                <h3 className="settings">Heading 3</h3>
-                <h4 className="settings">Heading 4</h4>
-                <h5 className="settings">Heading 5</h5>
-                <h6 className="settings">Heading 6</h6>
-                <p className="settings">Body text</p>
+            {/*<div className="group">*/}
+            {/*    <h1 className="settings">Sample text</h1>*/}
+            {/*    <h2 className="settings">Heading 2</h2>*/}
+            {/*    <h3 className="settings">Heading 3</h3>*/}
+            {/*    <h4 className="settings">Heading 4</h4>*/}
+            {/*    <h5 className="settings">Heading 5</h5>*/}
+            {/*    <h6 className="settings">Heading 6</h6>*/}
+            {/*    <p className="settings">Body text</p>*/}
 
-            </div>
+            {/*</div>*/}
         </div>
     );
 

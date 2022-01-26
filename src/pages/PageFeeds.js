@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { passItem } from "../version";
 import FeedItem from "../components/FeedItem";
+import Offline from "../components/Offline";
 
 
 export default function PageFeeds(props) {
@@ -39,7 +40,6 @@ export default function PageFeeds(props) {
                         data={message}
                         date={props.data.dayInfo.date}
                         key={i.toString()}
-                        id={i.toString()}
                     />
                 );
             }
@@ -49,14 +49,15 @@ export default function PageFeeds(props) {
 
     if (feedScroll.length === 0) {
         feedScroll.push(
-            <div className="group">
-                <h3 className="settings" key={"noNews"}>No school notices to show for today.</h3>
+            <div className="group" key={-1}>
+                <h3 className="settings">No school notices to show for today.</h3>
             </div>
         );
     }
 
     const output = (
         <div className="page__feeds page__prop">
+            {props.isOffline ? <Offline /> : ""}
             <h1>Notices</h1>
             <div className="feeds__container ">
                 {feedScroll}

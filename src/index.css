@@ -1,17 +1,17 @@
 
 
-/*noinspection ALL*/
+
 .about__icon {
     margin-top: 40px;
     width: 150px;
 }
 
-/*noinspection ALL*/
+
 .about__title {
     margin: 40px auto;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .about__button.button {
     margin: 0px;
     padding: 10px 25px;
@@ -77,12 +77,12 @@
     }
 }
 
-/*noinspection ALL*/
+
 .about__button:hover {
     /*animation: 15s ease-in-out 0s infinite normal colourChange;*/
 }
 
-/*noinspection ALL*/
+
 .about__container {
     display: flex;
     flex-direction: column;
@@ -94,7 +94,7 @@
     margin: auto;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .about__description {
     font-weight: 300;
     font-size: 20px;
@@ -156,8 +156,8 @@ h5 {
 }
 
 h6 {
-    font-weight: 500;
-    font-size: 13px;
+    font-weight: 400;
+    font-size: 15px;
 }
 
 p {
@@ -179,10 +179,10 @@ p {
     /*justify-content: start;*/
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .page__prop {
-    /*animation-duration: 0s;*/
-    /*animation-name: pageFade;*/
+    animation-duration: 0.2s;
+    animation-name: pageFade;
     width: calc(100vw - 30px);
     min-width: 250px;
     max-width: 600px;
@@ -217,13 +217,13 @@ p {
         margin-bottom: calc((100vw / 5.7887));
     }
 
-    /*noinspection ALL*/
+
     .page__prop {
         padding: 15px 15px 100px 15px;
     }
 
 
-    /*noinspection CssRedundantUnit*/
+
     .nav {
         padding-left: 15px;
         padding-right: 15px;
@@ -241,7 +241,7 @@ p {
         flex-direction: row;
     }
 
-    /*noinspection ALL*/
+
     .nav__button {
         height: calc(0.72 * (100vw / 5.7887));
         padding-top: calc(0.14 * (100vw / 5.7887));
@@ -255,39 +255,44 @@ p {
         justify-content: center;
     }
 
-    /*noinspection ALL*/
+
     .nav__button__icon {
         width: 35px;
         height: 35px;
     }
 
-    /*noinspection ALL*/
+
     .nav__button__name {
         font-weight: 400;
         font-size: calc(5px + 2vw);
     }
 
-    /*noinspection ALL*/
+
     .nav__button--currentPage {
         background-image: linear-gradient(to top,  #e0e0e0 30%, #ffffff 100%);
     }
 
-    /*noinspection ALL*/
+
     .period__center {
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
     }
 
-    /*noinspection ALL*/
+
     .topBar__countdown.topBar__countdown--long {
         font-size: 30px;
     }
 
-    /*noinspection ALL*/
+
     .askLogin {
         width: 100vw;
         bottom: calc((100vw / 5.7887) + 20px);
+    }
+
+    p {
+        font-weight: 400;
+        font-size: 13px;
     }
 }
 @media (min-aspect-ratio: 11/9) {
@@ -299,7 +304,7 @@ p {
         margin-left: 70px;
     }
 
-    /*noinspection CssRedundantUnit*/
+
     .nav {
         width: 70px;
         height: 100vh;
@@ -314,7 +319,7 @@ p {
         justify-content: center;
     }
 
-    /*noinspection ALL*/
+
     .nav__button {
         padding-left: 10px;
         padding-right: 10px;
@@ -328,31 +333,31 @@ p {
         justify-content: center;
     }
 
-    /*noinspection ALL*/
+
     .nav__button__icon {
         width: 30px;
         height: 30px;
     }
 
-    /*noinspection ALL*/
+
     .nav__button__name {
         font-weight: 400;
         font-size: 12px;
     }
 
-    /*noinspection ALL*/
+
     .nav__button--currentPage {
         background-image: linear-gradient(to right, #e0e0e0 30%, #ffffff 100%);
     }
 
-    /*noinspection ALL*/
+
     .period__center {
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
     }
 
-    /*noinspection ALL*/
+
     .askLogin {
         width: calc(100vw - 70px);
         bottom: 40px;
@@ -363,9 +368,12 @@ p {
         background-color: white;
     }
 
-    /*noinspection ALL*/
     .toggle__side:hover {
         background-color: #92c748;
+    }
+    p {
+        font-weight: 400;
+        font-size: 14px;
     }
 }
 
@@ -380,7 +388,7 @@ p {
     justify-content: center;
 }
 
-/*noinspection ALL*/
+
 .nav__button--center__icon {
     flex: 1 1 50px;
     width: 50px;
@@ -388,19 +396,19 @@ p {
 
 }
 
-/*noinspection ALL*/
+
 .page__bells {
     min-width: 200px;
 }
 
-/*noinspection ALL*/
+
 .page__bells__row {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 
-/*noinspection CssRedundantUnit*/
+
 .period {
     background-color: white;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
@@ -424,7 +432,7 @@ p {
 /*    height: 680px;*/
 /*}*/
 
-/*noinspection ALL*/
+
 .period__top {
     padding: 5px;
     width: calc(100% - 10px);
@@ -434,7 +442,7 @@ p {
     flex-wrap: wrap;
 }
 
-/*noinspection ALL*/
+
 .period__icon {
     border-radius: 5px;
     width: 30px;
@@ -446,7 +454,7 @@ p {
     align-items: center;
 }
 
-/*noinspection ALL*/
+
 .period__name {
     flex: 1 1;
     margin-left: 5px;
@@ -465,12 +473,12 @@ p {
     text-align: center;
 }
 
-/*noinspection ALL*/
+
 .period__room--highlight {
     background-color: #ffc633;
 }
 
-/*noinspection ALL*/
+
 .period__details {
     width: calc(100% - 10px);
     font-weight: 400;
@@ -486,7 +494,7 @@ p {
     transition: all 0.2s;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .period__details.period__details--closed {
     height: 0px;
     padding: 0px;
@@ -496,7 +504,7 @@ p {
     animation-name: disappear;
 }
 
-/*noinspection ALL*/
+
 .period__details.period__details--expanded {
     height: 17px;
 
@@ -504,7 +512,7 @@ p {
     animation-name: appear;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .period__details__item {
     padding: 0px 5px;
 }
@@ -550,18 +558,18 @@ p {
 
 }
 
-/*noinspection ALL*/
+
 .break__name {
     flex: 7 7;
 }
 
-/*noinspection ALL*/
+
 .break__time {
     flex: 1 1;
     text-align: center;
 }
 
-/*noinspection ALL*/
+
 .page__barcode {
     display: flex;
     flex-direction: column;
@@ -583,7 +591,7 @@ p {
     /*box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);*/
 }
 
-/*noinspection ALL*/
+
 .barcodeInput {
     padding: 5px;
     font-size: 20px;
@@ -592,7 +600,7 @@ p {
     margin: 10px;
 }
 
-/*noinspection ALL*/
+
 .barcodeInput:focus {
     padding: 4px;
 }
@@ -613,7 +621,7 @@ p {
     background-color: white;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .barcodeOutput {
     font-family: 'Libre Barcode 128', sans-serif;
     font-size: calc(50px + 10vw);
@@ -624,7 +632,7 @@ p {
     white-space: pre;
 }
 
-/*noinspection ALL*/
+
 #topBar {
     min-height: 50px;
     display: flex;
@@ -635,30 +643,30 @@ p {
 }
 
 @media screen and (max-width: 310px) {
-    /*noinspection ALL*/
+
     #topBar {
         flex-direction: column;
     }
 
-    /*noinspection ALL*/
+
     .topBar__countdown {
         margin: 5px;
     }
 }
 
 @media screen and (min-width: 310px) {
-    /*noinspection ALL*/
+
     #topBar {
         flex-direction: row;
     }
 }
 
-/*noinspection ALL*/
+
 .topBar__side {
 
 }
 
-/*noinspection ALL*/
+
 .topBar__left {
     flex: 1 1 10px;
     /*-right: 5px;*/
@@ -669,13 +677,13 @@ p {
     text-align: left;
 }
 
-/*noinspection ALL*/
+
 .topBar__middle {
     flex: 0 0;
     text-align: center;
 }
 
-/*noinspection ALL*/
+
 .topBar__right {
     flex: 1 1 10px;
     display: flex;
@@ -686,34 +694,34 @@ p {
     text-align: right;
 }
 
-/*noinspection ALL*/
+
 .topBar__countdown {
     font-size: 40px;
     font-weight: 400;
 }
 
-/*noinspection ALL*/
+
 .topBar__until {
     color: #888888;
     text-align: right;
 }
 
-/*noinspection ALL*/
+
 .topBar__right__icon {
     margin-left: 5px;
 }
 
-/*noinspection ALL*/
+
 .topBar__dateDisplay {
 
 }
 
-/*noinspection ALL*/
+
 .topBar__sideIcons {
 
 }
 
-/*noinspection ALL*/
+
 .askLogin {
     display: flex;
     justify-content: center;
@@ -723,7 +731,7 @@ p {
 
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .askLogin__button {
     display: flex;
     justify-content: center;
@@ -733,7 +741,7 @@ p {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/*noinspection ALL*/
+
 .askLogin__icon {
     width: 20px;
     height: 20px;
@@ -741,7 +749,7 @@ p {
     padding-right: 5px;
 }
 
-/*noinspection ALL*/
+
 .page__settings {
     display: block;
     min-width: 250px;
@@ -751,7 +759,7 @@ p {
     margin: 5px;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .settings__classInfo {
     display: block;
     margin: 0px;
@@ -759,7 +767,7 @@ p {
 
 }
 
-/*noinspection ALL*/
+
 .settings__classInfo__row {
     display: flex;
     flex-direction: row;
@@ -768,7 +776,7 @@ p {
 
 }
 
-/*noinspection ALL*/
+
 .settings__classInfo__col {
     width: 26px;
     height: 26px;
@@ -781,7 +789,7 @@ p {
     justify-content: center;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .settings__classInfo__name {
     margin: 0px 3px;
     min-width: 100px;
@@ -790,7 +798,7 @@ p {
     font-weight: 400;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .settings__classInfo__code {
     margin: 0px 3px;
     min-width: 50px;
@@ -800,14 +808,14 @@ p {
     text-align: center;
 }
 
-/*noinspection ALL*/
+
 .settings__classInfo__icon {
     color: inherit;
     width: 15px;
     height: 15px;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .group {
     background-color: white;
     color: #222222;
@@ -818,7 +826,6 @@ p {
     margin-bottom: 10px;
 }
 
-/*noinspection CssRedundantUnit*/
 .colPicker {
     display: flex;
     align-items: center;
@@ -828,7 +835,7 @@ p {
 
 }
 
-/*noinspection ALL*/
+
 .colPicker__option {
     margin: 2px;
 }
@@ -840,13 +847,13 @@ p {
     background-color: #333333;
 }
 
-/*noinspection ALL*/
+
 .page__timetable {
     min-width: 285px;
 }
 
 @media screen and (max-width: 665px) {
-    /*noinspection ALL*/
+
     .timetable__week {
         display: flex;
         flex-direction: column;
@@ -856,7 +863,7 @@ p {
         margin: 0 auto;
     }
 
-    /*noinspection ALL,CssRedundantUnit*/
+
     .tt__wk__wrapper {
         background-color: white;
         box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
@@ -874,23 +881,23 @@ p {
 
     }
 
-    /*noinspection ALL*/
+
     .tt__wk__heading {
         padding: 5px;
     }
 
-    /*noinspection ALL*/
+
     .tt__indexCol {
         flex: 0 0 25px;
         padding-top: 25px;
     }
 
-    /*noinspection ALL*/
+
     .tt__index {
         padding: 15px 2.5px;
     }
 
-    /*noinspection ALL*/
+
     .tt__index__icon {
         width: 20px;
         height: 20px;
@@ -905,7 +912,7 @@ p {
     }
 
 
-    /*noinspection ALL*/
+
     .tt__day {
         flex: 0 0;
 
@@ -916,7 +923,7 @@ p {
 
     }
 
-    /*noinspection ALL*/
+
     .tt__emptyCell {
         margin: 5px;
         height: 40px;
@@ -926,7 +933,7 @@ p {
         background-color: #eeeeee;
     }
 
-    /*noinspection ALL,CssRedundantUnit*/
+
     .tt__cell {
         background-color: white;
         margin: 5px;
@@ -942,7 +949,7 @@ p {
         align-items: center;
     }
 
-    /*noinspection ALL*/
+
     .tt__cell__name {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
@@ -957,7 +964,7 @@ p {
         font-weight: 400;
     }
 
-    /*noinspection ALL*/
+
     .tt__cell__room {
         min-height: 17px;
         width: 40px;
@@ -973,7 +980,7 @@ p {
         font-weight: 500;
     }
 
-    /*noinspection ALL*/
+
     .tt__dayName {
         width: 40px;
         height: 20px;
@@ -987,7 +994,7 @@ p {
 }
 
 @media screen and (min-width: 665px) {
-    /*noinspection ALL*/
+
     .timetable__week {
         display: flex;
         flex-direction: column;
@@ -997,7 +1004,7 @@ p {
         margin: 0 auto;
     }
 
-    /*noinspection ALL,CssRedundantUnit*/
+
     .tt__wk__wrapper {
         background-color: white;
         box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
@@ -1015,23 +1022,23 @@ p {
 
     }
 
-    /*noinspection ALL*/
+
     .tt__wk__heading {
         padding: 5px;
     }
 
-    /*noinspection ALL*/
+
     .tt__indexCol {
         flex: 0 0 30px;
         padding-top: 28px;
     }
 
-    /*noinspection ALL*/
+
     .tt__index {
         padding: 7.5px 2.5px;
     }
 
-    /*noinspection ALL*/
+
     .tt__index__icon {
         width: 25px;
         height: 25px;
@@ -1046,7 +1053,7 @@ p {
     }
 
 
-    /*noinspection ALL*/
+
     .tt__day {
         flex: 0 0;
         display: flex;
@@ -1056,7 +1063,7 @@ p {
 
     }
 
-    /*noinspection ALL*/
+
     .tt__emptyCell {
         margin: 5px;
         height: 30px;
@@ -1066,7 +1073,7 @@ p {
         background-color: #eeeeee;
     }
 
-    /*noinspection ALL,CssRedundantUnit*/
+
     .tt__cell {
         background-color: white;
         margin: 5px;
@@ -1082,7 +1089,7 @@ p {
         align-items: center;
     }
 
-    /*noinspection ALL*/
+
     .tt__cell__name {
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
@@ -1097,7 +1104,7 @@ p {
         font-weight: 400;
     }
 
-    /*noinspection ALL*/
+
     .tt__cell__room {
         height: 30px;
         width: 45px;
@@ -1114,7 +1121,7 @@ p {
         font-weight: 500;
     }
 
-    /*noinspection ALL*/
+
     .tt__dayName {
         width: 60px;
         height: 23px;
@@ -1129,13 +1136,12 @@ p {
 }
 
 
-/*noinspection ALL*/
+
 .feeds__container {
     width: 100%;
     max-width: 600px;
 }
 
-/*noinspection CssRedundantUnit*/
 .feedItem {
     background-color: white;
     color: #222222;
@@ -1147,13 +1153,13 @@ p {
     overflow: auto;
 }
 
-/*noinspection ALL*/
+
 .feedItem__title {
     padding: 5px 10px 2px 10px;
     margin: 0;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .feedItem__metadataRow {
     display: flex;
     flex-wrap: wrap;
@@ -1165,7 +1171,7 @@ p {
     padding: 0px 5px 2px 5px;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .feedItem__metadata {
     padding: 0px 5px 3px 5px;
     margin: 0px;
@@ -1173,29 +1179,23 @@ p {
     font-weight: 400;
 }
 
-/*noinspection ALL*/
-h6.feedItem__metadata {
-    font-weight: 500;
-}
-
-/*noinspection ALL*/
 .feedItem__body {
-    margin: 2px 10px 5px 10px;
-    /*margin: 0px;*/
+    margin: 5px 10px 4px 10px;
+    white-space: pre-wrap;
 }
 
-/*noinspection ALL*/
+
 .feedItem__body--minimised {
-    height: 15px;
+    height: 18px;
     overflow: hidden;
 }
 
-/*noinspection ALL*/
+
 .feedItem__body--expanded {
     margin-bottom: 10px;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .feedItem__meetingTag {
     border-radius: 10px;
     display: flex;
@@ -1206,7 +1206,7 @@ h6.feedItem__metadata {
     margin: 0px 5px 2px 5px;
 }
 
-/*noinspection ALL,CssRedundantUnit*/
+
 .feedItem__metadata__meeting {
     padding: 0px 5px;
 }
@@ -1233,35 +1233,35 @@ h6.feedItem__metadata {
     width: fit-content;
 }
 
-/*noinspection ALL*/
+
 .toggle__side {
     padding: 5px 10px;
     display: inline-block;
 }
 
-/*noinspection ALL*/
+
 .toggle__left {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
 
-/*noinspection ALL*/
+
 .toggle__right {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
-/*noinspection ALL*/
+
 .toggle--selected {
     background-color: #92c748;
 }
 
-/*noinspection ALL*/
+
 .toggle__side:active {
     background-color: #92c748;
 }
 
-/*noinspection ALL*/
+
 .dropdown {
     display: flex;
     flex-wrap: nowrap;
@@ -1269,7 +1269,7 @@ h6.feedItem__metadata {
     justify-content: flex-start;
 }
 
-/*noinspection ALL*/
+
 .dropdown__label {
     padding-bottom: 5px;
     margin-right: 20px;
@@ -1279,4 +1279,34 @@ h6.feedItem__metadata {
     font-family: inherit;
     font-size: 15px;
     font-weight: 400;
+}
+
+.no_fold {
+    white-space: pre-wrap;
+}
+
+b {
+    font-weight: 500;
+}
+
+.noConnectionIcon {
+    width: 25px;
+    height: 25px;
+    flex: 0 0 25px;
+    padding: 0px 5px;
+}
+
+.noConnection {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+
+.barcodeFontLoader {
+    font-size: 3px;
+    font-family: 'Libre Barcode 128', sans-serif;
+    opacity: 0;
+
 }
