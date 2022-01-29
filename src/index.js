@@ -18,4 +18,4 @@ ReactDOM.render(
 );
 
 
-serviceWorkerRegistration.unregister();
+serviceWorkerRegistration.register();
