@@ -80,6 +80,10 @@ export async function requestRefreshToken() {
         // console.log(tokens);
         localStorage.setItem('handle_access', tokens['access_token']);
         localStorage.setItem('access_timestamp', Date.now().toString());
+        if (tokens.hasOwnProperty('refresh_token')) {
+            localStorage.setItem('handle_refresh', tokens['refresh_token']);
+            localStorage.setItem('refresh_timestamp', Date.now().toString());
+        }
 
         return true;
     }
@@ -144,6 +148,10 @@ export async function requestToken() {
         localStorage.setItem('handle_refresh', tokens['refresh_token']);
         localStorage.setItem('refresh_timestamp', Date.now().toString());
     }
+
+    localStorage.removeItem('handle_state');
+    localStorage.removeItem('handle_verifier');
+
 
     return true;
 }
@@ -290,11 +298,11 @@ export async function fetchData(ask, src = 'sch', auth=true) {
 }
 //returns false or json data
 
-export async function getData() {
+export async function getData(getId=true) {
     let data = {};
 
     await stateManager().then(state => data.dataState=state).catch(e => {console.log(e); data.dataState="askToLogin"});
-    let userId = false;
+    let userId = !getId;
     let dtt = false;
     let tt = false;
     let weekData = false;
@@ -302,18 +310,32 @@ export async function getData() {
     if (data.dataState === 'success') {
         let checkAllGood = true;
         const source = "sch";
-        await Promise.all([
-            fetchData('dtt', source).then(res => dtt = res)
-                .then(() => dtt ? data.dtt=dtt : checkAllGood=false),
-            fetchData('tt', source).then(res => tt = res)
-                .then(() => tt  ? data.tt=tt : checkAllGood=false),
-            fetchData('note', source).then(res => note = res)
-                .then(() => note ? data.feeds=note : checkAllGood=false),
-            fetchData('wk', source).then(res => weekData=res)
-                .then(() => weekData ? data.dayName=(weekData.day + " " + weekData.week + weekData.weekType) : checkAllGood=false),
-            fetchData('idn', source).then(res => userId = res.studentId)
-                .then(() => userId ? data.userId=userId : checkAllGood=false)
-        ]).catch(e => console.log(e));
+        if (getId) {
+            await Promise.all([
+                fetchData('dtt', source).then(res => dtt = res)
+                    .then(() => dtt ? data.dtt = dtt : checkAllGood = false),
+                fetchData('tt', source).then(res => tt = res)
+                    .then(() => tt ? data.tt = tt : checkAllGood = false),
+                fetchData('note', source).then(res => note = res)
+                    .then(() => note ? data.feeds = note : checkAllGood = false),
+                fetchData('wk', source).then(res => weekData = res)
+                    .then(() => weekData ? data.dayName = (weekData.day + " " + weekData.week + weekData.weekType) : checkAllGood = false),
+                fetchData('idn', source).then(res => userId = res.studentId)
+                    .then(() => userId ? data.userId = userId : checkAllGood = false)
+            ]).catch(e => console.log(e));
+        }
+        else {
+            await Promise.all([
+                fetchData('dtt', source).then(res => dtt = res)
+                    .then(() => dtt ? data.dtt = dtt : checkAllGood = false),
+                fetchData('tt', source).then(res => tt = res)
+                    .then(() => tt ? data.tt = tt : checkAllGood = false),
+                fetchData('note', source).then(res => note = res)
+                    .then(() => note ? data.feeds = note : checkAllGood = false),
+                fetchData('wk', source).then(res => weekData = res)
+                    .then(() => weekData ? data.dayName = (weekData.day + " " + weekData.week + weekData.weekType) : checkAllGood = false)
+            ]).catch(e => console.log(e));
+        }
 
         if (weekData) {
             let weekNo = getWeekNum(weekData.date, 'string');

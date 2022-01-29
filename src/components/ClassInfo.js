@@ -33,15 +33,25 @@ export default function ClassInfo(props) {
     }
 
     function checkName(e) {
-        if (data.displayName === "") {
+        let trimmed = data.displayName.trim();
+        if (trimmed === "") {
             props.reportInput(data.refId, 'displayName', data.defaultName);
             setData({...data, ...{'displayName': data.defaultName}});
         }
+        else if (trimmed !== data.displayName) {
+            props.reportInput(data.refId, 'displayName', trimmed);
+            setData({...data, ...{'displayName': trimmed}});
+        }
     }
     function checkCode(e) {
-        if (data.displayCode === "") {
+        let trimmed = data.displayCode.trim();
+        if (trimmed === "") {
             props.reportInput(data.refId, 'displayCode', data.refId.substring(0, 3));
             setData({...data, ...{'displayCode': data.refId.substring(0, 3)}});
+        }
+        else if (trimmed !== data.displayCode) {
+            props.reportInput(data.refId, 'displayCode', trimmed);
+            setData({...data, ...{'displayCode': trimmed}});
         }
     }
 
@@ -57,7 +67,7 @@ export default function ClassInfo(props) {
 
     const styleSettings = {
         backgroundColor: data.colour.hex,
-        color: (data.colour.isDark ? '#ffffff' : '#222222'),
+        color: (data.colour.isDark ? '#ffffff' : '#333333'),
         // border: (colPicker ? (data.colour.isDark ? 'solid 2px #d0d0d0' : 'solid 2px #222222') : 'solid 1px #d0d0d0'),
         border: (colPicker ? 'solid 2px #222222' : 'solid 1px #d0d0d0'),
         padding: (colPicker ? '0px' : '1px')
@@ -87,7 +97,7 @@ export default function ClassInfo(props) {
                     value={data.displayCode}
                     onChange={handleCode}
                     onBlur={checkCode}
-                    maxLength={4}
+                    maxLength={6}
                 />
             </div>
             {(colPicker ? <ColourPicker reportCol={reportCol} current={data.colour} /> : "")}

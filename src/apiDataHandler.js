@@ -166,7 +166,7 @@ export function apiDataHandler(apiData) {
                 addLine(true, "0", timeSlot.startTime);
             }
             catch {
-                addLine(false, "Morning", "");
+                addLine(false, "no morning class", "");
             }
             continue;
         }

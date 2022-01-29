@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import WeekTimetable from "../components/WeekTimetable";
 import {configSettings} from "../apiDataHandler";
 import {getWeekNum} from "../apiFetcher";
+import {passStr} from "../version";
 
 
 export default function PageTimetable(props) {
@@ -79,29 +80,54 @@ export default function PageTimetable(props) {
     }
 
     let weeks = [];
-    if (orderInfo.week <= 0) {
-        weeks = [
-            <WeekTimetable weekName={"A"} today={orderInfo.day} data={dataA} key={"weekA"} />,
-            <WeekTimetable weekName={"B"} today={0} data={dataB} key={"weekB"} />,
-            <WeekTimetable weekName={"C"} today={0} data={dataC} key={"weekC"} />
-        ]
-    }
-    else if (orderInfo.week === 1) {
-        weeks = [
-            <WeekTimetable weekName={"B"} today={orderInfo.day} data={dataB} key={"weekB"} />,
-            <WeekTimetable weekName={"C"} today={0} data={dataC} key={"weekC"} />,
-            <WeekTimetable weekName={"A"} today={0} data={dataA} key={"weekA"} />
-        ]
-    }
-    else if (orderInfo.week === 2) {
-        weeks = [
-            <WeekTimetable weekName={"C"} today={orderInfo.day} data={dataC} key={"weekC"} />,
-            <WeekTimetable weekName={"A"} today={0} data={dataA} key={"weekA"} />,
-            <WeekTimetable weekName={"B"} today={0} data={dataB} key={"weekB"} />
-        ]
+    let timetableWeekOrder = passStr("set_tt_week_order");
+    if (timetableWeekOrder === "yes") {
+        // console.log("Timetable order set to current week first")
+        if (orderInfo.week <= 0) {
+            weeks = [
+                <WeekTimetable weekName={"A"} today={orderInfo.day} data={dataA} key={"weekA"}/>,
+                <WeekTimetable weekName={"B"} today={0} data={dataB} key={"weekB"}/>,
+                <WeekTimetable weekName={"C"} today={0} data={dataC} key={"weekC"}/>
+            ]
+        }
+        else if (orderInfo.week === 1) {
+            weeks = [
+                <WeekTimetable weekName={"B"} today={orderInfo.day} data={dataB} key={"weekB"}/>,
+                <WeekTimetable weekName={"C"} today={0} data={dataC} key={"weekC"}/>,
+                <WeekTimetable weekName={"A"} today={0} data={dataA} key={"weekA"}/>
+            ]
+        }
+        else if (orderInfo.week === 2) {
+            weeks = [
+                <WeekTimetable weekName={"C"} today={orderInfo.day} data={dataC} key={"weekC"}/>,
+                <WeekTimetable weekName={"A"} today={0} data={dataA} key={"weekA"}/>,
+                <WeekTimetable weekName={"B"} today={0} data={dataB} key={"weekB"}/>
+            ]
+        }
     }
     else {
-        console.log("Error when generating timetable.");
+        // console.log("Timetable order set to static")
+        if (orderInfo.week <= 0) {
+            weeks = [
+                <WeekTimetable weekName={"A"} today={orderInfo.day} data={dataA} key={"weekA"} />,
+                <WeekTimetable weekName={"B"} today={0} data={dataB} key={"weekB"} />,
+                <WeekTimetable weekName={"C"} today={0} data={dataC} key={"weekC"} />
+            ]
+        }
+        else if (orderInfo.week === 1) {
+            weeks = [
+                <WeekTimetable weekName={"A"} today={0} data={dataA} key={"weekA"} />,
+                <WeekTimetable weekName={"B"} today={orderInfo.day} data={dataB} key={"weekB"} />,
+                <WeekTimetable weekName={"C"} today={0} data={dataC} key={"weekC"} />
+            ]
+        }
+        else if (orderInfo.week === 2) {
+            weeks = [
+                <WeekTimetable weekName={"A"} today={0} data={dataA} key={"weekA"} />,
+                <WeekTimetable weekName={"B"} today={0} data={dataB} key={"weekB"} />,
+                <WeekTimetable weekName={"C"} today={orderInfo.day} data={dataC} key={"weekC"} />
+            ]
+        }
     }
 
     const output = (

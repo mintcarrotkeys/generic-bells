@@ -19,7 +19,7 @@ function App() {
             timestamp: 0,
             dayName: "Loading ...",
             dataState: "",
-            userId: "000000000",
+            userId: "",
             dtt: {},
             tt: {},
             feeds: {},
@@ -68,13 +68,17 @@ function App() {
             let newData = {};
             let newDataInput = {};
             let doNothing;
-            await getData()
+            let getId = true;
+            if (data.userId !== "") {
+                getId = false;
+            }
+            await getData(getId)
                 .then(res => newDataInput=res)
                 .then(() => (newDataInput.hasOwnProperty("dataState") ? newData=newDataInput : doNothing=false))
                 .catch((err) => console.log(err));
-            console.log(data);
-            console.log(newData);
-            console.log(newDataInput);
+            // console.log(data);
+            // console.log(newData);
+            // console.log(newDataInput);
 
             function synthDTT() {
                 let output = {
@@ -95,7 +99,7 @@ function App() {
                     let millisInDay = 86400000;
                     let timeNow = today.getTime();
                     today = new Date((Math.floor(timeNow / millisInDay) * millisInDay) + millisInDay + 10000);
-                    console.log("detected afternoon");
+                    // console.log("detected afternoon");
                 }
                 if (today.getDay() === 6) {
                     showDay = today.getTime() + 2*24*60*60*1000;
@@ -109,8 +113,8 @@ function App() {
                     showDay = today.getTime();
                     dayDiff = today.getDay();
                 }
-                console.log(showDay);
-                console.log(displayData);
+                // console.log(showDay);
+                // console.log(displayData);
 
                 let weekNo = getWeekNum(showDay);
                 let sync = displayData.sync;
@@ -166,7 +170,7 @@ function App() {
                     console.log("Error when generating synthetic day timetable.");
                 }
 
-                console.log(output);
+                // console.log(output);
 
                 return output;
 
