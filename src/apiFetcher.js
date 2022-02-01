@@ -6,6 +6,10 @@ const tokenServerURL = "https://refresh.genericbells.workers.dev"
 const refreshValidity = 90 * 24 * 60 * 60 * 1000 - 10000;
 const tokenValidity = 60 * 60 * 1000 - 10000;
 
+// const siteURL = encodeURIComponent('https://genericbellstesting3.pages.dev');
+// const useAppId = "genericbellstesting3";
+// const serverURL = "https://forward2.genericbells.workers.dev/";
+// const tokenServerURL = "https://refresh2.genericbells.workers.dev"
 
 export function getWeekNum(date, mode='millis') {
     let dateVal;

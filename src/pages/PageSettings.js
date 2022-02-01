@@ -252,7 +252,7 @@ export default function PageSettings(props) {
             </div>
             <div className="group">
                 <h2 className="settings">About Generic Bells</h2>
-                <h5 className="settings">version 1.4.0</h5>
+                <h5 className="settings">version 1.4.1</h5>
                 <p className="settings">A colourful, customisable & concise web app to show your SBHS timetable data.</p>
                 <p className="settings">Source code can be found on Github here.</p>
                 <p className="settings"><a href="https://github.com/mintcarrotkeys/generic-bells">mintcarrotkeys/generic-bells</a></p>

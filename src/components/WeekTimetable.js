@@ -64,7 +64,7 @@ export default function WeekTimetable(props) {
             }
             else {
                 classes.push(
-                    <div className="tt__emptyCell"></div>
+                    <div className="tt__emptyCell" key={"ttCol" + i.toString() + "-" + j.toString()} />
                 );
             }
             j++;

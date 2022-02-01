@@ -46,6 +46,8 @@ export default function PageBarcode(props) {
         return output;
     }
 
+    const storeBarcodeSize = "barcode_size";
+
     const [code, setCode] = useState(props.userIdCode);
     const [barcodeSize, setBarcodeSize] = useState(initialSize);
 
@@ -53,7 +55,6 @@ export default function PageBarcode(props) {
         setCode(e.target.value);
     }
 
-    const storeBarcodeSize = "barcode_size";
 
     function initialSize() {
         let savedSize = passStr(storeBarcodeSize);

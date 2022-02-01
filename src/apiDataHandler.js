@@ -28,7 +28,7 @@ export function configSettings(apiData) {
 
         if (storedSettings.hasOwnProperty(subjectKey)) {
             classSettings[subjectKey] = storedSettings[subjectKey];
-            classSettings[subjectKey].teacher = (subject.fullTeacher ? subject.fullTeacher : "");
+            // classSettings[subjectKey].teacher = (subject.fullTeacher ? subject.fullTeacher : "");
             let i = 0;
             for (const col of colours) {
                 if (classSettings[subjectKey].colour.hex === col.hex) {
@@ -66,7 +66,7 @@ export function configSettings(apiData) {
             // console.log(subject.title);
 
             classSettings[subject.shortTitle] = {
-                teacher: (subject.fullTeacher ? subject.fullTeacher : ""),
+                // teacher: (subject.fullTeacher ? subject.fullTeacher : ""),
                 'displayName': displayName,
                 'colour': colour,
                 'displayCode': displayCode,
@@ -91,7 +91,7 @@ export function apiDataHandler(apiData) {
     let routine = [];
     const classSettings = configSettings(apiData.timetable.subjects);
 
-    function addLine(displayAsClass, slotName, startTime) {
+    function addLine(displayAsClass, periodNumber, startTime) {
         /**
          props:
 
@@ -102,53 +102,95 @@ export function apiDataHandler(apiData) {
          colour {hex, isDark}
          room
          highlightRoom
-         teacher
+         -----teacher
 
          **/
         // class vs break
         if (displayAsClass === false) {
-            routine.push({displayAsClass: false, displayName: slotName, time: startTime});
+            routine.push({displayAsClass: false, displayName: periodNumber, time: startTime});
             return;
         }
 
-        //fetch data
-        let periodData;
+        let periodData = {};
         try {
-            periodData = apiData.timetable.timetable.periods[slotName];
+            periodData = apiData.timetable.timetable.periods[periodNumber];
             if (periodData === undefined) {
                 throw new Error("Can't find period info!");
             }
         }
         catch {
-            routine.push({displayAsClass: false, displayName: ("Period " + slotName), time: startTime});
+                // console.log("Can't find period info!");
+                routine.push({displayAsClass: false, displayName: ("Period " + periodNumber), time: startTime});
+                return;
+        }
+        // console.log(periodData);
+        // console.log(displayAsClass, periodNumber, startTime);
+
+        if (periodData.hasOwnProperty("title") === false) {
+            routine.push({displayAsClass: false, displayName: ("Period " + periodNumber), time: startTime});
             return;
         }
+
         const classId = periodData.title;
-        const periodNumber = slotName;
-        // console.log(classId);
-        // console.log(classSettings);
-        const displayName = classSettings[classId].displayName;
-        const colour = classSettings[classId].colour;
-        const room = periodData.room;
-        let highlightRoom = false;
-        const teacher = periodData.fullTeacher;
+        const savedSettings = classSettings[classId];
         //filter out sport/study periods/non-existent classes
-        if (classSettings[classId].teacher == false) {
-            routine.push({displayAsClass: false, displayName: displayName, time: startTime});
+        if (periodData.room === null) {
+            routine.push({displayAsClass: false, displayName: savedSettings.displayName, time: startTime});
             return;
         }
+
+        let displayTeacher = "";
+        if (periodData.hasOwnProperty("fullTeacher") && periodData.fullTeacher !== null && periodData.fullTeacher !== "") {
+            displayTeacher = periodData.fullTeacher;
+        }
+        else {
+            displayTeacher = periodData.teacher;
+        }
+
+
         // TODO: check for variations
+        let highlightRoom = false;
+        let displayRoom = periodData.room;
+        if (apiData.shouldDisplayVariations && apiData.classVariations.hasOwnProperty(periodNumber)) {
+            highlightRoom = true;
+            const variationData = apiData.classVariations[periodNumber];
+            if (variationData.type === "novariation") {
+                highlightRoom = false;
+            }
+            else if (variationData.title === classId) {
+                if (variationData.hasOwnProperty("roomTo")) {
+                    if (variationData.roomTo === null || variationData.roomTo === "") {
+                        if (variationData.type === "nocover") {
+                            displayRoom = "-";
+                        }
+                    }
+                    else {
+                        displayRoom = variationData.roomTo;
+                    }
+                }
+                if (variationData.hasOwnProperty("casualSurname")) {
+                    if (variationData.casualSurname !== null && variationData.casualSurname !== "") {
+                        displayTeacher = variationData.casualSurname;
+                    }
+                    else if (variationData.hasOwnProperty("casual")) {
+                        if (variationData.casual !== null && variationData.casual !== "") {
+                            displayTeacher = variationData.casual;
+                        }
+                    }
+                }
+            }
+        }
 
         //add to routine
         routine.push({
             displayAsClass: true,
             "periodNumber": periodNumber,
             "time": startTime,
-            'displayName': displayName,
-            'colour': colour,
-            'room': room,
+            'displayName': savedSettings.displayName,
+            'colour': savedSettings.colour,
+            'room': displayRoom,
             'highlightRoom': highlightRoom,
-            'teacher': teacher
+            'teacher': displayTeacher
         })
     }
 
