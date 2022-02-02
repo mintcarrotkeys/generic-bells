@@ -123,8 +123,19 @@ body {
     width: 100%;
 }
 
-h1 h2 p {
+div {
+    margin: 0px;
+    padding: 0px;
+}
+
+h1, h2, h3, h4, h5, h6, p {
     margin: 5px;
+}
+
+.bigHeading {
+    font-weight: 300;
+    font-size: 30px;
+    margin: 20px 5px;
 }
 
 h1 {
@@ -134,7 +145,7 @@ h1 {
 
 }
 
-h2 {
+h1, h2 {
     font-weight: 500;
     font-size: 20px;
 }
@@ -145,19 +156,19 @@ h3 {
 }
 
 h4 {
-    font-weight: 400;
     font-size: 15px;
-    color: #888888;
+    font-weight: 500;
 }
 
 h5 {
+    font-weight: 400;
     font-size: 15px;
-    font-weight: 500;
 }
 
 h6 {
     font-weight: 400;
     font-size: 15px;
+    color: #888888;
 }
 
 p {
@@ -290,7 +301,7 @@ p {
         bottom: calc((100vw / 5.7887) + 20px);
     }
 
-    p {
+    body, p {
         font-weight: 400;
         font-size: 13px;
     }
@@ -374,7 +385,7 @@ p {
     .toggle__side:hover {
         background-color: #92c748;
     }
-    p {
+    body, p {
         font-weight: 400;
         font-size: 14px;
     }
@@ -450,7 +461,7 @@ p {
     width: 30px;
     height: 30px;
     flex: 0 0 30px;
-    /*TODO: vertically center the icon*/
+    /*vertically center the icon*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1238,7 +1249,18 @@ p {
 
 .feedItem__body {
     margin: 5px 10px 4px 10px;
-    white-space: pre-wrap;
+}
+
+.feedItem__body > p,
+.feedItem__body > h1,
+.feedItem__body > h2,
+.feedItem__body > h3,
+.feedItem__body > h4,
+.feedItem__body > h5,
+.feedItem__body > h6,
+.feedItem__body > div,
+.feedItem__body > br {
+    margin: 0px 0px 5px 0px;
 }
 
 

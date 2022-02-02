@@ -75,7 +75,7 @@ export default function ClassInfo(props) {
 
     const output = (
         <div className="settings__classInfo">
-            <h4 className="settings">{data.rawName}</h4>
+            <h6 className="settings">{data.rawName}</h6>
             <div className="settings settings__classInfo__row">
                 <div className="settings__classInfo__col" style={styleSettings} onClick={handleCol}>
                     {(colPicker ? colPickerIcons.close : colPickerIcons.drop)}

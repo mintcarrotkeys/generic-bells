@@ -13,7 +13,7 @@ export default function About() {
     const output = (
         <div className="about__container">
             <div className="about__icon"><Logo /></div>
-            <h1 className="about__title">Generic Bells</h1>
+            <h1 className="bigHeading about__title">Generic Bells</h1>
             <button className="about__button button" onClick={() => redirect()} >Login</button>
             <div className="about__description">
             </div>

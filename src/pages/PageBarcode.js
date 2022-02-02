@@ -92,7 +92,7 @@ export default function PageBarcode(props) {
 
     const output = (
         <div className="page__barcode page__prop">
-            <h1>Barcode</h1>
+            <h1 className="bigHeading">Barcode</h1>
             <input
                 type="text"
                 id="condeInput"

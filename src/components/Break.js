@@ -6,7 +6,6 @@ export default function Break(props) {
 
      time
      displayName
-     TODO: add a full name option to expanded card and truncate main title
 
      **/
     // console.log(props);

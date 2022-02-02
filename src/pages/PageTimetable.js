@@ -9,7 +9,7 @@ export default function PageTimetable(props) {
     if (Object.keys(props.data).length === 0) {
         return (
             <div className="page__timetable page__prop">
-            <h1>Timetable</h1>
+            <h1 className="bigHeading">Timetable</h1>
             </div>
         );
     }

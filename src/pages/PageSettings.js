@@ -104,7 +104,7 @@ export default function PageSettings(props) {
 
     const output = (
         <div className="page__settings page__prop">
-            <h1>Settings</h1>
+            <h1 className="bigHeading">Settings</h1>
             <div className="group" id="banner">
                 <Logo style={{width: '100px'}} />
             </div>
@@ -202,7 +202,7 @@ export default function PageSettings(props) {
             </div>
             <div className="group">
                 <h2 className="settings">Timetable display style</h2>
-                <h5 className="settings">Order weeks are shown in:</h5>
+                <h4 className="settings">Order weeks are shown in:</h4>
                 <div className="toggle">
                     <div className={"toggle__left toggle__side" + (!timetableWeekOrder ? " toggle--selected" : "")}
                          onClick={() => handleTimetableWeekOrderToggle(false)}>
@@ -223,10 +223,10 @@ export default function PageSettings(props) {
             <div className="group">
                 <h2 className="settings">Help</h2>
 
-                <h5 className="settings">Show teacher name for periods</h5>
+                <h4 className="settings">Show teacher name for periods</h4>
                 <p className="settings">Click on each period on the main page to see details.</p>
 
-                <h5 className="settings">Install/Add this app to your home screen</h5>
+                <h4 className="settings">Install/Add this app to your home screen</h4>
                 <p className="settings">
                     iOS: Safari > share (arrow-up icon on the right of the url bar) > Add to home screen
                 </p>
@@ -237,7 +237,7 @@ export default function PageSettings(props) {
                     Windows: Edge > Install (blocks icon inside the url bar on the right end)
                 </p>
 
-                <h5 className="settings">Site not working?</h5>
+                <h4 className="settings">Site not working?</h4>
                 <p className="settings">Close all browser tabs and try again.</p>
                 <p className="settings">
                     Try removing "site data" for this site in your browser settings.
@@ -245,14 +245,15 @@ export default function PageSettings(props) {
                     Look up your browser to see how to do this.
                 </p>
 
-                <h5 className="settings">Contact</h5>
+                <h4 className="settings">Contact</h4>
                 <p className="settings">
                     Google forms: <a href="https://forms.gle/me4tVTEv1ect7Lhn9">https://forms.gle/me4tVTEv1ect7Lhn9</a>
                 </p>
             </div>
             <div className="group">
                 <h2 className="settings">About Generic Bells</h2>
-                <h5 className="settings">version 1.4.1</h5>
+                {/* TODO: PREFLIGHT: version number */}
+                <h4 className="settings">version 1.4.2</h4>
                 <p className="settings">A colourful, customisable & concise web app to show your SBHS timetable data.</p>
                 <p className="settings">Source code can be found on Github here.</p>
                 <p className="settings"><a href="https://github.com/mintcarrotkeys/generic-bells">mintcarrotkeys/generic-bells</a></p>

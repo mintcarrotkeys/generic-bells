@@ -58,7 +58,7 @@ export default function PageFeeds(props) {
     const output = (
         <div className="page__feeds page__prop">
             {props.isOffline ? <Offline /> : ""}
-            <h1>Notices</h1>
+            <h1 className="bigHeading">Notices</h1>
             <div className="feeds__container ">
                 {feedScroll}
             </div>

@@ -17,5 +17,5 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-
+//TODO: PREFLIGHT: serviceworker
 serviceWorkerRegistration.register();

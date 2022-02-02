@@ -1,3 +1,4 @@
+//TODO: PREFLIGHT: server data
 
 const siteURL = encodeURIComponent('https://genericbells.pages.dev');
 const useAppId = "genericbells10";

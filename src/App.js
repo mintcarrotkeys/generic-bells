@@ -72,6 +72,8 @@ function App() {
             if (data.userId !== "") {
                 getId = false;
             }
+            //TODO: PREFLIGHT: getData
+
             await getData(getId)
                 .then(res => newDataInput=res)
                 .then(() => (newDataInput.hasOwnProperty("dataState") ? newData=newDataInput : doNothing=false))

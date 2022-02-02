@@ -148,7 +148,7 @@ export function apiDataHandler(apiData) {
         }
 
 
-        // TODO: check for variations
+        // check for variations
         let highlightRoom = false;
         let displayRoom = periodData.room;
         if (apiData.shouldDisplayVariations && apiData.classVariations.hasOwnProperty(periodNumber)) {

@@ -46,7 +46,9 @@ export default function FeedItem(props) {
         }
     }
 
-    message.content = message.content.replaceAll("<br>", "\n");
+    function returnContent() {
+        return {__html: message.content};
+    }
 
     const output = (
         <div
@@ -59,11 +61,11 @@ export default function FeedItem(props) {
                 <b className="feedItem__metadata">{message.authorName}</b>
                 <div className="feedItem__metadata">{message.displayYears}</div>
             </div>
-            <p
+            <div
                 className={"settings feedItem__body " + (expand ? "feedItem__body--expanded" : "feedItem__body--minimised")}
+                dangerouslySetInnerHTML={returnContent()}
             >
-                {message.content}
-            </p>
+            </div>
         </div>
     )
     return output;
