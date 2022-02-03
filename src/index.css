@@ -389,6 +389,11 @@ p {
         font-weight: 400;
         font-size: 14px;
     }
+
+    .savedBarcode:hover {
+        padding: 3px;
+        border: solid 2px #222222;
+    }
 }
 
 
@@ -618,6 +623,7 @@ p {
     padding: 4px;
 }
 
+
 .button {
     background-color: #333333;
     border-radius: 5px;
@@ -627,6 +633,7 @@ p {
     font-size: 15px;
     font-family: inherit;
     border: solid 1px #333333;
+    width: fit-content;
 }
 
 .button:active {
@@ -640,11 +647,76 @@ p {
     font-size: calc(50px + 10vw);
     font-weight: 400;
     padding: 20px 20px 0px 20px;
+    margin: 10px 0px;
     background-color: white;
     color: black;
     white-space: pre;
 }
 
+.saveBarcodeTool {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+#saveBarcodeForm {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    font-size: 15px;
+}
+
+#saveBarcodeForm__code {
+    margin: 5px 0px;
+    width: 100%;
+}
+
+#saveBarcode__codeInput {
+    font-size: 15px;
+    height: 18px;
+    width: 180px;
+    flex: 1 1 180px;
+}
+
+#saveBarcode__input {
+    font-size: 15px;
+    height: 18px;
+    width: calc(100% - 10px);
+    flex: 1 1 180px;
+}
+
+#saveBarcode__submit {
+    margin: 0px 0px 0px 5px;
+}
+
+.savedBarcode__container {
+    width: calc(100% - 10px);
+}
+
+.savedBarcode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.savedBarcode.savedBarcode--selected {
+    padding: 3px;
+    border: solid 2px #92c748;
+}
+
+.savedBarcode__code {
+    flex: 1 1;
+    margin: 0 0 0 5px;
+}
+
+.savedBarcode__closeIcon {
+    width: 20px;
+    height: 20px;
+
+}
+.savedBarcode__closeIcon__wrapper {
+    padding: 5px;
+}
 
 #topBar {
     min-height: 50px;

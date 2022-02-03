@@ -253,7 +253,7 @@ export default function PageSettings(props) {
             <div className="group">
                 <h2 className="settings">About Generic Bells</h2>
                 {/* TODO: PREFLIGHT: version number */}
-                <h4 className="settings">version 1.4.2</h4>
+                <h4 className="settings">version 1.4.4</h4>
                 <p className="settings">A colourful, customisable & concise web app to show your SBHS timetable data.</p>
                 <p className="settings">Source code can be found on Github here.</p>
                 <p className="settings"><a href="https://github.com/mintcarrotkeys/generic-bells">mintcarrotkeys/generic-bells</a></p>
@@ -323,16 +323,16 @@ export default function PageSettings(props) {
                     <br />
                 </p>
             </div>
-            {/*<div className="group">*/}
-            {/*    <h1 className="settings">Sample text</h1>*/}
-            {/*    <h2 className="settings">Heading 2</h2>*/}
-            {/*    <h3 className="settings">Heading 3</h3>*/}
-            {/*    <h4 className="settings">Heading 4</h4>*/}
-            {/*    <h5 className="settings">Heading 5</h5>*/}
-            {/*    <h6 className="settings">Heading 6</h6>*/}
-            {/*    <p className="settings">Body text</p>*/}
+            <div className="group">
+                <h1 className="settings">Sample text</h1>
+                <h2 className="settings">Heading 2</h2>
+                <h3 className="settings">Heading 3</h3>
+                <h4 className="settings">Heading 4</h4>
+                <h5 className="settings">Heading 5</h5>
+                <h6 className="settings">Heading 6</h6>
+                <p className="settings">Body text</p>
 
-            {/*</div>*/}
+            </div>
         </div>
     );
 

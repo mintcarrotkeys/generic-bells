@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import {saveItem} from "./version";
 
+//TODO: PREFLIGHT: remove testing data
 
 // let TESTDATA = ;
 //
@@ -17,5 +18,5 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-//TODO: PREFLIGHT: serviceworker
+//TODO: PREFLIGHT: serviceworker - turn off dev build first!
 serviceWorkerRegistration.register();

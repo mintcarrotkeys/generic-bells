@@ -39,12 +39,24 @@ export function passItem(name, type = 'l') {
     }
     data = JSON.parse(data);
     delete data.verCon;
+    if (data.hasOwnProperty('type') && data.hasOwnProperty('stuff')) {
+        if (data.type === "array") {
+            return data.stuff;
+        }
+    }
     return data;
 }
 
 export function saveItem(name, obj, type = 'l') {
+    let data;
 
-    let data = obj;
+    if (Array.isArray(obj)) {
+        data = {"stuff": obj, "type": "array"};
+    }
+    else {
+        data = obj;
+    }
+
     data.verCon = Version;
     data = JSON.stringify(data);
 
