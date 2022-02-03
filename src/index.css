@@ -230,7 +230,7 @@ p {
 
 
     .page__prop {
-        padding: 15px 15px 100px 15px;
+        padding: 15px 15px 60px 15px;
     }
 
 
@@ -313,6 +313,10 @@ p {
         min-height: calc(100vh);
         height: 100vh;
         margin-left: 70px;
+    }
+
+    .page__prop {
+        padding: 15px 15px 100px 15px;
     }
 
 
