@@ -676,14 +676,14 @@ p {
 
 #saveBarcode__codeInput {
     font-size: 15px;
-    height: 18px;
+    height: 20px;
     width: 180px;
     flex: 1 1 180px;
 }
 
 #saveBarcode__input {
     font-size: 15px;
-    height: 18px;
+    height: 20px;
     width: calc(100% - 10px);
     flex: 1 1 180px;
 }
@@ -990,14 +990,14 @@ p {
     .tt__index__icon {
         width: 20px;
         height: 20px;
-        background-color: #d0d0d0;
+        background-color: #eeeeee;
         border-radius: 5px;
 
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 13px;
-        font-weight: 400;
+        font-size: 14px;
+        font-weight: 500;
     }
 
 
@@ -1106,6 +1106,7 @@ p {
         align-items: flex-start;
         margin: 2.5px 5px;
         border-radius: 10px;
+        font-size: 14px;
 
     }
 }
@@ -1159,7 +1160,7 @@ p {
     .tt__index__icon {
         width: 25px;
         height: 25px;
-        background-color: #d0d0d0;
+        background-color: #eeeeee;
         border-radius: 5px;
 
         display: flex;
@@ -1320,7 +1321,7 @@ p {
     padding: 0px 5px 3px 5px;
     margin: 0px;
     font-size: 15px;
-    font-weight: 400;
+    /*font-weight: 400;*/
 }
 
 .feedItem__body {

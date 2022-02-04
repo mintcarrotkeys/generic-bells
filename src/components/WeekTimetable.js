@@ -59,6 +59,9 @@ export default function WeekTimetable(props) {
                         colour={colour}
                         id={"ttCell" + i.toString() + "-" + j.toString()}
                         key={"ttCol" + i.toString() + "-" + j.toString()}
+                        subjectId={period.title}
+                        selectedSubject={props.selectedSubject}
+                        selectSubject={props.selectSubject}
                     />
                 );
             }

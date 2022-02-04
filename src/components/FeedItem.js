@@ -22,7 +22,7 @@ export default function FeedItem(props) {
         let meetingMessage = "";
         if (props.date === message.meetingDate) {
             fill = {backgroundColor: '#ffc633'}
-            meetingMessage = "Meeting: ";
+            meetingMessage = "Today: ";
         }
         else {
             let date = message.meetingDate.split("-");
@@ -31,16 +31,16 @@ export default function FeedItem(props) {
         }
         meetingInfo = (
             <div className="feedItem__meetingTag" style={fill}>
-                <b className="feedItem__metadata feedItem__metadata__meeting">{meetingMessage}</b>
-                <b className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingTime}</b>
+                <p className="feedItem__metadata feedItem__metadata__meeting">{meetingMessage}</p>
+                <p className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingTime}</p>
             </div>
         );
         if (message.hasOwnProperty("meetingLocation") && message.meetingLocation) {
             meetingInfo = (
                 <div className="feedItem__meetingTag" style={fill}>
-                    <b className="feedItem__metadata feedItem__metadata__meeting">{meetingMessage}</b>
-                    <b className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingTime}</b>
-                    <b className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingLocation}</b>
+                    <p className="feedItem__metadata feedItem__metadata__meeting">{meetingMessage}</p>
+                    <p className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingTime}</p>
+                    <p className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingLocation}</p>
                 </div>
             );
         }
@@ -58,8 +58,8 @@ export default function FeedItem(props) {
             <h2 className="feedItem__title">{message.title}</h2>
             <div className="feedItem__metadataRow settings">
                 {meetingInfo}
-                <b className="feedItem__metadata">{message.authorName}</b>
-                <div className="feedItem__metadata">{message.displayYears}</div>
+                <p className="feedItem__metadata"><b>{message.authorName}</b></p>
+                <p className="feedItem__metadata">{message.displayYears}</p>
             </div>
             <div
                 className={"settings feedItem__body " + (expand ? "feedItem__body--expanded" : "feedItem__body--minimised")}

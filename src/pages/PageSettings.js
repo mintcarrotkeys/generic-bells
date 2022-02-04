@@ -237,6 +237,13 @@ export default function PageSettings(props) {
                     Windows: Edge > Install (blocks icon inside the url bar on the right end)
                 </p>
 
+                <h4 className="settings">Update to the newest version</h4>
+                <p className="settings">
+                    1. Open GenericBells and reload the page.<br />
+                    2. Close the app and any browser tabs containing the app.<br />
+                    3. Open the app again and check version number in settings page.
+                </p>
+
                 <h4 className="settings">Site not working?</h4>
                 <p className="settings">Close all browser tabs and try again.</p>
                 <p className="settings">
@@ -244,20 +251,21 @@ export default function PageSettings(props) {
                     This may be listed under various names like privacy, cookies, manage browsing data etc.
                     Look up your browser to see how to do this.
                 </p>
-
                 <h4 className="settings">Contact</h4>
                 <p className="settings">
                     Google forms: <a href="https://forms.gle/me4tVTEv1ect7Lhn9">https://forms.gle/me4tVTEv1ect7Lhn9</a>
                 </p>
             </div>
+
             <div className="group">
                 <h2 className="settings">About Generic Bells</h2>
                 {/* TODO: PREFLIGHT: version number */}
-                <h4 className="settings">version 1.4.5</h4>
+                <h4 className="settings">version 1.4.6</h4>
                 <p className="settings">A colourful, customisable & concise web app to show your SBHS timetable data.</p>
                 <p className="settings">Source code can be found on Github here.</p>
-                <p className="settings"><a href="https://github.com/mintcarrotkeys/generic-bells">mintcarrotkeys/generic-bells</a></p>
-                <p className="settings"><br /></p>
+                <p className="settings"><a
+                    href="https://github.com/mintcarrotkeys/generic-bells">mintcarrotkeys/generic-bells</a></p>
+                <p className="settings"><br/></p>
                 <p className="settings">
                     This is a beta release, meaning the software will have bugs and unforeseen problems.
                     Use at your own risk. Don't enter any private or irrecoverable data into the app.

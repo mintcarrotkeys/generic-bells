@@ -5,13 +5,42 @@ export default function CellTimetable(props) {
     /**
      * name
      * room
-     *
+     * colour
+     * subjectId
+     * selectedSubject
+     * selectSubject
      *
      *
      * **/
-    const iconStyle = {
-        backgroundColor: props.colour.hex,
-        color: (props.colour.isDark ? 'white' : 'black')
+
+    let iconStyle;
+
+    if (props.selectedSubject === null) {
+        iconStyle = {
+            backgroundColor: props.colour.hex,
+            color: (props.colour.isDark ? 'white' : 'black')
+        }
+    }
+    else {
+        if (props.subjectId === props.selectedSubject) {
+            iconStyle = {
+                backgroundColor: props.colour.hex,
+                color: (props.colour.isDark ? 'white' : 'black')
+            }
+        }
+        else {
+            const shadowCol = {hex: "#d0d0d0", isDark: false};
+            iconStyle = {
+                backgroundColor: shadowCol.hex,
+                color: (shadowCol.isDark ? 'white' : 'black')
+            }
+        }
+    }
+
+    function handleClick() {
+        if (props.selectedSubject === null) {
+            props.selectSubject(props.subjectId);
+        }
     }
 
     let cssIdentifiers = [
@@ -60,8 +89,9 @@ export default function CellTimetable(props) {
         roomLengthCSS = cssRoomIdentifiers[3];
     }
 
+
     const output = (
-        <div className="tt__cell">
+        <div className="tt__cell" onClick={handleClick}>
             <div className={"tt__cell__name " + nameLengthCSS} style={iconStyle}>{props.name}</div>
             <div className={"tt__cell__room "+ roomLengthCSS}>{displayRoom}</div>
 

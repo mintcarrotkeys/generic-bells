@@ -148,6 +148,7 @@ export default function PageBarcode(props) {
     function handleDeleteSavedBarcode(id) {
         let barcodes = [...savedBarcodes];
         barcodes.splice(id, 1);
+        saveItem(SID_saveBarcodes, barcodes);
         setSavedBarcodes(barcodes);
     }
 

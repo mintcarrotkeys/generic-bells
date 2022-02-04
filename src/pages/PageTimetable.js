@@ -6,6 +6,9 @@ import {passStr} from "../version";
 
 
 export default function PageTimetable(props) {
+
+    const [selectedSubject, setSelectedSubject] = useState(null);
+
     if (Object.keys(props.data).length === 0) {
         return (
             <div className="page__timetable page__prop">
@@ -13,6 +16,17 @@ export default function PageTimetable(props) {
             </div>
         );
     }
+
+    function handleClickPage() {
+        if (selectedSubject !== null) {
+            setSelectedSubject(null);
+        }
+    }
+
+    function handleSetSelectedSubject(subjectId) {
+        setSelectedSubject(subjectId);
+    }
+
 
     let subjects = props.data.subjects;
     let subjectObject = {};
@@ -23,27 +37,29 @@ export default function PageTimetable(props) {
     }
     const days = props.data.days;
 
-    const dataA = {
-        'a': days["1"],
-        'b': days["2"],
-        'c': days["3"],
-        'd': days["4"],
-        'e': days["5"],
-    };
-    const dataB = {
-        'a': days["6"],
-        'b': days["7"],
-        'c': days["8"],
-        'd': days["9"],
-        'e': days["10"],
-    };
-    const dataC = {
-        'a': days["11"],
-        'b': days["12"],
-        'c': days["13"],
-        'd': days["14"],
-        'e': days["15"],
-    };
+    const dataABC = [
+        {
+            'a': days["1"],
+            'b': days["2"],
+            'c': days["3"],
+            'd': days["4"],
+            'e': days["5"],
+        },
+        {
+            'a': days["6"],
+            'b': days["7"],
+            'c': days["8"],
+            'd': days["9"],
+            'e': days["10"],
+        },
+        {
+            'a': days["11"],
+            'b': days["12"],
+            'c': days["13"],
+            'd': days["14"],
+            'e': days["15"],
+        }
+    ];
 
     configSettings(subjectObject);
 
@@ -81,6 +97,37 @@ export default function PageTimetable(props) {
 
     let weeks = [];
     let timetableWeekOrder = passStr("set_tt_week_order");
+
+    const weekNames = ['A', 'B', 'C'];
+    let j = 0;
+    if (timetableWeekOrder === "yes") {
+        j = orderInfo.week;
+    }
+    while (weeks.length < 3) {
+        let todayVal = 0;
+        if (orderInfo.week === j) {
+            todayVal = orderInfo.day;
+        }
+        weeks.push(
+            <WeekTimetable
+                weekName={weekNames[j]}
+                today={todayVal}
+                data={dataABC[j]}
+                key={weekNames[j]}
+                selectedSubject={selectedSubject}
+                selectSubject={handleSetSelectedSubject}
+            />
+        )
+        j++;
+        if (j >= 3) {
+            j = 0;
+        }
+    }
+
+
+
+
+/**** OLD LOGIC
     if (timetableWeekOrder === "yes") {
         // console.log("Timetable order set to current week first")
         if (orderInfo.week <= 0) {
@@ -129,9 +176,10 @@ export default function PageTimetable(props) {
             ]
         }
     }
+****/
 
     const output = (
-        <div className="page__timetable page__prop">
+        <div className="page__timetable page__prop" onClick={handleClickPage}>
             {weeks}
         </div>
     );
