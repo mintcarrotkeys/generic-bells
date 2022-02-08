@@ -13,7 +13,20 @@ export default function PageBells(props) {
     // console.log(props.data);
 
     if (Object.keys(props.data).length === 0) {
-        return null;
+        return (
+            <div className="page__bells page__prop">
+                <div id="topBar" className="topBar period">
+                    <div className="topBar__side topBar__left">{}</div>
+                    <div className="topBar__middle">Loading...</div>
+                    <div className="topBar__side topBar__right">{}</div>
+                </div>
+
+                <div className="barcodeFontLoader barcodeFontLoader-0">bc</div>
+                <div className="barcodeFontLoader barcodeFontLoader-1">bl3</div>
+                <div className="barcodeFontLoader barcodeFontLoader-2">bl4</div>
+                <div className="barcodeFontLoader barcodeFontLoader-3">bl5</div>
+            </div>
+        );
     }
     //console.log(apiData);
 

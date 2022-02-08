@@ -28,12 +28,12 @@ function App() {
         };
 
         let storedData = passItem('storedData');
-        if (storedData !== null) {
+        if (storedData !== null && storedData.hasOwnProperty("timestamp")) {
             if (Date.now() <= Number(storedData.timestamp)) {
                 console.log("Stored data still valid");
                 output = storedData;
             }
-            else if (storedData.tt.hasOwnProperty('subjects')) {
+            else if (storedData.hasOwnProperty("tt") && storedData.tt.hasOwnProperty('subjects')) {
                 output = {...storedData, ...{dtt: {}, feeds: {}, dataState: "askToLogin"}};
             }
         }

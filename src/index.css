@@ -1444,7 +1444,7 @@ p {
     white-space: pre-wrap;
 }
 
-b {
+b, strong {
     font-weight: 500;
 }
 
