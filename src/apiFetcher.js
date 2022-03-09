@@ -1,9 +1,12 @@
+import {passItem, saveItem} from "./version";
+
 //TODO: PREFLIGHT: server data
 
 const siteURL = encodeURIComponent('https://genericbells.pages.dev');
 const useAppId = "genericbells10";
 const serverURL = "https://forward.genericbells.workers.dev/";
 const tokenServerURL = "https://refresh.genericbells.workers.dev";
+
 const refreshValidity = 90 * 24 * 60 * 60 * 1000 - 10000;
 const tokenValidity = 60 * 60 * 1000 - 10000;
 
@@ -270,7 +273,16 @@ export async function stateManager() {
 }
 //returns success or askToLogin
 
-export async function fetchData(ask, src = 'sch', auth=true) {
+export async function fetchData(ask, src = 'direct', auth=true) {
+    // wk = "calendar/days"
+    const callables = {
+        tt: 'timetable/timetable.json',
+        idn: 'details/userinfo.json',
+        wk: 'timetable/bells.json',
+        dtt: 'timetable/daytimetable.json',
+        note: 'dailynews/list.json'
+    };
+
     let requestUrl;
     let token;
     if (auth) {
@@ -282,9 +294,13 @@ export async function fetchData(ask, src = 'sch', auth=true) {
             token = "Bearer " + token;
         }
     }
-    if (src === "sch") {
+    if (src === "direct") {
+        requestUrl = "https://student.sbhs.net.au/api/" + callables[ask];
+    }
+    else if (src === "forward") {
         requestUrl = serverURL + "?ask=" + ask;
     }
+    // console.log(requestUrl);
     let res = false;
     await fetch(requestUrl, {headers: new Headers({'Authorization': token})}).then(r => res=r).catch(e => console.log(e));
     let i = 0;
@@ -314,7 +330,7 @@ export async function getData(getId=true) {
     let note = false;
     if (data.dataState === 'success') {
         let checkAllGood = true;
-        const source = "sch";
+        const source = "forward";
         if (getId) {
             await Promise.all([
                 fetchData('dtt', source).then(res => dtt = res)
@@ -362,127 +378,18 @@ export async function getData(getId=true) {
             let timestamp = dtt.date.split("-");
             let timestamp2 = new Date(Number(timestamp[0]), Number(timestamp[1]) - 1, Number(timestamp[2]), 16, 0, 0);
             data.timestamp = timestamp2.getTime().toString();
+
+            let storedSettings = passItem('feedSettings');
+            if (storedSettings === null) {
+                saveItem('feedSettings', {seeOnlyMyYear: true, year: tt.student.year});
+            }
         }
         else {
             console.log("Error fetching data.");
-            data.dataState = 'askToLogin';
+            data.dataState = 'offline';
         }
     }
     return data;
 }
 
-// export async function organiser() {
-//     let data = {
-//         timestamp: 0,
-//         dayName: "Loading ...",
-//         dataState: "",
-//         userId: "000000000",
-//         dtt: {},
-//         tt: {},
-//         bells: [],
-//         sync: {}
-//     };
-//     // console.log("week: " + getWeekNum(1642398038000));
-//
-//     //getdata
-//
-//     // await getData();
-//
-//     saveItem('storedData', data);
-//
-//     function synthDTT() {
-//         let output = {
-//             "status": "OK",
-//             "date": "",
-//             "roomVariations": [],
-//             "classVariations": {},
-//             "serverTimezone": "39600",
-//             "shouldDisplayVariations": false,
-//             bells: [],
-//             timetable: {},
-//         }
-//
-//         const today = new Date();
-//         let showDay;
-//         let dayDiff;
-//         if (today.getDay() === 6) {
-//             showDay = today.getTime() + 2*24*60*60*1000;
-//             dayDiff = 1;
-//         }
-//         else if (today.getDay() === 0) {
-//             showDay = today.getTime() + 24*60*60*1000;
-//             dayDiff = 1;
-//         }
-//         else {
-//             showDay = today.getTime();
-//             dayDiff = today.getDay();
-//         }
-//
-//         let weekNo = getWeekNum(showDay);
-//         let sync = data.sync;
-//         let weekDiff = ((weekNo - sync.weekNo) + sync.weekDiff) % 3;
-//
-//         //could be object as normal or array when there are period 0s.
-//         let fetchedTimetable = data.tt.days[(dayDiff + 5*weekDiff).toString()];
-//         if (Array.isArray(fetchedTimetable)) {
-//             let i = 0;
-//             while (i < fetchedTimetable.length) {
-//                 output.timetable.timetable[i.toString()] = fetchedTimetable[i];
-//                 i++;
-//             }
-//         }
-//         else {
-//             output.timetable.timetable = fetchedTimetable;
-//         }
-//
-//         output.timetable.subjects = data.tt.subjects;
-//
-//         let weekdays = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-//         let weeks = ["A", "B", "C"];
-//
-//         data.dayName = (weekdays[dayDiff] + " " + weeks[weekDiff]);
-//         let dayOut = new Date(showDay);
-//         output.date = (
-//             dayOut.getFullYear().toString()
-//             + "-"
-//             + (dayOut.getMonth() + 1).toString()
-//             + "-"
-//             + dayOut.getDate().toString()
-//         );
-//
-//         if (dayDiff === 1 || dayDiff === 2) {
-//             output.bells = [...bellRoutines.MonTue];
-//         }
-//         else if (dayDiff === 3 || dayDiff === 4) {
-//             output.bells = [...bellRoutines.WedThu];
-//         }
-//         else if (dayDiff === 5) {
-//             output.bells = [...bellRoutines.Fri];
-//         }
-//         else {
-//             console.log("dayDiff not in range 1-5 when generating synthetic day timetable.");
-//         }
-//
-//         data.bells = [...output.bells];
-//
-//         // console.log(output);
-//
-//         return output;
-//
-//     }
-//
-//     const synth = synthDTT();
-//     // console.log(data.bells);
-//
-//     if (data.dtt.hasOwnProperty('timetable')===false && data.tt.hasOwnProperty('subjects')) {
-//         if (synth) {
-//             data.dtt = synth;
-//         }
-//         else {
-//             console.log("Failed to generate day schedule from timetable.");
-//         }
-//     }
-//
-//     return data;
-//
-// }
+

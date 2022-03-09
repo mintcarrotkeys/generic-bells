@@ -15,8 +15,6 @@ export default function About() {
             <div className="about__icon"><Logo /></div>
             <h1 className="bigHeading about__title">Generic Bells</h1>
             <button className="about__button button" onClick={() => redirect()} >Login</button>
-            <div className="about__description">
-            </div>
         </div>
     );
 

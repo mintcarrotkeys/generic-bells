@@ -15,6 +15,7 @@ export default function PageBells(props) {
     if (Object.keys(props.data).length === 0) {
         return (
             <div className="page__bells page__prop">
+                {props.isOffline ? <Offline /> : ""}
                 <div id="topBar" className="topBar period">
                     <div className="topBar__side topBar__left">{}</div>
                     <div className="topBar__middle">Loading...</div>

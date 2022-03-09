@@ -3,6 +3,8 @@ import ClassInfo from "../components/ClassInfo";
 import {passStr, saveStr, passItem, saveItem} from "../version";
 import { ReactComponent as Logo } from "../assets/favicon3.svg";
 
+/** TODO: PREFLIGHT: version number **/
+let appVersion = "1.5.0";
 
 export default function PageSettings(props) {
 
@@ -106,7 +108,9 @@ export default function PageSettings(props) {
         <div className="page__settings page__prop">
             <h1 className="bigHeading">Settings</h1>
             <div className="group" id="banner">
-                <Logo style={{width: '100px'}} />
+                <div style={{width: '100px', height: '100px'}}>
+                    <Logo  />
+                </div>
             </div>
             <div className="group">
                 <h2 className="settings">Customise colours & names</h2>
@@ -187,8 +191,8 @@ export default function PageSettings(props) {
                         Click again to minimise the message.
                     </p>
                 </div>
-                <div className="dropdown">
-                    <h3 className="dropdown__label settings" style={{fontWeight: 500}}>Only show notices for year: </h3>
+                <div className="dropdown settings">
+                    <h4 className="dropdown__label settings">Show notices for year: </h4>
                     <select name="yearsList" id="yearsList" onChange={chooseFeedYear} defaultValue={savedFeedYear} className="dropdown__selector">
                         <option value="all">all</option>
                         <option value="7" >7</option>
@@ -259,8 +263,7 @@ export default function PageSettings(props) {
 
             <div className="group">
                 <h2 className="settings">About Generic Bells</h2>
-                {/* TODO: PREFLIGHT: version number */}
-                <h4 className="settings">version 1.4.7</h4>
+                <h4 className="settings">version {appVersion}</h4>
                 <p className="settings">A colourful, customisable & concise web app to show your SBHS timetable data.</p>
                 <p className="settings">Source code can be found on Github here.</p>
                 <p className="settings"><a
@@ -322,7 +325,9 @@ export default function PageSettings(props) {
                     src/assets/nav-icons.js contains icons obtained from Bootstrap under the MIT license.
                     Copyright (c) 2019-2021 The Bootstrap Authors for those icons.
                     <br /><br />
-                    See source code on Github for more details. (link above)
+                    See source code on Github for more details.
+                    <br />
+                    <a href="https://github.com/mintcarrotkeys/generic-bells">https://github.com/mintcarrotkeys/generic-bells</a>
                     <br /><br />
                     <b>
                         The Generic Bells logo, which is used within the app and as a favicon, is:<br />

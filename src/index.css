@@ -1,6 +1,13 @@
 
 
 
+
+:root {
+    --background: #eeeeee;
+
+}
+
+
 .about__icon {
     margin-top: 40px;
     width: 150px;
@@ -22,67 +29,6 @@
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
-@keyframes colourChange {
-    from {
-        background-color: #92c748;
-        opacity: 1;
-    }
-    15% {
-        background-color: #92c748;
-        opacity: 1;
-    }
-    20% {
-        background-color: #eeeeee;
-        opacity: 0;
-    }
-    25% {
-        background-color: #68babe;
-        opacity: 1;
-    }
-    40% {
-        background-color: #68babe;
-        opacity: 1;
-    }
-    45% {
-        background-color: #eeeeee;
-        opacity: 0;
-    }
-    50% {
-        background-color: #eeaab7;
-        opacity: 1;
-    }
-    65% {
-        background-color: #eeaab7;
-        opacity: 1;
-    }
-    70% {
-        background-color: #eeeeee;
-        opacity: 0;
-    }
-    75% {
-        background-color: #efc94f;
-        opacity: 1;
-    }
-    90% {
-        background-color: #efc94f;
-        opacity: 1;
-    }
-    95% {
-        background-color: #eeeeee;
-        opacity: 0;
-    }
-    to {
-        background-color: #92c748;
-        opacity: 1;
-    }
-}
-
-
-.about__button:hover {
-    /*animation: 15s ease-in-out 0s infinite normal colourChange;*/
-}
-
-
 .about__container {
     display: flex;
     flex-direction: column;
@@ -93,18 +39,6 @@
     width: fit-content;
     margin: auto;
 }
-
-
-.about__description {
-    font-weight: 300;
-    font-size: 20px;
-    text-align: center;
-    color: white;
-    margin: 40px 0px;
-}
-
-
-
 
 
 
@@ -770,6 +704,7 @@ p {
 .topBar__middle {
     flex: 0 0;
     text-align: center;
+    min-width: 100px;
 }
 
 
@@ -1367,6 +1302,13 @@ p {
     padding: 0px 5px;
 }
 
+.change-feed-year {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
 /*.feedItem__shader {*/
 /*    height: 1px;*/
 /*    width: 100%;*/
@@ -1430,7 +1372,7 @@ p {
 
 
 .dropdown__label {
-    padding-bottom: 5px;
+    padding-bottom: 3px;
     margin-right: 20px;
 }
 
@@ -1438,6 +1380,8 @@ p {
     font-family: inherit;
     font-size: 15px;
     font-weight: 400;
+    border-radius: 5px;
+    border: solid 1px #333333;
 }
 
 .no_fold {

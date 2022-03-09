@@ -7,7 +7,7 @@ import {saveItem} from "./version";
 
 //TODO: PREFLIGHT: remove testing data
 
-// let TESTDATA = ;
+// let TESTDATA =
 //
 //
 // saveItem('storedData', TESTDATA);

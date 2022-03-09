@@ -19,8 +19,12 @@ export default function TopBar(props) {
             return output;
         }
         else {
+            let textStyle = {};
+            if (row.displayName === "end of day" || row.displayName.length > 8) {
+                textStyle.fontSize = "15px";
+            }
             const output = (
-                <div className={(side === 'r' ? "topBar__right__icon" : "")}>
+                <div className={(side === 'r' ? "topBar__right__icon" : "")} style={textStyle} >
                     {row.displayName}
                 </div>
             );

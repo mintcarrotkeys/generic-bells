@@ -34,7 +34,7 @@ function App() {
                 output = storedData;
             }
             else if (storedData.hasOwnProperty("tt") && storedData.tt.hasOwnProperty('subjects')) {
-                output = {...storedData, ...{dtt: {}, feeds: {}, dataState: "askToLogin"}};
+                output = {...storedData, ...{dtt: {}, feeds: {}, dataState: ""}};
             }
         }
         return output;
@@ -42,26 +42,8 @@ function App() {
 
     const [data, setData] = useState(loadStoredData);
 
-    let pageBells;
-    let pageBarcode = (<PageBarcode userIdCode={data.userId} />);
-    let pageTimetable = (<PageTimetable data={data.tt} sync={data.sync} />);
-    let pageFeeds = (<PageFeeds data={data.feeds} isOffline={(data.dataState==="offline")} />);
-    let pageSettings = (<PageSettings />);
-
-    if (passStr('usedApp') === null) {
-        pageBells = (<About />);
-    }
-    else {
-        pageBells = (
-            <PageBells
-                dayName={data.dayName}
-                data={data.dtt}
-                defaultBells={data.bells}
-                isOffline={(data.dataState==="offline")}
-            />);
-    }
-
-    const [currentPage, setCurrentPage] = useState(pageBells);
+    const [currentPageName, setCurrentPageName] = useState("bells");
+    const [showLogin, setLogin] = useState(data.dataState === "askToLogin");
 
     React.useEffect(() => {
         async function dataManager() {
@@ -196,15 +178,9 @@ function App() {
             }
 
             setData(displayData);
-
-            setCurrentPage(
-                <PageBells
-                    dayName={displayData.dayName}
-                    data={displayData.dtt}
-                    defaultBells={displayData.bells}
-                    isOffline={(displayData.dataState==="offline")}
-                />);
-
+            setLogin((displayData.dataState === "askToLogin"));
+            // console.log(currentPageName);
+            // console.log(currentPage);
         }
         if (passStr("usedApp") === null) {
             return null;
@@ -214,20 +190,20 @@ function App() {
         }
     }, []);
 
-    const [showLogin, setLogin] = useState(data.dataState === "askToLogin");
-
-    function showDataMessage(off) {
-        if (data.dataState === "askToLogin") {
+    function showDataMessage(on, isBells=false) {
+        if (passStr("usedApp") === null) {
+            if (isBells) {
+                setLogin(false);
+            }
+            else {
+                setLogin(true);
+            }
+        }
+        else if (data.dataState === "askToLogin" && on) {
             setLogin(true);
         }
-        else if (data.dataState === "success") {
+        else if (on === false) {
             setLogin(false);
-        }
-        else if (off) {
-            setLogin(false);
-        }
-        else if (passStr("usedApp") === null) {
-            setLogin(true);
         }
         else {
             setLogin(false);
@@ -236,33 +212,60 @@ function App() {
 
     function reportClicked(name) {
         if (name === "barcode") {
-            setCurrentPage(pageBarcode);
-            showDataMessage();
+            setCurrentPageName("barcode");
+            showDataMessage(false);
         }
         else if (name === "timetable") {
-            setCurrentPage(pageTimetable);
-            showDataMessage();
+            setCurrentPageName("timetable");
+            showDataMessage(false);
         }
         else if (name === "bells") {
-            setCurrentPage(pageBells);
-            showDataMessage(true);
+            setCurrentPageName("bells");
+            showDataMessage(true, true);
         }
         else if (name === "feeds") {
-            setCurrentPage(pageFeeds);
-            showDataMessage();
-        }
-        else if (name === "settings") {
-            setCurrentPage(pageSettings);
+            setCurrentPageName("feeds");
             showDataMessage(true);
         }
+        else if (name === "settings") {
+            setCurrentPageName("settings");
+            showDataMessage(false);
+        }
     }
+
+    let pageBells = (<PageBells dayName={data.dayName} data={data.dtt} defaultBells={data.bells} isOffline={(data.dataState==="offline")} />);
+    let pageBarcode = (<PageBarcode userIdCode={data.userId} />);
+    let pageTimetable = (<PageTimetable data={data.tt} sync={data.sync} />);
+    let pageFeeds = (<PageFeeds data={data.feeds} isOffline={(data.dataState==="offline")} />);
+    let pageSettings = (<PageSettings />);
+
+    let currentPage;
+    if (passStr('usedApp') === null && currentPageName === 'bells') {
+        currentPage = (<About />);
+    }
+    else if (currentPageName === 'bells') {
+        currentPage = pageBells;
+    }
+    else if (currentPageName === 'barcode') {
+        currentPage = pageBarcode;
+    }
+    else if (currentPageName === 'timetable') {
+        currentPage = pageTimetable;
+    }
+    else if (currentPageName === 'feeds') {
+        currentPage = pageFeeds;
+    }
+    else if (currentPageName === 'settings') {
+        currentPage = pageSettings;
+    }
+
 
 
     const output = (
         <div className="app-container">
             <div className="page">
-                {showLogin ? <DataMessage /> : ""}
                 {currentPage}
+                {showLogin ? <DataMessage /> : ""}
             </div>
             <Nav reportClicked={reportClicked} initialPage="bells" />
         </div>

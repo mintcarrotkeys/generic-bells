@@ -245,8 +245,11 @@ export function apiDataHandler(apiData) {
         }
 
     }
-
-
+    //add End of day
+    let apiDataLength = apiData.bells.length;
+    if (apiDataLength > 0 && apiData.bells[apiDataLength - 1].period === "EoD") {
+        addLine(false, "end of day", apiData.bells[apiDataLength - 1].startTime);
+    }
 
 
 
