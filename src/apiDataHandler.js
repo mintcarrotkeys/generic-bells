@@ -20,7 +20,7 @@ export function configSettings(apiData) {
      *      isDark
      *
      * **/
-    let defaultColour = colourPack[9];
+    let defaultColour = colourPack[13];
     let colours = JSON.parse(JSON.stringify(colourPack));
     for (const title in classData) {
         const subject = classData[title];
