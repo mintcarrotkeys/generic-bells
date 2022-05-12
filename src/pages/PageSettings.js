@@ -4,7 +4,7 @@ import {passStr, saveStr, passItem, saveItem} from "../version";
 import { ReactComponent as Logo } from "../assets/favicon3.svg";
 
 /** TODO: PREFLIGHT: version number **/
-let appVersion = "1.5.1";
+let appVersion = "1.5.2";
 
 export default function PageSettings(props) {
 

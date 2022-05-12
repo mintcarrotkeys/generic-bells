@@ -151,30 +151,47 @@ export function apiDataHandler(apiData) {
         // check for variations
         let highlightRoom = false;
         let displayRoom = periodData.room;
-        if (apiData.shouldDisplayVariations && apiData.classVariations.hasOwnProperty(periodNumber)) {
-            highlightRoom = true;
-            const variationData = apiData.classVariations[periodNumber];
-            if (variationData.type === "novariation") {
-                highlightRoom = false;
+        if (apiData.shouldDisplayVariations) {
+            if (apiData.roomVariations.hasOwnProperty(periodNumber)) {
+                const variation = apiData.roomVariations[periodNumber];
+                if (variation.roomTo !== null && variation.roomTo !== "") {
+                    if (variation.title === classId) {
+                        highlightRoom = true;
+                        displayRoom = variation.roomTo;
+                    }
+                }
             }
-            else if (variationData.title === classId) {
-                if (variationData.hasOwnProperty("roomTo")) {
-                    if (variationData.roomTo === null || variationData.roomTo === "") {
-                        if (variationData.type === "nocover") {
+            if (apiData.classVariations.hasOwnProperty(periodNumber) ) {
+                const variation = apiData.classVariations[periodNumber];
+                if (variation.title === classId) {
+                    if (variation.type === "novariation") {
+
+                    }
+                    else if (variation.type === "nocover") {
+                        highlightRoom = true;
+                        if (variation.roomTo === null || variation.roomTo === "") {
                             displayRoom = "-";
                         }
                     }
-                    else {
-                        displayRoom = variationData.roomTo;
-                    }
-                }
-                if (variationData.hasOwnProperty("casualSurname")) {
-                    if (variationData.casualSurname !== null && variationData.casualSurname !== "") {
-                        displayTeacher = variationData.casualSurname;
-                    }
-                    else if (variationData.hasOwnProperty("casual")) {
-                        if (variationData.casual !== null && variationData.casual !== "") {
-                            displayTeacher = variationData.casual;
+                    else if (variation.type === "replacement") {
+                        highlightRoom = true;
+                        if (variation.roomTo !== null && variation.roomTo !== "") {
+                            displayRoom = variation.roomTo;
+                        }
+
+                        if (variation.hasOwnProperty("casualSurname") && variation.casualSurname !== null && variation.casualSurname !== "") {
+                            displayTeacher = variation.casualSurname;
+                        }
+                        else if (variation.hasOwnProperty("casual")) {
+                            const casualName = variation.casual;
+                            if (casualName !== null && casualName !== "") {
+                                if (casualName.length === 4 && (casualName === casualName.toUpperCase())) {
+                                    displayTeacher = casualName.slice(3, 4) + " " + casualName.slice(0, 3);
+                                }
+                                else {
+                                    displayTeacher = casualName;
+                                }
+                            }
                         }
                     }
                 }
