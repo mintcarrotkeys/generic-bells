@@ -28,7 +28,7 @@ export default function DataMessage(props) {
 
     const loading = (
         <div className="askLogin">
-            <div className="askLogin__button button" id="redirect_to_login" style={{backgroundColor: "white", color: "#333333"}} onClick={handleClick}>
+            <div className="askLogin__button button" id="redirect_to_login" style={{backgroundColor: "white", color: "#333333"}} >
                 {askLogin.loading}
                 <div>
                     Loading the login page ...

@@ -13,6 +13,101 @@ import About from "./About";
 
 
 function App() {
+    function synthDTT(input) {
+        let output = {
+            "status": "OK",
+            "date": "",
+            "roomVariations": [],
+            "classVariations": {},
+            "serverTimezone": "39600",
+            "shouldDisplayVariations": false,
+            bells: [],
+            timetable: {},
+        }
+
+        let today = new Date();
+        let showDay;
+        let dayDiff;
+        if (today.getHours() >= 16) {
+            let millisInDay = 86400000;
+            let timeNow = today.getTime();
+            today = new Date((Math.floor(timeNow / millisInDay) * millisInDay) + millisInDay + 10000);
+            // console.log("detected afternoon");
+        }
+        if (today.getDay() === 6) {
+            showDay = today.getTime() + 2*24*60*60*1000;
+            dayDiff = 1;
+        }
+        else if (today.getDay() === 0) {
+            showDay = today.getTime() + 24*60*60*1000;
+            dayDiff = 1;
+        }
+        else {
+            showDay = today.getTime();
+            dayDiff = today.getDay();
+        }
+        // console.log(showDay);
+        // console.log(displayData);
+
+        let weekNo = getWeekNum(showDay);
+        let sync = input.sync;
+        if (sync === null || sync === undefined) {
+            return false;
+        }
+        let weekDiff;
+        if (weekNo < sync.weekNo) {
+            weekDiff = sync.weekNo;
+        }
+        else {
+            weekDiff = ((weekNo - sync.weekNo) + sync.weekDiff) % 3;
+        }
+
+        //could be object as normal or array when there are period 0s.
+        let fetchedTimetable = input.tt['days'][(dayDiff + 5*weekDiff).toString()];
+        if (Array.isArray(fetchedTimetable)) {
+            let i = 0;
+            while (i < fetchedTimetable.length) {
+                output.timetable.timetable[i.toString()] = fetchedTimetable[i];
+                i++;
+            }
+        }
+        else {
+            output.timetable.timetable = fetchedTimetable;
+        }
+
+        output.timetable.subjects = input.tt.subjects;
+
+        let weekdays = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+        let weeks = ["A", "B", "C"];
+
+        output.dayName = (weekdays[dayDiff] + " " + weeks[weekDiff]);
+        let dayOut = new Date(showDay);
+        output.date = (
+            dayOut.getFullYear().toString()
+            + "-"
+            + (dayOut.getMonth() + 1).toString()
+            + "-"
+            + dayOut.getDate().toString()
+        );
+
+        if (dayDiff === 1 || dayDiff === 2) {
+            output.bells = [...bellRoutines.MonTue];
+        }
+        else if (dayDiff === 3 || dayDiff === 4) {
+            output.bells = [...bellRoutines.WedThu];
+        }
+        else if (dayDiff === 5) {
+            output.bells = [...bellRoutines.Fri];
+        }
+        else {
+            console.log("Error when generating synthetic day timetable.");
+        }
+
+        // console.log(output);
+
+        return output;
+
+    }
 
     function loadStoredData() {
         let output = {
@@ -34,7 +129,13 @@ function App() {
                 output = storedData;
             }
             else if (storedData.hasOwnProperty("tt") && storedData.tt.hasOwnProperty('subjects')) {
-                output = {...storedData, ...{dtt: {}, feeds: {}, dataState: ""}};
+                let synth = synthDTT(storedData);
+                if (synth) {
+                    output = {...storedData, ...{dtt: synth, dayName: synth.dayName, feeds: {}, dataState: "loading"}};
+                }
+                else {
+                    output = {...storedData, ...{dtt: {}, feeds: {}, dataState: "loading"}};
+                }
             }
         }
         return output;
@@ -60,105 +161,6 @@ function App() {
                 .then(res => newDataInput=res)
                 .then(() => (newDataInput.hasOwnProperty("dataState") ? newData=newDataInput : doNothing=false))
                 .catch((err) => console.log(err));
-            // console.log(data);
-            // console.log(newData);
-            // console.log(newDataInput);
-
-            function synthDTT() {
-                let output = {
-                    "status": "OK",
-                    "date": "",
-                    "roomVariations": [],
-                    "classVariations": {},
-                    "serverTimezone": "39600",
-                    "shouldDisplayVariations": false,
-                    bells: [],
-                    timetable: {},
-                }
-
-                let today = new Date();
-                let showDay;
-                let dayDiff;
-                if (today.getHours() >= 16) {
-                    let millisInDay = 86400000;
-                    let timeNow = today.getTime();
-                    today = new Date((Math.floor(timeNow / millisInDay) * millisInDay) + millisInDay + 10000);
-                    // console.log("detected afternoon");
-                }
-                if (today.getDay() === 6) {
-                    showDay = today.getTime() + 2*24*60*60*1000;
-                    dayDiff = 1;
-                }
-                else if (today.getDay() === 0) {
-                    showDay = today.getTime() + 24*60*60*1000;
-                    dayDiff = 1;
-                }
-                else {
-                    showDay = today.getTime();
-                    dayDiff = today.getDay();
-                }
-                // console.log(showDay);
-                // console.log(displayData);
-
-                let weekNo = getWeekNum(showDay);
-                let sync = displayData.sync;
-                if (sync === null || sync === undefined) {
-                    return false;
-                }
-                let weekDiff;
-                if (weekNo < sync.weekNo) {
-                    weekDiff = sync.weekNo;
-                }
-                else {
-                    weekDiff = ((weekNo - sync.weekNo) + sync.weekDiff) % 3;
-                }
-
-                //could be object as normal or array when there are period 0s.
-                let fetchedTimetable = displayData.tt['days'][(dayDiff + 5*weekDiff).toString()];
-                if (Array.isArray(fetchedTimetable)) {
-                    let i = 0;
-                    while (i < fetchedTimetable.length) {
-                        output.timetable.timetable[i.toString()] = fetchedTimetable[i];
-                        i++;
-                    }
-                }
-                else {
-                    output.timetable.timetable = fetchedTimetable;
-                }
-
-                output.timetable.subjects = displayData.tt.subjects;
-
-                let weekdays = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-                let weeks = ["A", "B", "C"];
-
-                output.dayName = (weekdays[dayDiff] + " " + weeks[weekDiff]);
-                let dayOut = new Date(showDay);
-                output.date = (
-                    dayOut.getFullYear().toString()
-                    + "-"
-                    + (dayOut.getMonth() + 1).toString()
-                    + "-"
-                    + dayOut.getDate().toString()
-                );
-
-                if (dayDiff === 1 || dayDiff === 2) {
-                    output.bells = [...bellRoutines.MonTue];
-                }
-                else if (dayDiff === 3 || dayDiff === 4) {
-                    output.bells = [...bellRoutines.WedThu];
-                }
-                else if (dayDiff === 5) {
-                    output.bells = [...bellRoutines.Fri];
-                }
-                else {
-                    console.log("Error when generating synthetic day timetable.");
-                }
-
-                // console.log(output);
-
-                return output;
-
-            }
 
             let displayData = {...data, ...newData};
 
@@ -166,16 +168,16 @@ function App() {
             savedData = {...savedData, ...newData};
             saveItem('storedData', savedData);
 
-            if (displayData.dtt.hasOwnProperty('timetable')===false && displayData.tt.hasOwnProperty('subjects')) {
-                const synth = synthDTT();
-                if (synth) {
-                    displayData.dtt = synth;
-                    displayData.dayName = synth.dayName;
-                }
-                else {
-                    console.log("Failed to generate day schedule from timetable.");
-                }
-            }
+            // if (displayData.dtt.hasOwnProperty('timetable')===false && displayData.tt.hasOwnProperty('subjects')) {
+            //     const synth = synthDTT();
+            //     if (synth) {
+            //         displayData.dtt = synth;
+            //         displayData.dayName = synth.dayName;
+            //     }
+            //     else {
+            //         console.log("Failed to generate day schedule from timetable.");
+            //     }
+            // }
 
             setData(displayData);
             setLogin((displayData.dataState === "askToLogin"));
@@ -233,10 +235,10 @@ function App() {
         }
     }
 
-    let pageBells = (<PageBells dayName={data.dayName} data={data.dtt} defaultBells={data.bells} isOffline={(data.dataState==="offline")} />);
+    let pageBells = (<PageBells dayName={data.dayName} data={data.dtt} defaultBells={data.bells} dataState={data.dataState} />);
     let pageBarcode = (<PageBarcode userIdCode={data.userId} />);
     let pageTimetable = (<PageTimetable data={data.tt} sync={data.sync} />);
-    let pageFeeds = (<PageFeeds data={data.feeds} isOffline={(data.dataState==="offline")} />);
+    let pageFeeds = (<PageFeeds data={data.feeds} dataState={data.dataState} />);
     let pageSettings = (<PageSettings />);
 
     let currentPage;

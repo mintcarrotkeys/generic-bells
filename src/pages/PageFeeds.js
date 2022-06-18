@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {passItem, saveItem} from "../version";
 import FeedItem from "../components/FeedItem";
 import Offline from "../components/Offline";
+import Loading from "../components/Loading";
 
 
 export default function PageFeeds(props) {
@@ -85,7 +86,8 @@ export default function PageFeeds(props) {
 
     const output = (
         <div className="page__feeds page__prop">
-            {props.isOffline ? <Offline /> : ""}
+            {props.dataState==='offline' ? <Offline /> : ""}
+            {props.dataState==='loading' ? <Loading /> : ""}
             <h1 className="bigHeading">Notices</h1>
             <div className="group">
                 <div className="change-feed-year">

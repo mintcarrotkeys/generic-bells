@@ -1,10 +1,7 @@
 
-
-
-
 :root {
     --background: #eeeeee;
-
+    --device-orientation: landscape;
 }
 
 
@@ -20,13 +17,13 @@
 
 
 .about__button.button {
-    margin: 0px;
+    margin: 0;
     padding: 10px 25px;
     font-size: 20px;
     font-weight: 400;
     border-radius: 10px;
     border: none;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .about__container {
@@ -38,12 +35,6 @@
     height: 100%;
     width: fit-content;
     margin: auto;
-}
-
-
-
-:root {
-    --device-orientation: landscape;
 }
 
 body {
@@ -58,8 +49,8 @@ body {
 }
 
 div {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -132,7 +123,7 @@ p {
     min-width: 250px;
     max-width: 600px;
     padding: 15px;
-    margin: 0px auto 20px auto;
+    margin: 0 auto 20px auto;
 }
 
 @keyframes pageFade {
@@ -168,15 +159,14 @@ p {
     }
 
 
-
     .nav {
         padding-left: 15px;
         padding-right: 15px;
         position: fixed;
-        bottom: 0px;
-        left: 0px;
+        bottom: 0;
+        left: 0;
 
-        box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
 
         width: calc(100vw - 30px);
         height: calc(100vw / 5.7887);
@@ -214,7 +204,7 @@ p {
 
 
     .nav__button--currentPage {
-        background-image: linear-gradient(to top,  #e0e0e0 30%, #ffffff00 100%);
+        background-image: linear-gradient(to top, #e0e0e0 30%, #ffffff00 100%);
     }
 
 
@@ -240,6 +230,7 @@ p {
         font-size: 13px;
     }
 }
+
 @media (min-aspect-ratio: 11/9) {
 
     .page {
@@ -261,7 +252,7 @@ p {
         left: 0;
         top: 0;
 
-        box-shadow: 2px 0px 6px rgba(0, 0, 0, 0.15);
+        box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
 
         flex-direction: column;
         align-items: center;
@@ -323,6 +314,7 @@ p {
     .toggle__side:hover {
         background-color: #92c748;
     }
+
     body, p {
         font-weight: 400;
         font-size: 14px;
@@ -364,10 +356,9 @@ p {
 }
 
 
-
 .period {
     background-color: white;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
     font-weight: 400;
     font-size: 20px;
     border-radius: 5px;
@@ -452,8 +443,8 @@ p {
 
 
 .period__details.period__details--closed {
-    height: 0px;
-    padding: 0px;
+    height: 0;
+    padding: 0;
     border: none;
 
     animation-duration: 0.2s;
@@ -470,7 +461,7 @@ p {
 
 
 .period__details__item {
-    padding: 0px 5px;
+    padding: 0 5px;
 }
 
 @keyframes appear {
@@ -584,8 +575,8 @@ p {
     font-family: 'Libre Barcode 128', sans-serif;
     font-size: calc(50px + 10vw);
     font-weight: 400;
-    padding: 20px 20px 0px 20px;
-    margin: 10px 0px;
+    padding: 20px 20px 0 20px;
+    margin: 10px 0;
     background-color: white;
     color: black;
     white-space: pre;
@@ -604,7 +595,7 @@ p {
 }
 
 #saveBarcodeForm__code {
-    margin: 5px 0px;
+    margin: 5px 0;
     width: 100%;
 }
 
@@ -623,7 +614,7 @@ p {
 }
 
 #saveBarcode__submit {
-    margin: 0px 0px 0px 5px;
+    margin: 0 0 0 5px;
 }
 
 .savedBarcode__container {
@@ -652,6 +643,7 @@ p {
     height: 20px;
 
 }
+
 .savedBarcode__closeIcon__wrapper {
     padding: 5px;
 }
@@ -762,7 +754,7 @@ p {
     align-items: center;
     flex-wrap: wrap;
     min-height: 30px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -786,8 +778,8 @@ p {
 
 .settings__classInfo {
     display: block;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 
 }
 
@@ -815,7 +807,7 @@ p {
 
 
 .settings__classInfo__name {
-    margin: 0px 3px;
+    margin: 0 3px;
     min-width: 100px;
     flex: 2 2 200px;
     font-size: 15px;
@@ -824,7 +816,7 @@ p {
 
 
 .settings__classInfo__code {
-    margin: 0px 3px;
+    margin: 0 3px;
     min-width: 50px;
     flex: 1 1 50px;
     font-size: 15px;
@@ -843,7 +835,7 @@ p {
 .group {
     background-color: white;
     color: #222222;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     padding: 5px;
     margin-top: 10px;
@@ -855,7 +847,7 @@ p {
     align-items: center;
     justify-content: flex-start;
     flex-wrap: wrap;
-    margin: 0px 3px;
+    margin: 0 3px;
 
 }
 
@@ -890,7 +882,7 @@ p {
 
     .tt__wk__wrapper {
         background-color: white;
-        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
         border-radius: 5px;
         padding: 5px;
         flex: 0 0;
@@ -936,7 +928,6 @@ p {
     }
 
 
-
     .tt__day {
         flex: 0 0;
 
@@ -963,7 +954,7 @@ p {
         margin: 5px;
         height: 40px;
         width: 40px;
-        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
         border-radius: 10px;
         font-size: 13px;
 
@@ -991,12 +982,15 @@ p {
     .tt__cell__name--3char {
         font-size: 13px;
     }
+
     .tt__cell__name--4char {
         font-size: 13px;
     }
+
     .tt__cell__name--5char {
         font-size: 12px;
     }
+
     .tt__cell__name--6char {
         font-size: 11px;
         font-weight: 500;
@@ -1022,12 +1016,15 @@ p {
     .tt__cell__room--3char {
         font-size: 13px;
     }
+
     .tt__cell__room--4char {
         font-size: 13px;
     }
+
     .tt__cell__room--5char {
         font-size: 12px;
     }
+
     .tt__cell__room--6char {
         font-size: 11px;
     }
@@ -1060,7 +1057,7 @@ p {
 
     .tt__wk__wrapper {
         background-color: white;
-        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
         border-radius: 5px;
         padding: 5px;
         flex: 0 0;
@@ -1106,7 +1103,6 @@ p {
     }
 
 
-
     .tt__day {
         flex: 0 0;
         display: flex;
@@ -1132,7 +1128,7 @@ p {
         margin: 5px;
         height: 30px;
         width: 95px;
-        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
         border-radius: 10px;
         font-size: 17px;
 
@@ -1160,12 +1156,15 @@ p {
     .tt__cell__name--3char {
         font-size: 16px;
     }
+
     .tt__cell__name--4char {
         font-size: 16px;
     }
+
     .tt__cell__name--5char {
         font-size: 15px;
     }
+
     .tt__cell__name--6char {
         font-size: 14px;
         font-weight: 500;
@@ -1191,12 +1190,15 @@ p {
     .tt__cell__room--3char {
         font-size: 17px;
     }
+
     .tt__cell__room--4char {
         font-size: 16px;
     }
+
     .tt__cell__room--5char {
         font-size: 14px;
     }
+
     .tt__cell__room--6char {
         font-size: 12px;
     }
@@ -1216,7 +1218,6 @@ p {
 }
 
 
-
 .feeds__container {
     width: 100%;
     max-width: 600px;
@@ -1225,9 +1226,9 @@ p {
 .feedItem {
     background-color: white;
     color: #222222;
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
-    padding: 0px;
+    padding: 0;
     margin-top: 10px;
     margin-bottom: 10px;
     overflow: auto;
@@ -1247,14 +1248,14 @@ p {
     justify-content: flex-start;
     /*border-top: solid 1px #d0d0d0;*/
     border-bottom: solid 1px #d0d0d0;
-    margin: 0px;
-    padding: 0px 5px 2px 5px;
+    margin: 0;
+    padding: 0 5px 2px 5px;
 }
 
 
 .feedItem__metadata {
-    padding: 0px 5px 3px 5px;
-    margin: 0px;
+    padding: 0 5px 3px 5px;
+    margin: 0;
     font-size: 15px;
     /*font-weight: 400;*/
 }
@@ -1272,7 +1273,7 @@ p {
 .feedItem__body > h6,
 .feedItem__body > div,
 .feedItem__body > br {
-    margin: 0px 0px 5px 0px;
+    margin: 0 0 5px 0;
 }
 
 
@@ -1294,12 +1295,12 @@ p {
     justify-content: flex-start;
     align-items: center;
     padding-bottom: 1px;
-    margin: 0px 5px 2px 5px;
+    margin: 0 5px 2px 5px;
 }
 
 
 .feedItem__metadata__meeting {
-    padding: 0px 5px;
+    padding: 0 5px;
 }
 
 .change-feed-year {
@@ -1396,7 +1397,22 @@ b, strong {
     width: 25px;
     height: 25px;
     flex: 0 0 25px;
-    padding: 0px 5px;
+    padding: 0 5px;
+}
+
+.loadingIcon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    padding: 0 5px;
+
+}
+
+.askLogin__icon {
+    width: 20px;
+    height: 20px;
+    flex: 0 1 20px;
+    padding-right: 5px;
 }
 
 .noConnection {
@@ -1407,6 +1423,15 @@ b, strong {
     font-size: 13px;
 }
 
+.loadingGroup {
+    min-height: 25px;
+}
+
+.darkBanner {
+    color: #ffffff;
+    background-color: #333333;
+}
+
 .barcodeFontLoader {
     font-size: 3px;
     opacity: 0;
@@ -1415,14 +1440,17 @@ b, strong {
 .barcodeFontLoader-0 {
     font-family: 'Libre Barcode 128', sans-serif;
 }
+
 .barcodeFontLoader-1 {
     font-family: 'Barlow', sans-serif;
     font-weight: 300;
 }
+
 .barcodeFontLoader-2 {
     font-family: 'Barlow', sans-serif;
     font-weight: 400;
 }
+
 .barcodeFontLoader-3 {
     font-family: 'Barlow', sans-serif;
     font-weight: 500;
