@@ -73,11 +73,9 @@ export default function WeekTimetable(props) {
             j++;
         }
 
-        let isToday = ((i + 1) === props.today ?
-            {backgroundColor: '#333333', color: 'white'} :
-            {backgroundColor: '#eeeeee', color: 'black'});
+        let isToday = ((i + 1) === props.today ? " tt__dayName--today" : "");
         ttGrid.push(<div className="tt__day" id={"ttCol" + i.toString()} key={"ttCol" + i.toString()}>
-            <div className="tt__dayName" style={isToday}>
+            <div className={"tt__dayName" + isToday} >
                 {dayNames[i]}
             </div>
             {classes}

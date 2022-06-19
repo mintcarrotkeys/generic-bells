@@ -13,7 +13,8 @@ export default function CellTimetable(props) {
      *
      * **/
 
-    let iconStyle;
+    let iconStyle = {};
+    let notSelected = "";
 
     if (props.selectedSubject === null) {
         iconStyle = {
@@ -29,11 +30,12 @@ export default function CellTimetable(props) {
             }
         }
         else {
-            const shadowCol = {hex: "#d0d0d0", isDark: false};
-            iconStyle = {
-                backgroundColor: shadowCol.hex,
-                color: (shadowCol.isDark ? 'white' : 'black')
-            }
+            // const shadowCol = {hex: "#d0d0d0", isDark: false};
+            // iconStyle = {
+            //     backgroundColor: shadowCol.hex,
+            //     color: (shadowCol.isDark ? 'white' : 'black')
+            // }
+            notSelected = " tt__cell__name--notSelected";
         }
     }
 
@@ -92,7 +94,7 @@ export default function CellTimetable(props) {
 
     const output = (
         <div className="tt__cell" onClick={handleClick}>
-            <div className={"tt__cell__name " + nameLengthCSS} style={iconStyle}>{props.name}</div>
+            <div className={"tt__cell__name " + nameLengthCSS + notSelected} style={iconStyle}>{props.name}</div>
             <div className={"tt__cell__room "+ roomLengthCSS}>{displayRoom}</div>
 
 

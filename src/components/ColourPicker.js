@@ -58,14 +58,16 @@ export default function ColourPicker(props) {
         let col = colourPack[i];
         let styleSettings = {
             backgroundColor: col.hex,
-            padding: (current === col.hex ? '0px' : '1px'),
-            border: (current === col.hex ? 'solid 2px #222222' : 'solid 1px #d0d0d0')
+        }
+        let classes = "";
+        if (current === col.hex) {
+            classes = " settings__classInfo__col--selected";
         }
         colRow.push(
             <div
                 id={"colOp" + i}
                 key={i}
-                className="colPicker__option settings__classInfo__col"
+                className={"colPicker__option settings__classInfo__col" + classes}
                 style={styleSettings}
                 onClick={handleClick}
             />
