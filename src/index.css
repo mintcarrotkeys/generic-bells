@@ -252,7 +252,7 @@ a {
     }
 }
 
-@media (min-aspect-ratio: 11.000001/9) {
+@media (min-aspect-ratio: 11/9) {
 
     .page {
         min-width: calc(100% - 70px);
@@ -1007,6 +1007,7 @@ a {
     .tt__cell__name {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+        border-bottom-left-radius: 0;
         min-height: 23px;
         width: 100%;
         display: flex;
@@ -1082,7 +1083,7 @@ a {
     }
 }
 
-@media screen and (min-width: 665.0001px) {
+@media screen and (min-width: 665px) {
 
     .timetable__week {
         display: flex;
@@ -1181,6 +1182,7 @@ a {
     .tt__cell__name {
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
+        border-top-right-radius: 0;
         height: 30px;
         width: 50px;
         display: flex;
