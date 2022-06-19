@@ -2,8 +2,8 @@ import {passItem, saveItem} from "./version";
 
 //TODO: PREFLIGHT: server data
 
-const siteURL = encodeURIComponent('https://genericbells.pages.dev');
-const useAppId = "genericbells10";
+const siteURL = encodeURIComponent('https://dark.genericbells.pages.dev');
+const useAppId = "genericbellsdarkmode";
 const serverURL = "https://forward.genericbells.workers.dev/";
 const tokenServerURL = "https://refresh.genericbells.workers.dev";
 
