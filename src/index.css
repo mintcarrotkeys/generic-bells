@@ -450,6 +450,7 @@ a {
 
 .period__room--highlight {
     background-color: var(--ui-yellow);
+    color: #000000;
 }
 
 
