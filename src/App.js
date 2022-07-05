@@ -168,21 +168,10 @@ function App() {
             savedData = {...savedData, ...newData};
             saveItem('storedData', savedData);
 
-            // if (displayData.dtt.hasOwnProperty('timetable')===false && displayData.tt.hasOwnProperty('subjects')) {
-            //     const synth = synthDTT();
-            //     if (synth) {
-            //         displayData.dtt = synth;
-            //         displayData.dayName = synth.dayName;
-            //     }
-            //     else {
-            //         console.log("Failed to generate day schedule from timetable.");
-            //     }
-            // }
 
             setData(displayData);
             setLogin((displayData.dataState === "askToLogin"));
-            // console.log(currentPageName);
-            // console.log(currentPage);
+
         }
         if (passStr("usedApp") === null) {
             return null;
