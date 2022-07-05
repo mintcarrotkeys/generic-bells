@@ -1,3 +1,46 @@
+@font-face {
+    font-family: 'Barlow';
+    font-weight: 400;
+    font-style: normal;
+    src: local('Barlow'), url(./fonts/Barlow-Regular.woff) format('woff');
+}
+@font-face {
+    font-family: 'Barlow';
+    font-weight: 300;
+    font-style: normal;
+    src: local('Barlow'), url(./fonts/Barlow-Light.woff) format('woff');
+}
+@font-face {
+    font-family: 'Barlow';
+    font-weight: 500;
+    font-style: normal;
+    src: local('Barlow'), url(./fonts/Barlow-Medium.woff) format('woff');
+}
+@font-face {
+    font-family: 'Barlow';
+    font-weight: 400;
+    font-style: italic;
+    src: local('Barlow'), url(./fonts/Barlow-Italic.woff) format('woff');
+}
+@font-face {
+    font-family: 'Barlow';
+    font-weight: 300;
+    font-style: italic;
+    src: local('Barlow'), url(./fonts/Barlow-LightItalic.woff) format('woff');
+}
+@font-face {
+    font-family: 'Barlow';
+    font-weight: 500;
+    font-style: italic;
+    src: local('Barlow'), url(./fonts/Barlow-MediumItalic.woff) format('woff');
+}
+@font-face {
+    font-family: 'Libre Barcode 128';
+    font-weight: 400;
+    src: local('Libre Barcode 128'), url(./fonts/LibreBarcode128-Regular.ttf) format('truetype');
+}
+
+
 
 :root {
     --background: #eeeeee;
