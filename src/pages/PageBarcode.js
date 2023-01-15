@@ -3,6 +3,7 @@ import { code128 } from '../assets/code128TranslationData';
 import {passItem, passStr, saveItem, saveStr} from "../version";
 import {resizeIcon} from "../assets/nav-icons";
 import SavedBarcode from "../components/SavedBarcode";
+import DemoBanner from "../components/DemoBanner";
 
 const SID_saveBarcodes = "save_barcodes";
 
@@ -188,6 +189,7 @@ export default function PageBarcode(props) {
 
     const output = (
         <div className="page__barcode page__prop">
+            <DemoBanner page={"barcode"} />
             <h1 className="bigHeading">Barcode</h1>
             <input
                 type="text"
@@ -210,7 +212,7 @@ export default function PageBarcode(props) {
             <div className="barcodeOutput" style={{fontSize: ("calc(" + (barcodeSize*10).toString() + "px + 10vw)")}}>
                 {(code!=="" ? encoder(code) : encoder("00000000"))}
             </div>
-            <div className="savedBarcode__container group">
+            {/*<div className="savedBarcode__container group">*/}
                 {/*<div className="saveBarcodeTool">*/}
                 {/*    <h3 style={{margin: "0px"}}>Save a barcode</h3>*/}
                 {/*    <div id="saveBarcodeForm__code">*/}
@@ -236,11 +238,11 @@ export default function PageBarcode(props) {
                 {/*        <div className="button" id="saveBarcode__submit" onClick={saveABarcode}>Save</div>*/}
                 {/*    </div>*/}
                 {/*</div>*/}
-                <h3>Saved barcodes</h3>
-                {savedBarcodeList}
-            </div>
+                {/*<h3>Saved barcodes</h3>*/}
+                {/*{savedBarcodeList}*/}
+            {/*</div>*/}
             <div className="button" onClick={resetBarcode}>Reset current barcode to my ID</div>
-            <div className="button" onClick={deleteAllSavedBarcodes}>Delete all saved barcodes</div>
+            {/*<div className="button" onClick={deleteAllSavedBarcodes}>Delete all saved barcodes</div>*/}
         </div>
     );
 

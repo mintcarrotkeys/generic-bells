@@ -3,6 +3,7 @@ import WeekTimetable from "../components/WeekTimetable";
 import {configSettings} from "../apiDataHandler";
 import {getWeekNum} from "../apiFetcher";
 import {passStr} from "../version";
+import DemoBanner from "../components/DemoBanner";
 
 
 export default function PageTimetable(props) {
@@ -180,6 +181,7 @@ export default function PageTimetable(props) {
 
     const output = (
         <div className="page__timetable page__prop" onClick={handleClickPage}>
+            <DemoBanner page={"timetable"} />
             {weeks}
         </div>
     );

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ClassInfo from "../components/ClassInfo";
 import {passStr, saveStr, passItem, saveItem} from "../version";
 import { ReactComponent as Logo } from "../assets/favicon3.svg";
+import DemoBanner from "../components/DemoBanner";
 
 /** TODO: PREFLIGHT: version number **/
 let appVersion = "1.5.5";
@@ -106,6 +107,7 @@ export default function PageSettings(props) {
 
     const output = (
         <div className="page__settings page__prop">
+            <DemoBanner page={"settings"} />
             <h1 className="bigHeading">Settings</h1>
             <div className="group" id="banner">
                 <div style={{width: '100px', height: '100px'}}>
@@ -191,18 +193,18 @@ export default function PageSettings(props) {
                         Click again to minimise the message.
                     </p>
                 </div>
-                <div className="dropdown settings">
-                    <h4 className="dropdown__label settings">Show notices for year: </h4>
-                    <select name="yearsList" id="yearsList" onChange={chooseFeedYear} defaultValue={savedFeedYear} className="dropdown__selector">
-                        <option value="all">all</option>
-                        <option value="7" >7</option>
-                        <option value="8" >8</option>
-                        <option value="9" >9</option>
-                        <option value="10" >10</option>
-                        <option value="11" >11</option>
-                        <option value="12" >12</option>
-                    </select>
-                </div>
+                {/*<div className="dropdown settings">*/}
+                {/*    <h4 className="dropdown__label settings">Show notices for year: </h4>*/}
+                {/*    <select name="yearsList" id="yearsList" onChange={chooseFeedYear} defaultValue={savedFeedYear} className="dropdown__selector">*/}
+                {/*        <option value="all">all</option>*/}
+                {/*        <option value="7" >7</option>*/}
+                {/*        <option value="8" >8</option>*/}
+                {/*        <option value="9" >9</option>*/}
+                {/*        <option value="10" >10</option>*/}
+                {/*        <option value="11" >11</option>*/}
+                {/*        <option value="12" >12</option>*/}
+                {/*    </select>*/}
+                {/*</div>*/}
             </div>
             <div className="group">
                 <h2 className="settings">Timetable display style</h2>

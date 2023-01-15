@@ -6,6 +6,16 @@ export default function FeedItem(props) {
     /**
      * data
      *
+     * data.isMeeting 1/0
+     * date yyyy-mm-dd
+     * data.meetingDate
+     * data.meetingTime
+     * data.meetingLocation
+     * data.content (html)
+     * data.title
+     * data.author
+     * data.displayYears
+     *
      * **/
     let message = props.data;
 

@@ -3,6 +3,8 @@ import {passItem, saveItem} from "../version";
 import FeedItem from "../components/FeedItem";
 import Offline from "../components/Offline";
 import Loading from "../components/Loading";
+import DemoBanner from "../components/DemoBanner";
+import {notices} from "../demo data/storedData_1";
 
 
 export default function PageFeeds(props) {
@@ -41,24 +43,29 @@ export default function PageFeeds(props) {
         return (B- A);
     }
 
-    if (Array.isArray(data)) {
-        data.sort(compareFn);
+    // if (Array.isArray(data)) {
+    //     data.sort(compareFn);
+    //
+    //     let i = 0;
+    //     while (i < data.length) {
+    //         if (feedSettings.seeOnlyMyYear === false || data[i].years.includes(feedSettings.year)) {
+    //             let message = data[i];
+    //             feedScroll.push(
+    //                 <FeedItem
+    //                     data={message}
+    //                     date={props.data.dayInfo.date}
+    //                     key={i.toString()}
+    //                 />
+    //             );
+    //         }
+    //         i++;
+    //     }
+    // }
 
-        let i = 0;
-        while (i < data.length) {
-            if (feedSettings.seeOnlyMyYear === false || data[i].years.includes(feedSettings.year)) {
-                let message = data[i];
-                feedScroll.push(
-                    <FeedItem
-                        data={message}
-                        date={props.data.dayInfo.date}
-                        key={i.toString()}
-                    />
-                );
-            }
-            i++;
-        }
-    }
+    //Demo data
+    feedScroll = notices;
+
+
 
     if (feedScroll.length === 0) {
         feedScroll.push(
@@ -86,25 +93,26 @@ export default function PageFeeds(props) {
 
     const output = (
         <div className="page__feeds page__prop">
-            {props.dataState==='offline' ? <Offline /> : ""}
-            {props.dataState==='loading' ? <Loading /> : ""}
+            <DemoBanner page={"notices"} />
+            {/*{props.dataState==='offline' ? <Offline /> : ""}*/}
+            {/*{props.dataState==='loading' ? <Loading /> : ""}*/}
             <h1 className="bigHeading">Notices</h1>
-            <div className="group">
-                <div className="change-feed-year">
-                    <h5>Show notices for year: </h5>
-                    <div>
-                    <select name="yearsList" id="yearsList" onChange={chooseFeedYear} defaultValue={savedFeedYear} className="dropdown__selector">
-                        <option value="all">all</option>
-                        <option value="7" >7</option>
-                        <option value="8" >8</option>
-                        <option value="9" >9</option>
-                        <option value="10" >10</option>
-                        <option value="11" >11</option>
-                        <option value="12" >12</option>
-                    </select>
-                    </div>
-                </div>
-            </div>
+            {/*<div className="group">*/}
+            {/*    <div className="change-feed-year">*/}
+            {/*        <h5>Show notices for year: </h5>*/}
+            {/*        <div>*/}
+            {/*        <select name="yearsList" id="yearsList" onChange={chooseFeedYear} defaultValue={savedFeedYear} className="dropdown__selector">*/}
+            {/*            <option value="all">all</option>*/}
+            {/*            <option value="7" >7</option>*/}
+            {/*            <option value="8" >8</option>*/}
+            {/*            <option value="9" >9</option>*/}
+            {/*            <option value="10" >10</option>*/}
+            {/*            <option value="11" >11</option>*/}
+            {/*            <option value="12" >12</option>*/}
+            {/*        </select>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
             <div className="feeds__container ">
                 {feedScroll}
             </div>

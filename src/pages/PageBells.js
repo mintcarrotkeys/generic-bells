@@ -5,6 +5,7 @@ import TopBar from "../components/TopBar"
 import {apiDataHandler} from "../apiDataHandler";
 import Offline from "../components/Offline";
 import Loading from "../components/Loading";
+import DemoBanner from "../components/DemoBanner";
 
 
 
@@ -16,8 +17,8 @@ export default function PageBells(props) {
     if (Object.keys(props.data).length === 0) {
         return (
             <div className="page__bells page__prop">
-                {props.dataState==='offline' ? <Offline /> : ""}
-                {props.dataState==='loading' ? <Loading /> : ""}
+                {/*{props.dataState==='offline' ? <Offline /> : ""}*/}
+                {/*{props.dataState==='loading' ? <Loading /> : ""}*/}
                 <div id="topBar" className="topBar period">
                     <div className="topBar__side topBar__left">{}</div>
                     <div className="topBar__middle">Loading...</div>
@@ -89,8 +90,9 @@ export default function PageBells(props) {
 
     return (
         <div className="page__bells page__prop">
-            {props.dataState==='offline' ? <Offline /> : ""}
-            {props.dataState==='loading' ? <Loading /> : ""}
+            {/*{props.dataState==='offline' ? <Offline /> : ""}*/}
+            {/*{props.dataState==='loading' ? <Loading /> : ""}*/}
+            <DemoBanner page={"bells"} />
             <TopBar dayName={props.dayName} data={apiData} date={props.data.date} />
             {outputRows}
             <div className="barcodeFontLoader barcodeFontLoader-0">bc</div>

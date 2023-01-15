@@ -27,7 +27,8 @@ export function getWeekNum(date, mode='millis') {
         today = new Date(date);
     }
 
-    const year = today.getFullYear();
+    // const year = today.getFullYear();
+    const year = "2022";
 
     let i = 1;
     while (i <= 7) {
