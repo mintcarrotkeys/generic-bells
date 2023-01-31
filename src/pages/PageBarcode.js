@@ -210,34 +210,39 @@ export default function PageBarcode(props) {
             <div className="barcodeOutput" style={{fontSize: ("calc(" + (barcodeSize*10).toString() + "px + 10vw)")}}>
                 {(code!=="" ? encoder(code) : encoder("00000000"))}
             </div>
-            <div className="savedBarcode__container group">
-                {/*<div className="saveBarcodeTool">*/}
-                {/*    <h3 style={{margin: "0px"}}>Save a barcode</h3>*/}
-                {/*    <div id="saveBarcodeForm__code">*/}
-                {/*        <input*/}
-                {/*            type="text"*/}
-                {/*            maxLength={50}*/}
-                {/*            id="saveBarcode__input"*/}
-                {/*            value={addBarcodeName}*/}
-                {/*            onChange={handleBarcodeName}*/}
-                {/*            placeholder="add a name to this barcode"*/}
-                {/*            className="inputBox"*/}
-                {/*        />*/}
-                {/*    </div>*/}
-                {/*    <div id="saveBarcodeForm">*/}
-                {/*        <input*/}
-                {/*            type="text"*/}
-                {/*            maxLength={20}*/}
-                {/*            id="saveBarcode__codeInput"*/}
-                {/*            value={addBarcodeCode}*/}
-                {/*            onChange={handleBarcodeCode}*/}
-                {/*            className="inputBox"*/}
-                {/*        />*/}
-                {/*        <div className="button" id="saveBarcode__submit" onClick={saveABarcode}>Save</div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                <h3>Saved barcodes</h3>
-                {savedBarcodeList}
+
+
+            <div className="savedBarcode__container">
+                <div className="saveBarcodeBoxes">
+                    <h3>Saved barcodes</h3>
+                    {savedBarcodeList}
+                </div>
+                <div className="saveBarcodeBoxes">
+                    <h3>Save a barcode</h3>
+                    <div id="saveBarcodeForm__code">
+                        <input
+                            type="text"
+                            maxLength={50}
+                            id="saveBarcode__input"
+                            value={addBarcodeName}
+                            onChange={handleBarcodeName}
+                            placeholder="name (optional)"
+                            className="inputBox"
+                        />
+                    </div>
+                    <div id="saveBarcodeForm">
+                        <input
+                            type="text"
+                            maxLength={20}
+                            id="saveBarcode__codeInput"
+                            value={addBarcodeCode}
+                            onChange={handleBarcodeCode}
+                            placeholder="barcode value (numbers only)"
+                            className="inputBox"
+                        />
+                        <div className="button" id="saveBarcode__submit" onClick={saveABarcode}>Save</div>
+                    </div>
+                </div>
             </div>
             <div className="button" onClick={resetBarcode}>Reset current barcode to my ID</div>
             <div className="button" onClick={deleteAllSavedBarcodes}>Delete all saved barcodes</div>

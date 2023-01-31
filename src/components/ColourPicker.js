@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import {colourPack} from "../assets/colours";
+import {passStr} from "../version";
+import {darkColours, lightColours} from "../themeManager";
 
 export default function ColourPicker(props) {
 
     const [current, setCurrent] = useState(props.current.hex);
+
+    React.useEffect(() => {
+        setCurrent(props.current.hex);
+    }, [props.current]);
 
     /**
      *
@@ -47,6 +52,15 @@ export default function ColourPicker(props) {
     }
      **/
 
+    let colourPack;
+    let currentTheme = passStr('isDarkMode');
+    if (currentTheme) {
+        colourPack = [...darkColours];
+    }
+    else {
+        colourPack = [...lightColours];
+    }
+
     function handleClick(e) {
         props.reportCol(colourPack[Number(e.target.id.substring(5, 20))]);
         setCurrent(colourPack[Number(e.target.id.substring(5, 20))].hex);
@@ -58,14 +72,16 @@ export default function ColourPicker(props) {
         let col = colourPack[i];
         let styleSettings = {
             backgroundColor: col.hex,
-            padding: (current === col.hex ? '0px' : '1px'),
-            border: (current === col.hex ? 'solid 2px #222222' : 'solid 1px #d0d0d0')
+        }
+        let classes = "";
+        if (current === col.hex) {
+            classes = " settings__classInfo__col--selected";
         }
         colRow.push(
             <div
                 id={"colOp" + i}
                 key={i}
-                className="colPicker__option settings__classInfo__col"
+                className={"colPicker__option settings__classInfo__col" + classes}
                 style={styleSettings}
                 onClick={handleClick}
             />

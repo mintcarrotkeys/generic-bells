@@ -20,6 +20,10 @@ export default function ClassInfo(props) {
     const [data, setData] = useState(props.obj);
     const [colPicker, setColPicker] = useState(false);
 
+    React.useEffect(() => {
+        setData(props.obj);
+    }, [props.obj]);
+
     function handleName(e) {
         e.preventDefault();
         props.reportInput(data.refId, 'displayName', e.target.value);
@@ -68,16 +72,15 @@ export default function ClassInfo(props) {
     const styleSettings = {
         backgroundColor: data.colour.hex,
         color: (data.colour.isDark ? '#ffffff' : '#333333'),
-        // border: (colPicker ? (data.colour.isDark ? 'solid 2px #d0d0d0' : 'solid 2px #222222') : 'solid 1px #d0d0d0'),
-        border: (colPicker ? 'solid 2px #222222' : 'solid 1px #d0d0d0'),
-        padding: (colPicker ? '0px' : '1px')
     };
+
+    const colPickerOpened = (colPicker ? " settings__classInfo__col--selected" : "");
 
     const output = (
         <div className="settings__classInfo">
             <h6 className="settings">{data.rawName}</h6>
             <div className="settings settings__classInfo__row">
-                <div className="settings__classInfo__col" style={styleSettings} onClick={handleCol}>
+                <div className={"settings__classInfo__col" + colPickerOpened} style={styleSettings} onClick={handleCol}>
                     {(colPicker ? colPickerIcons.close : colPickerIcons.drop)}
                 </div>
                 <input

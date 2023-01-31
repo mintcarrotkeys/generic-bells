@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import ClassInfo from "../components/ClassInfo";
 import {passStr, saveStr, passItem, saveItem} from "../version";
 import { ReactComponent as Logo } from "../assets/favicon3.svg";
+import {swapTheme} from "../themeManager";
+import TryDarkMode from "../components/TryDarkMode";
 
 /** TODO: PREFLIGHT: version number **/
-let appVersion = "1.5.5";
+let appVersion = "1.6.0.3";
 
 export default function PageSettings(props) {
 
@@ -16,12 +18,25 @@ export default function PageSettings(props) {
      * displayCode
      *
      * **/
-    let classSettings = passItem('displaySettings');
+    const [classSettings, setClassSettings] = useState(passItem('displaySettings'));
     let classInfos = [];
 
     function reportInput(id, type, val) {
-        classSettings[id][type] = val;
-        saveItem("displaySettings", classSettings);
+        saveItem("displaySettings", {
+            ...classSettings,
+            [id]: {
+                ...classSettings[id],
+                [type]: val
+            }
+        });
+        setClassSettings({
+            ...classSettings,
+            [id]: {
+                ...classSettings[id],
+                [type]: val
+            }
+        })
+        // classSettings[id][type] = val;
     }
 
     if (classSettings !== null) {
@@ -33,6 +48,10 @@ export default function PageSettings(props) {
             );
             i++;
         }
+    }
+
+    function updateTheme() {
+        setClassSettings(passItem('displaySettings'));
     }
 
     function clearData(e) {
@@ -112,6 +131,7 @@ export default function PageSettings(props) {
                     <Logo  />
                 </div>
             </div>
+            <TryDarkMode updateTheme={() => updateTheme()} />
             <div className="group">
                 <h2 className="settings">Customise colours & names</h2>
                 <p className="settings">
@@ -136,7 +156,7 @@ export default function PageSettings(props) {
                         expand all
                     </div>
                 </div>
-                <div className={"period page__bells__row " + (cardsExpanded ? "period--maximised" : "period--minimised")} onClick={() => handleCardsToggle(!cardsExpanded)}>
+                <div className={"settings__example__toggle period page__bells__row " + (cardsExpanded ? "period--maximised" : "period--minimised")} onClick={() => handleCardsToggle(!cardsExpanded)}>
                     <div className="period__top">
                         <div className="period__icon" style={{
                             backgroundColor: '#d0d0d0',
@@ -171,7 +191,7 @@ export default function PageSettings(props) {
                     </div>
                 </div>
                 <div
-                    className="feedItem"
+                    className="settings__example__toggle feedItem"
                     onClick={() => handleFeedsToggle(!feedsExpanded)}
                 >
                     <h2 className="feedItem__title">Click me</h2>
@@ -317,6 +337,11 @@ export default function PageSettings(props) {
                     SOFTWARE.
                     </b>
                     <br /><br />
+                    <b>
+                        The Generic Bells logo, which is used within the app and as a favicon, is:<br />
+                        Copyright (c) 2022 mintcarrotkeys All rights reserved.
+                    </b>
+                    <br /><br />
                     src/assets/code128TranslationData.js was based on data from Wikipedia:
                     https://en.wikipedia.org/wiki/Code_128
                     under the CC-BY-SA license. The file is shared under the same license:
@@ -325,14 +350,16 @@ export default function PageSettings(props) {
                     src/assets/nav-icons.js contains icons obtained from Bootstrap under the MIT license.
                     Copyright (c) 2019-2021 The Bootstrap Authors for those icons.
                     <br /><br />
-                    See source code on Github for more details.
+                    src/assets/mui_icons.js contains icons obtained from Material Icons under the Apache Licence.
+                    See their Github repo for more details:
+                    <br />
+                    https://github.com/google/material-design-icons
+                    <br />
+                    https://github.com/google/material-design-icons/blob/master/LICENSE
+                    <br /><br />
+                    Generic Bells source code can be found here:
                     <br />
                     <a href="https://github.com/mintcarrotkeys/generic-bells">https://github.com/mintcarrotkeys/generic-bells</a>
-                    <br /><br />
-                    <b>
-                        The Generic Bells logo, which is used within the app and as a favicon, is:<br />
-                        Copyright (c) 2022 mintcarrotkeys All rights reserved.
-                    </b>
                     <br />
                 </p>
             </div>

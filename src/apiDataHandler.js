@@ -1,5 +1,5 @@
-import { colourPack } from './assets/colours';
-import { passItem, saveItem } from "./version";
+import {passItem, passStr, saveItem} from "./version";
+import {darkColours, lightColours} from "./themeManager";
 
 export function configSettings(apiData) {
     const classData = apiData;
@@ -20,6 +20,17 @@ export function configSettings(apiData) {
      *      isDark
      *
      * **/
+
+    let colourPack;
+    let currentTheme = passStr('isDarkMode');
+    if (currentTheme) {
+        colourPack = [...darkColours];
+    }
+    else {
+        colourPack = [...lightColours];
+    }
+
+
     let defaultColour = colourPack[13];
     let colours = JSON.parse(JSON.stringify(colourPack));
     for (const title in classData) {

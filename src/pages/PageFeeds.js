@@ -4,7 +4,6 @@ import FeedItem from "../components/FeedItem";
 import Offline from "../components/Offline";
 import Loading from "../components/Loading";
 
-
 export default function PageFeeds(props) {
     /**
      * data

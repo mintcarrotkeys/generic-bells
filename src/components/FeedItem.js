@@ -18,10 +18,10 @@ export default function FeedItem(props) {
 
     let meetingInfo = "";
     if (message.isMeeting === 1) {
-        let fill = {backgroundColor: '#d0d0d0'};
+        let fill = "feedItem__meetingTag--silver";
         let meetingMessage = "";
         if (props.date === message.meetingDate) {
-            fill = {backgroundColor: '#ffc633'}
+            fill = "feedItem__meetingTag--gold"
             meetingMessage = "Today: ";
         }
         else {
@@ -30,14 +30,14 @@ export default function FeedItem(props) {
             meetingMessage = Number(date[2]) + " " + months[Number(date[1])];
         }
         meetingInfo = (
-            <div className="feedItem__meetingTag" style={fill}>
+            <div className={"feedItem__meetingTag " + fill}>
                 <p className="feedItem__metadata feedItem__metadata__meeting">{meetingMessage}</p>
                 <p className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingTime}</p>
             </div>
         );
         if (message.hasOwnProperty("meetingLocation") && message.meetingLocation) {
             meetingInfo = (
-                <div className="feedItem__meetingTag" style={fill}>
+                <div className={"feedItem__meetingTag " + fill}>
                     <p className="feedItem__metadata feedItem__metadata__meeting">{meetingMessage}</p>
                     <p className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingTime}</p>
                     <p className="feedItem__metadata feedItem__metadata__meeting settings">{message.meetingLocation}</p>

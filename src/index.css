@@ -40,11 +40,35 @@
     src: local('Libre Barcode 128'), url(./fonts/LibreBarcode128-Regular.ttf) format('truetype');
 }
 
-
-
 :root {
     --background: #eeeeee;
     --device-orientation: landscape;
+    --nav-background: #222527;
+    --page-background: #151515;
+    --nav-light: #3e4347;
+    --glow: rgba(0, 0, 0, 0.5);
+    --glow2: rgba(0, 0, 0, 0.5);
+    --glow3: rgba(0, 0, 0, 0.5);
+    --text0: white;
+    --text1: #dddddd;
+    --text2: #dddddd;
+    --text3: #dddddd;
+    --text4: white;
+    --text10: black;
+    --ui-green: #95C059;
+    --ui-yellow: #E8BD31;
+    --ui-grey0: #dddddd;
+    --ui-grey1: #cccccc;
+    --ui-grey2: #dddddd;
+    --card: #303032;
+    --card-outline: #151515;
+    --timetable-light: #4c4c4f;
+    --timetable-nonselected: #4c4c4f;
+    --button-front: #333333;
+    --button-back: #dddddd;
+    --input-focus: #95c059;
+    --link-colour: #61B0B5;
+    --shadow-length-1-2: 2px;
 }
 
 
@@ -52,13 +76,9 @@
     margin-top: 40px;
     width: 150px;
 }
-
-
 .about__title {
     margin: 40px auto;
 }
-
-
 .about__button.button {
     margin: 0;
     padding: 10px 25px;
@@ -66,9 +86,8 @@
     font-weight: 400;
     border-radius: 10px;
     border: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 6px var(--glow);
 }
-
 .about__container {
     display: flex;
     flex-direction: column;
@@ -84,7 +103,7 @@ body {
     font-family: Barlow, Roboto, "Fira Sans", "Segoe UI", Arial, sans-serif;
     font-weight: 400;
     font-size: 15px;
-    color: #222222;
+    color: var(--text2);
     margin: 0;
     padding: 0;
     border: 0;
@@ -110,52 +129,45 @@ h1 {
     font-weight: 300;
     font-size: 30px;
     text-align: center;
-
 }
-
 h1, h2 {
     font-weight: 500;
     font-size: 20px;
 }
-
 h3 {
     font-weight: 400;
     font-size: 18px;
 }
-
 h4 {
     font-size: 15px;
     font-weight: 500;
 }
-
 h5 {
     font-weight: 400;
     font-size: 15px;
 }
-
 h6 {
     font-weight: 400;
     font-size: 15px;
-    color: #888888;
+    color: var(--text3);
 }
-
 p {
     font-weight: 400;
     font-size: 13px;
 }
 
+a {
+    color: var(--link-colour);
+}
+
 .page {
-    background-color: #eeeeee;
+    background-color: var(--page-background);
     padding: 0;
-    color: black;
+    color: var(--text1);
     width: fit-content;
 
     overflow-x: auto;
     overflow-y: auto;
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*align-items: center;*/
-    /*justify-content: start;*/
 }
 
 
@@ -186,7 +198,7 @@ p {
 .app-container {
 }
 
-@media (max-aspect-ratio: 11/9) {
+@media (max-aspect-ratio: 11/9) and (width < 700px) {
 
     .page {
         min-width: 100vw;
@@ -209,7 +221,7 @@ p {
         bottom: 0;
         left: 0;
 
-        box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 -2px 6px var(--glow2);
 
         width: calc(100vw - 30px);
         height: calc(100vw / 5.7887);
@@ -224,7 +236,7 @@ p {
         height: calc(0.72 * (100vw / 5.7887));
         padding-top: calc(0.14 * (100vw / 5.7887));
         padding-bottom: calc(0.14 * (100vw / 5.7887));
-        background-color: white;
+        background-color: var(--nav-background);
 
         flex: 1 1;
 
@@ -247,7 +259,7 @@ p {
 
 
     .nav__button--currentPage {
-        background-image: linear-gradient(to top, #e0e0e0 30%, #ffffff00 100%);
+        background-image: linear-gradient(to top, var(--nav-light) 30%, var(--nav-background) 100%);
     }
 
 
@@ -274,7 +286,7 @@ p {
     }
 }
 
-@media (min-aspect-ratio: 11/9) {
+@media (min-aspect-ratio: 11/9) or (width >= 700px) {
 
     .page {
         min-width: calc(100% - 70px);
@@ -295,7 +307,7 @@ p {
         left: 0;
         top: 0;
 
-        box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
+        box-shadow: 2px 0 6px var(--glow2);
 
         flex-direction: column;
         align-items: center;
@@ -317,7 +329,7 @@ p {
     }
 
     .nav__button:hover {
-        background-color: #e0e0e0;
+        background-color: var(--nav-light);
     }
 
     .nav__button__icon {
@@ -333,7 +345,7 @@ p {
 
 
     .nav__button--currentPage {
-        background-image: linear-gradient(to right, #e0e0e0 30%, #ffffff00 100%);
+        background-image: linear-gradient(to right, var(--nav-light) 30%, var(--nav-background) 100%);
     }
 
 
@@ -350,12 +362,13 @@ p {
     }
 
     .button:hover {
-        color: #333333;
-        background-color: white;
+        color: var(--button-back);
+        background-color: var(--button-front);
     }
 
     .toggle__side:hover {
-        background-color: #92c748;
+        background-color: var(--ui-green);
+        color: #333333;
     }
 
     body, p {
@@ -364,16 +377,15 @@ p {
     }
 
     .savedBarcode:hover {
-        padding: 3px;
-        border: solid 2px #222222;
+        border: solid 2px var(--text2);
     }
 }
 
 
 .nav {
     margin: 0;
-    background-color: white;
-    color: #222222;
+    background-color: var(--nav-background);
+    color: var(--text2);
 
     display: flex;
     align-items: center;
@@ -400,8 +412,8 @@ p {
 
 
 .period {
-    background-color: white;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    background-color: var(--card);
+    box-shadow: 0 var(--shadow-length-1-2) 4px var(--glow3);
     font-weight: 400;
     font-size: 20px;
     border-radius: 5px;
@@ -414,15 +426,6 @@ p {
     align-items: center;
 }
 
-/*.period.period--minimised {*/
-/*    height: 400px;*/
-/*}*/
-
-/*.period.period--maximised {*/
-/*    height: 680px;*/
-/*}*/
-
-
 .period__top {
     padding: 5px;
     width: calc(100% - 10px);
@@ -431,7 +434,6 @@ p {
     align-items: center;
     flex-wrap: wrap;
 }
-
 
 .period__icon {
     border-radius: 5px;
@@ -448,10 +450,10 @@ p {
 .period__name {
     flex: 1 1;
     margin-left: 5px;
-
     font-weight: 300;
     font-size: 20px;
     letter-spacing: -0.03em;
+    color: var(--text0);
 }
 
 .period__room {
@@ -462,10 +464,9 @@ p {
     flex: 0 0;
     text-align: center;
 }
-
-
 .period__room--highlight {
-    background-color: #ffc633;
+    background-color: var(--ui-yellow);
+    color: #000000;
 }
 
 
@@ -474,7 +475,7 @@ p {
     font-weight: 400;
     font-size: 13px;
     padding: 5px;
-    border-top: solid 1px #d0d0d0;
+    border-top: solid 1px var(--card-outline);
     overflow: hidden;
     display: flex;
     flex-direction: row;
@@ -571,14 +572,16 @@ p {
     padding: 4px;
     border-radius: 5px;
     font-family: inherit;
-    border: solid 1px #d0d0d0;
+    border: solid 1px var(--ui-grey2);
     box-shadow: none;
+    background-color: var(--card);
+    color: var(--text2);
+    outline: none;
 }
 
 .inputBox:focus {
-    border: solid 2px #222222;
+    border: solid 2px var(--input-focus);
     padding: 3px;
-    /*box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);*/
 }
 
 
@@ -597,20 +600,20 @@ p {
 
 
 .button {
-    background-color: #333333;
+    background-color: var(--button-back);
     border-radius: 5px;
-    color: white;
+    color: var(--button-front);
     padding: 5px 10px;
     margin: 10px;
     font-size: 15px;
     font-family: inherit;
-    border: solid 1px #333333;
+    border: solid 1px var(--button-back);
     width: fit-content;
 }
 
 .button:active {
     color: #333333;
-    background-color: #92c748;
+    background-color: var(--ui-green);
 }
 
 
@@ -625,8 +628,8 @@ p {
     white-space: pre;
 }
 
-.saveBarcodeTool {
-    margin-bottom: 10px;
+.saveBarcodeBoxes {
+    margin: 20px 0px;
     padding: 5px;
 }
 
@@ -669,11 +672,13 @@ p {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    box-shadow: none !important;
+    padding: 3px !important;
+    border: solid 2px var(--card);
 }
 
 .savedBarcode.savedBarcode--selected {
-    padding: 3px;
-    border: solid 2px #92c748;
+    border: solid 2px var(--input-focus);
 }
 
 .savedBarcode__code {
@@ -701,29 +706,19 @@ p {
 }
 
 @media screen and (max-width: 310px) {
-
     #topBar {
         flex-direction: column;
     }
-
-
     .topBar__countdown {
         margin: 5px;
     }
 }
 
 @media screen and (min-width: 310px) {
-
     #topBar {
         flex-direction: row;
     }
 }
-
-
-.topBar__side {
-
-}
-
 
 .topBar__left {
     flex: 1 1 10px;
@@ -735,13 +730,11 @@ p {
     text-align: left;
 }
 
-
 .topBar__middle {
     flex: 0 0;
     text-align: center;
     min-width: 100px;
 }
-
 
 .topBar__right {
     flex: 1 1 10px;
@@ -749,36 +742,26 @@ p {
     align-items: center;
     justify-content: flex-end;
     flex-wrap: wrap;
-    /*margin-left: auto;*/
     text-align: right;
 }
-
 
 .topBar__countdown {
     font-size: 40px;
     font-weight: 400;
 }
 
-
 .topBar__until {
     color: #888888;
     text-align: right;
 }
 
-
 .topBar__right__icon {
     margin-left: 5px;
 }
 
-
-.topBar__dateDisplay {
-
-}
-
-
-.topBar__sideIcons {
-
-}
+.topBar__side {}
+.topBar__dateDisplay {}
+.topBar__sideIcons {}
 
 
 .askLogin {
@@ -790,16 +773,14 @@ p {
 
 }
 
-
 .askLogin__button {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     min-height: 30px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 4px var(--glow);
 }
-
 
 .askLogin__icon {
     width: 20px;
@@ -818,14 +799,12 @@ p {
     margin: 5px;
 }
 
-
 .settings__classInfo {
     display: block;
     margin: 0;
     padding: 0;
 
 }
-
 
 .settings__classInfo__row {
     display: flex;
@@ -834,7 +813,6 @@ p {
     justify-content: flex-start;
 
 }
-
 
 .settings__classInfo__col {
     width: 26px;
@@ -846,8 +824,15 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    padding: 1px;
+    border: solid 1px #d0d0d0;
 }
 
+.settings__classInfo__col--selected {
+    padding: 0px;
+    border: solid 2px var(--text4);
+}
 
 .settings__classInfo__name {
     margin: 0 3px;
@@ -856,7 +841,6 @@ p {
     font-size: 15px;
     font-weight: 400;
 }
-
 
 .settings__classInfo__code {
     margin: 0 3px;
@@ -867,17 +851,19 @@ p {
     text-align: center;
 }
 
-
 .settings__classInfo__icon {
     color: inherit;
     width: 15px;
     height: 15px;
 }
 
+.settings__example__toggle {
+    margin: 5px;
+}
 
 .group {
-    background-color: white;
-    color: #222222;
+    background-color: var(--card);
+    color: var(--text2);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     padding: 5px;
@@ -924,8 +910,8 @@ p {
 
 
     .tt__wk__wrapper {
-        background-color: white;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        background-color: var(--card);
+        box-shadow: 0 1px 4px var(--glow3);
         border-radius: 5px;
         padding: 5px;
         flex: 0 0;
@@ -960,7 +946,7 @@ p {
     .tt__index__icon {
         width: 20px;
         height: 20px;
-        background-color: #eeeeee;
+        background-color: var(--timetable-light);
         border-radius: 5px;
 
         display: flex;
@@ -988,16 +974,16 @@ p {
         width: 40px;
 
         border-radius: 10px;
-        background-color: #eeeeee;
+        background-color: var(--timetable-light);
     }
 
 
     .tt__cell {
-        background-color: white;
+        background-color: var(--card);
         margin: 5px;
         height: 40px;
         width: 40px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 1px 4px var(--glow3);
         border-radius: 10px;
         font-size: 13px;
 
@@ -1011,6 +997,7 @@ p {
     .tt__cell__name {
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+        border-bottom-left-radius: 0;
         min-height: 23px;
         width: 100%;
         display: flex;
@@ -1044,8 +1031,8 @@ p {
         min-height: 17px;
         width: 40px;
         border-radius: 10px;
-        background-color: white;
-        color: black;
+        background-color: var(--card);
+        color: var(--text1);
 
         display: flex;
         flex-direction: row;
@@ -1099,8 +1086,8 @@ p {
 
 
     .tt__wk__wrapper {
-        background-color: white;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        background-color: var(--card);
+        box-shadow: 0 1px 4px var(--glow3);
         border-radius: 5px;
         padding: 5px;
         flex: 0 0;
@@ -1135,7 +1122,7 @@ p {
     .tt__index__icon {
         width: 25px;
         height: 25px;
-        background-color: #eeeeee;
+        background-color: var(--timetable-light);
         border-radius: 5px;
 
         display: flex;
@@ -1162,16 +1149,16 @@ p {
         width: 95px;
 
         border-radius: 10px;
-        background-color: #eeeeee;
+        background-color: var(--timetable-light);
     }
 
 
     .tt__cell {
-        background-color: white;
+        background-color:var(--card);
         margin: 5px;
         height: 30px;
         width: 95px;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 1px 4px var(--glow3);
         border-radius: 10px;
         font-size: 17px;
 
@@ -1185,6 +1172,7 @@ p {
     .tt__cell__name {
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
+        border-top-right-radius: 0;
         height: 30px;
         width: 50px;
         display: flex;
@@ -1217,8 +1205,8 @@ p {
         height: 30px;
         width: 45px;
         border-radius: 10px;
-        background-color: white;
-        color: black;
+        background-color: var(--card);
+        color: var(--text1);
 
         display: flex;
         flex-direction: row;
@@ -1260,6 +1248,19 @@ p {
     }
 }
 
+.tt__dayName {
+    background-color: var(--timetable-light);
+    color: var(--text2);
+}
+
+.tt__dayName--today {
+    background-color: var(--ui-grey0);
+    color: var(--text10);
+}
+
+.tt__cell__name--notSelected {
+    background-color: var(--timetable-nonselected);
+}
 
 .feeds__container {
     width: 100%;
@@ -1267,9 +1268,9 @@ p {
 }
 
 .feedItem {
-    background-color: white;
-    color: #222222;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+    background-color: var(--card);
+    color: var(--text2);
+    box-shadow: 0 1px 4px var(--glow3);
     border-radius: 5px;
     padding: 0;
     margin-top: 10px;
@@ -1277,24 +1278,20 @@ p {
     overflow: auto;
 }
 
-
 .feedItem__title {
     padding: 5px 10px 2px 10px;
     margin: 0;
 }
-
 
 .feedItem__metadataRow {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
-    /*border-top: solid 1px #d0d0d0;*/
-    border-bottom: solid 1px #d0d0d0;
+    border-bottom: solid 1px var(--card-outline);
     margin: 0;
     padding: 0 5px 2px 5px;
 }
-
 
 .feedItem__metadata {
     padding: 0 5px 3px 5px;
@@ -1319,17 +1316,14 @@ p {
     margin: 0 0 5px 0;
 }
 
-
 .feedItem__body--minimised {
     height: 18px;
     overflow: hidden;
 }
 
-
 .feedItem__body--expanded {
     margin-bottom: 10px;
 }
-
 
 .feedItem__meetingTag {
     border-radius: 10px;
@@ -1339,8 +1333,16 @@ p {
     align-items: center;
     padding-bottom: 1px;
     margin: 0 5px 2px 5px;
+    /*this text need to be always black*/
+    color: black;
 }
 
+.feedItem__meetingTag--silver {
+    background-color: var(--ui-grey1);
+}
+.feedItem__meetingTag--gold {
+    background-color: var(--ui-yellow);
+}
 
 .feedItem__metadata__meeting {
     padding: 0 5px;
@@ -1353,35 +1355,22 @@ p {
     flex-direction: row;
 }
 
-/*.feedItem__shader {*/
-/*    height: 1px;*/
-/*    width: 100%;*/
-/*}*/
-
-/*.feedItem__shader--shaded {*/
-/*    height: 1px;*/
-/*    width: 100%;*/
-/*    box-shadow: 0px -3px 10px rgba(0, 0, 0, 1);*/
-/*}*/
-
 .toggle {
-    background-color: white;
+    background-color: transparent;
     border-radius: 5px;
-    color: #222222;
+    color: var(--ui-grey0);
     border: none;
     font-size: 15px;
     font-family: inherit;
-    margin: 10px;
+    margin: 10px 5px;
     width: fit-content;
 }
-
 
 .toggle__side {
     padding: 5px 10px;
     display: inline-block;
-    border: solid 1px #333333;
+    border: solid 1px var(--ui-grey0);
 }
-
 
 .toggle__left {
     border-top-left-radius: 5px;
@@ -1389,23 +1378,16 @@ p {
     border-right: none;
 }
 
-
 .toggle__right {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     border-left: none;
 }
 
-
 .toggle--selected {
-    background-color: #92c748;
+    background-color: var(--ui-green);
+    color: #333333;
 }
-
-
-.toggle__side:active {
-    background-color: #92c748;
-}
-
 
 .dropdown {
     display: flex;
@@ -1425,7 +1407,16 @@ p {
     font-size: 15px;
     font-weight: 400;
     border-radius: 5px;
+
     border: solid 1px #333333;
+    padding: 1px;
+    background-color: #eeeeee;
+    color: black;
+}
+
+.dropdown__selector:focus {
+    border: solid 2px var(--ui-green);
+    padding: 0;
 }
 
 .no_fold {
@@ -1511,7 +1502,7 @@ b, strong {
     margin: 10px;
     width: 25px;
     height: 25px;
-    color: #333333;
+    color: var(--ui-grey0);
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -1522,10 +1513,35 @@ b, strong {
 }
 
 .barcodeResize__button:active {
-    color: #92c748;
+    color: var(--ui-green);
 }
 
 .barcodeResize__icon {
     min-width: 25px;
     min-height: 25px;
 }
+
+.theme_switch_banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.small__button {
+    margin: 0 0 0 0;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swap-theme-icon {
+    color: var(--text2);
+}
+
+.swap-theme-text {
+    padding-bottom: 1px;
+}
+
