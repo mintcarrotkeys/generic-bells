@@ -6,7 +6,7 @@ import {swapTheme} from "../themeManager";
 import TryDarkMode from "../components/TryDarkMode";
 
 /** TODO: PREFLIGHT: version number **/
-let appVersion = "1.6.0.3";
+let appVersion = "1.6.1";
 
 export default function PageSettings(props) {
 
