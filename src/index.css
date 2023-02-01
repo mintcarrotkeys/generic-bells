@@ -198,7 +198,7 @@ a {
 .app-container {
 }
 
-@media (max-aspect-ratio: 11/9) and (width < 700px) {
+@media (max-aspect-ratio: 11/9) and (max-width: 699.9px) {
 
     .page {
         min-width: 100vw;
@@ -286,7 +286,7 @@ a {
     }
 }
 
-@media (min-aspect-ratio: 11/9) or (width >= 700px) {
+@media (min-aspect-ratio: 11/9), (min-width: 700px) {
 
     .page {
         min-width: calc(100% - 70px);
